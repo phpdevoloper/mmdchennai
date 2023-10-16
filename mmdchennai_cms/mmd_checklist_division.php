@@ -1,0 +1,1332 @@
+<?php include 'include/db_connection.php';
+include 'include/session.php';
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>MMD-Chennai | Checklist Division</title>
+
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <?php include 'include/sourcelink_css.php'; ?>
+
+</head>
+
+<body>
+
+    <?php include 'include/header.php'; ?>
+
+    <?php include 'include/sidebar.php'; ?>
+    <div class="main-container">
+        <div class="pd-ltr-20">
+            <div class="pd-ltr-20 xs-pd-20-10">
+                <div class="min-height-200px">
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="title">
+                                    <h4>Checklist Division</h4>
+                                </div>
+                                <nav aria-label="breadcrumb" role="navigation">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">About Us</a></li>
+                                        <li class="breadcrumb-item"><a href="mmd_checklist.php">Checklist Department</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Checklist Division</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class="col-md-6 col-sm-12 text-right">
+                                <a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#addModal">
+                                    Add Division <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Simple Datatable start -->
+                    <div class="card-box mb-30">
+                        <!-- <div class="pd-20">
+                            <h4 class="text-blue h4">Data Table Simple</h4>
+                            <p class="mb-0">you can find more options <a class="text-primary" href="https://datatables.net/" target="_blank">Click Here</a></p>
+                        </div> -->
+                        <div class="pd-20">
+                            <div class="row">
+
+                                <!-- <div class="col-lg-2 col-sm-12" style="text-align:right">
+                                    <label for="cars">Choose Status :</label>
+                                </div>
+                                <div class="col-lg-4 col-sm-12" style="padding-left:2px;">
+                                    <div class="form-group">
+                                        <select class="custom-select2 form-control" id="sltgetstatus" style="width: 100%" onchange="get_division();">
+                                            <option value="">All</option>
+                                            <option value="L">Published</option>
+                                            <option value="A">Archived</option>
+                                            <option value="D">Deleted</option>
+                                        </select>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div id="get_records_contents">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Simple Datatable End -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal popup Start-->
+
+    <div class="modal animated fade modal-popout-bg" id="addModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Add Forms</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top:10px;">
+                    <span hidden id="row_docid"></span>
+                    <form id="demo-form" data-parsley-validate="">
+                        <div class="form-group limited-length">
+                            <label for="title">Title<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control input-sm inputlength" id="txtTitle" name="title" maxlength="500" placeholder="Enter Title" required="" data-parsley-length="[2, 500]" data-parsley-trigger="keyup change keypress">
+
+                            <div class="pull-right" style="font-weight:500"><span class="counter"></span><span class="max-length"></span></div>
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+
+
+
+                        <!-- <div class="form-group">
+                            <label for="title"> Scrolling Start & End <span class="mandatory"> *</span></label>
+                            <div class="input-daterange input-group " id="datepicker">
+                                <input type="text" class="input-sm form-control" name="start" id="start_date" readonly required="" data-parsley-trigger=" change" />
+                                <span class="input-group-addon">to</span>
+                                <input type="text" class="input-sm form-control" name="end" id="end_date" readonly required="" data-parsley-trigger=" change " />
+                            </div>
+                           
+                        </div> -->
+
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4" style="padding-top:10px;">
+                                    <label>Document Type<span class="mandatory">*</span> </label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label> File <input type="checkbox" class="" id="fileCheck" onclick="showFile();" name="checkbox" required="" data-parsley-trigger="keyup change keypress" data-parsley-group="block1" data-parsley-mincheck="1" /> <i></i> </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label>Link <input type="checkbox" class="" id="linkCheck" name="checkbox" onchange="showLink();" /> <i></i> </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12" id="fileDiv">
+                                <div class="form-group">
+                                    <label for="email1">Selected media :</label>
+                                    <span hidden id="selectedmediaid"></span>
+                                    <span id="selectedmedia"></span>
+                                    <!--  <input type="file" class="form-control input-sm" id="ad_file" accept="application/pdf" name="file" data-parsley-trigger="change"> -->
+                                </div>
+                                <div class="form-group limited-length">
+                                    <label for="email1">Short Title <span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm inputlength" maxlength="20" id="short_title" required="" data-parsley-length="[2, 20]" data-parsley-trigger="keyup change keypress" data-parsley-checktitle>
+                                    <div class="pull-right" style="font-weight:500"><span class="counter"></span></span><span class="max-length"></span></div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-1" style="padding-top:30px;">
+                            <b> or </b>
+                             </div> -->
+                            <div class="col-lg-12" id="linkDiv">
+                                <div class="form-group limited-length">
+                                    <label for="email1">Link<span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm inputlength" id="add_link" maxlength="100" name="url" placeholder="Enter Link" data-parsley-type="url" data-parsley-trigger="change">
+                                    <div class="pull-right" style="font-weight:500"><span class="counter"></span></span><span class="max-length"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success subLang" onclick="add_checklist(this.value);">Submit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Modal popup End-->
+    <!-- Edit Modal popup Start-->
+
+    <div class="modal animated fade" id="editModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Edit Forms</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span hidden id="editId"></span>
+                    <span hidden id="StatusType"></span>
+                    <span hidden id="set_operation"></span>
+                </div>
+
+                <div class="modal-body" style="padding-top:10px;">
+                    <form id="editdemo-form" data-parsley-validate="">
+                        <div class="form-group">
+                            <label for="title">Edit Title<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" name="title" maxlength="500" data-parsley-length="[2, 500]" id="editTxtTitle" placeholder="Enter Title" required="">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label for="title"> Edit Start & End Date<span class="mandatory"> *</span></label>
+                            <div class="input-daterange input-group date" id="datepicker">
+                                <input type="text" class="input-sm form-control" name="edit_start" id="editstart_date" required="" data-parsley-trigger="change" />
+                                <span class="input-group-addon">to</span>
+                                <input type="text" class="input-sm form-control" name="edit_end" id="editend_date" required="" data-parsley-trigger="change" />
+                            </div>
+                           
+                        </div> -->
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4" style="padding-top:10px;">
+                                    <label>Document Type<span class="mandatory">*</span> </label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label> File <input type="checkbox" class="" id="editfileCheck" onclick="editshowFile();" name="checkbox" required="" data-parsley-trigger="change" data-parsley-group="block1" data-parsley-mincheck="1" /> <i></i> </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label>Link <input type="checkbox" class="" id="editlinkCheck" name="checkbox" onchange="editshowLink();" /> <i></i> </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12" id="editfileDiv">
+                                <div class="form-group">
+                                    <label for="email1">Selected media :</label>
+                                    <span hidden id="editselectedmediaid"></span>
+                                    <span id="editselectedmedia"></span>
+                                    <!--  <input type="file" class="form-control input-sm" id="ad_file" accept="application/pdf" name="file" data-parsley-trigger="change"> -->
+                                </div>
+                                <div class="form-group limited-textarea">
+                                    <label for="email1">Short Title <span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm textarea" maxlength="20" id="editshort_title" data-parsley-length="[2, 20]" data-parsley-trigger="keyup change keypress" data-parsley-checktitle>
+                                    <div class="pull-right" style="font-weight:500"><span class="counter"></span></span><span class="max-length"></span></div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-1" style="padding-top:30px;">
+                            <b> or </b>
+                             </div> -->
+                            <div class="col-lg-12" id="editlinkDiv">
+                                <div class="form-group">
+                                    <label for="email1">Edit Link<span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm" id="edit_link" name="url" placeholder="Enter Link" data-parsley-type="url" data-parsley-trigger="keyup change keypress">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success  subLang" onclick="edit_contents(this.value);" class="">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal popup End-->
+
+    <!-- Add Modal popup Start-->
+
+    <div class="modal animated fade modal-popout-bg" id="addcontentModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Add Content</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top:10px;">
+                    <span hidden id="set_division_id"></span>
+                    <form id="add_checklist-form" data-parsley-validate="">
+                        <div class="form-group">
+                            <label for="title">Name<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" id="txtname" name="title" placeholder="Enter Name" required="" data-parsley-length="[2, 500]" data-parsley-group="block1" data-parsley-trigger="change">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Designation<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" id="txtdesignation" name="title" placeholder="Enter Designation" required="" data-parsley-length="[2, 100]" data-parsley-group="block1" data-parsley-trigger="change">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="date"> Email </label>
+                            <input type="email" class="form-control" name="title" id="txtemail" placeholder="Enter Email" data-parsley-type="email" data-parsley-length="[10,100]" data-parsley-trigger="keyup change keypress">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Phone </label>
+                            <input type="number" class="form-control" name="title" id="txtphone" maxlength="10" placeholder="Enter Phone Number" data-parsley-validate="number" data-parsley-type="digits" data-parsley-length="[10,10]" data-parsley-trigger="keyup change keypress">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add_checklist(this.value);">Submit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Modal popup End-->
+    <!-- Edit Modal popup Start-->
+
+    <div class="modal animated fade modal-popout-bg" id="editcontentsModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Edit Content</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" style="padding-top:10px;">
+                    <span hidden id="set_cont_id"></span>
+                    <form id="edit_contents-form" data-parsley-validate="">
+                        <div class="form-group">
+                            <label for="title">Edit Name<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" id="edittxtname" name="title" placeholder="Enter Name" required="" data-parsley-length="[2, 500]" data-parsley-group="block1" data-parsley-trigger="change">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Edit Designation<span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" id="edittxtdesignation" name="title" placeholder="Enter Designation" required="" data-parsley-length="[2, 100]" data-parsley-group="block1" data-parsley-trigger="change">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="date"> Edit Email </label>
+                            <input type="email" class="form-control" name="title" id="edittxtemail" placeholder="Enter Email" data-parsley-type="email" data-parsley-length="[10,100]" data-parsley-trigger="keyup change keypress">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Edit Phone </label>
+                            <input type="text" class="form-control" name="title" id="edittxtphone" maxlength="10" placeholder="Enter Phone Number" data-parsley-validate="number" data-parsley-type="digits" data-parsley-length="[10,10]" data-parsley-trigger="keyup change keypress">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                        </div>
+                        <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit_contents(this.value);">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal popup End-->
+    <!-- js -->
+    <?php include 'include/sourcelink_js.php'; ?>
+
+
+    <script>
+        $(document).ready(function() {
+            get_division_contents();
+            $('#fileDiv').hide();
+            $('#linkDiv').hide();
+        });
+
+
+        function editBtn(id) {
+
+            // return false;
+            var editId, editTitle, editDate, editFilename, tblLink;
+            // console.log(language);
+            var editLabel = {
+                "en_label": {
+                    "header": "Edit Scrolling Text",
+                    "preview": "Preview Scrolling Text",
+                    "title": "Edit Title",
+                    "date": "Edit Date",
+                    "file": "Edit File Name",
+                    "url": "Edit Link"
+                },
+
+
+            }
+
+            $('#editModalHeader').text(editLabel.en_label.header);
+            $('#previewModalHeader').text(editLabel.en_label.preview);
+            $('#editTitle').text(editLabel.en_label.title);
+            $('#editFile').text(editLabel.en_label.file);
+            $('#editDate').text(editLabel.en_label.date);
+            $('#editLink').text(editLabel.en_label.date);
+
+
+            // append the data
+
+            editTitle = $('#tblEnTitle' + id + '').text();
+            editDate = $('#tblEnDate' + id + '').text();
+            tblFileName = $('#tblEnFileName' + id + '').text();
+            tblLink = $('#tblEnLink' + id + '').text();
+
+
+            //  console.log(editTitle, editDate, editFilename, tblLink);
+
+            var datavalue = {
+                cont_id: JSON.parse(id),
+               
+                operation: 'get_edit_division_contents'
+            }
+            // console.log(datavalue);
+            //   return false;
+            $.ajax({
+                url: "webservice/add_checklist.php",
+                type: "POST",
+                // contentType: 'application/json; charset=utf-8;',
+                dataType: 'JSON',
+                data: datavalue,
+                success: function(data) {
+                    console.log(data);
+                    //    var get_data=  $.parseJSON(data.result);
+                    // return false;
+                    if (data.status == 'ok') {
+
+                        $('#editId').text(data.result['cont_id']);
+                        $('#StatusType').text();
+                        $('#editTxtTitle').val(data.result['title']);
+                        if (data.result['ad_link'] != '') {
+
+                            $('#editlinkCheck').prop('checked', true);
+                            $('#editfileCheck').prop('checked', false);
+                            $('#edit_link').attr('required', 'required');
+
+                            $('#editlinkDiv').show();
+                            $('#editfileDiv').hide();
+                            $('#edit_link').val(data.result['ad_link']);
+                        } else if (data.result['media_id'] == '' && data.result['ad_link'] == '') {
+                            $('#editlinkCheck').prop('checked', false);
+                            $('#editfileCheck').prop('checked', false);
+                            $('#editnotneedcheck').prop('checked', true);
+                            $('#edit_link').removeAttr('required');
+
+                            $('#editlinkDiv').hide();
+                            $('#editfileDiv').hide();
+
+                        } else {
+                            $('#editfileCheck').prop('checked', true);
+                            $('#editlinkCheck').prop('checked', false);
+                            $('#editshort_title').attr('required', 'required');
+                            $('#editlinkDiv').hide();
+                            $('#editfileDiv').show();
+                            $('#editselectedmedia').text(data.result['filename']);
+                        }
+                        $('#editshort_title').val(data.result['short_title']);
+                        $('#editselectedmediaid').text(data.result['media_id']);
+                        $('#editslt_page').val(data.result['page_id']).trigger('change');
+                        $('#editstart_date').val(data.result['start_dt']);
+                        $('#editend_date').val(data.result['end_date']);
+
+                    } else {
+                        swal("Error !", "Please try again", "error");
+                    }
+                    // $('.text').text(JSON.stringify(data));
+                },
+                error: function(xhr, status, error) {
+                    swal("Error !", "Please try again", "error");
+                }
+
+            });
+
+            // edit Modal popup
+
+
+            // Preview Modal popup
+            $('#previewId').text(id);
+            $('#prevTitle').text(editTitle);
+            $('#prevFileName').text(tblFileName);
+            $('#prevDate').text(editDate);
+        }
+
+        function showFile() {
+            $('#set_operation').text('save');
+            get_newmedia();
+            $('#uploadmodal').modal('show');
+            // $('#uploadmodal').modal('show');
+
+        }
+
+        function showLink() {
+
+            $('#selectedmedia').text('');
+            $('#selectedmediaid').val('');
+            $('#linkDiv').show();
+            $('#fileDiv').hide();
+            $("#fileCheck").prop('checked', false);
+            $('#short_title').removeAttr('required');
+            $('#add_link').attr('required', 'required');
+            var checked = $("input[type=checkbox]:checked").length;
+            if (checked == 0) {
+                $("#linkCheck").prop('checked', true);
+            }
+
+            exactSize = 0;
+            ad_files = "";
+        }
+
+        function editshowFile() {
+            $('#set_operation').text('edit');
+            get_newmedia();
+            $('#uploadmodal').modal('show');
+            $('#editfileDiv').show();
+            $('#editlinkDiv').hide();
+            // $('#uploadmodal').modal('show');
+        }
+
+        function editshowLink() {
+
+            $('#editselectedmedia').text('');
+            $('#editselectedmediaid').val('');
+            $('#editlinkDiv').show();
+            $('#editfileDiv').hide();
+            $("#editfileCheck").prop('checked', false);
+            $('#editshort_title').removeAttr('required');
+            $('#edit_link').attr('required', 'required');
+            var checked = $("input[type=checkbox]:checked").length;
+            if (checked == 0) {
+                $("#editlinkCheck").prop('checked', true);
+            }
+
+            exactSize = 0;
+            ad_files = "";
+        }
+
+
+        function get_mediavalue(media_filename, media_shorttitle, media_id) {
+            var checkedValue = $('.subject-list:checked').val();
+            var get_operation = $('#set_operation').text();
+            var ext = media_filename.split('.').pop();
+            if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'pdf') {
+                if (get_operation == 'save') {
+                    $('#fileDiv').show();
+                    $('#linkDiv').hide();
+                    $('#selectedmedia').text(media_filename);
+                    $('#selectedmediaid').text(media_id);
+                    $('#short_title').val(media_shorttitle);
+                    $("#linkCheck").prop('checked', false);
+                    $('#add_link').removeAttr('required');
+                    $('#short_title').attr('required', 'required');
+
+                    var checked = $("input[type=checkbox]:checked").length;
+                    if (checked == 0) {
+                        $("#fileCheck").prop('checked', true);
+                    }
+
+                } else {
+
+                    $('#editfileDiv').show();
+                    $('#editselectedmedia').text(media_filename);
+                    $('#editselectedmediaid').text(media_id);
+                    $('#editshort_title').val(media_shorttitle);
+                    $("#editlinkCheck").prop('checked', false);
+                    $('#edit_link').removeAttr('required');
+                    $('#editshort_title').attr('required', 'required');
+
+                    var checked = $("input[type=checkbox]:checked").length;
+                    if (checked == 0) {
+                        $("#editfileCheck").prop('checked', true);
+                    }
+                }
+                $('#uploadmodal').modal('hide');
+
+            } else {
+                swal("Error !", "Images and Documents Only Allowed", "error");
+                get_newmedia();
+            }
+
+        }
+
+        function get_division() {
+            var status = $('#sltgetstatus').val();
+
+            data = {
+                operation: 'get_department'
+            }
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json",
+                // dataType: "json",
+                url: 'webservice/get_checklist_division.php',
+                data: data,
+                success: function(response, textStatus, xhr) {
+                    console.log(response);
+                    $("#get_records").html(response);
+
+                    table = $('.data-table').DataTable();
+                },
+                complete: function(xhr) {
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var response = XMLHttpRequest;
+                    swal("Error !", "Please try again", "error");
+
+                }
+            });
+        }
+
+        function get_division_contents() {
+            var status = $('#sltgetstatus').val();
+
+            data = {
+                operation: 'get_department'
+            }
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json",
+                // dataType: "json",
+                url: 'webservice/get_checklist_division_contents.php',
+                data: data,
+                success: function(response, textStatus, xhr) {
+                    console.log(response);
+                    $("#get_records_contents").html(response);
+                    table = $('.data-table').DataTable();
+                },
+                complete: function(xhr) {
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var response = XMLHttpRequest;
+                    swal("Error !", "Please try again", "error");
+
+                }
+            });
+        }
+
+        // function editBtn(id) {
+        //     var datavalue = {
+        //         dept_id: JSON.parse(id),
+        //         operation: 'get_edit_dept'
+        //     }
+        //     // console.log(datavalue);
+        //     //   return false;
+        //     $.ajax({
+        //         url: "webservice/add_checklist.php",
+        //         type: "POST",
+        //         // contentType: 'application/json; charset=utf-8;',
+        //         dataType: 'JSON',
+        //         data: datavalue,
+        //         success: function(data) {
+        //             console.log(data);
+        //             //    var get_data=  $.parseJSON(data.result);
+        //             //  return false;
+        //             if (data.status == 'ok') {
+
+        //                 $('#editId').text(data.result['dept_id']);
+
+        //                 $('#editen_txtTitle').val(data.result['title']);
+
+        //             } else {
+        //                 swal("Error !", "Please try again", "error");
+        //             }
+        //             // $('.text').text(JSON.stringify(data));
+        //         },
+        //         error: function(xhr, status, error) {
+        //             swal("Error !", "Please try again", "error");
+        //         }
+
+        //     });
+
+        //     // edit Modal popup
+        // }
+
+
+        // function add_division(value) {
+        //     if ($('#add_division-form').parsley().validate() != true) {
+        //         return false;
+
+        //     } else {
+        //         var title, filename, mediaid, link, short_title,
+        //             title = $('#en_txtTitle').val();
+
+        //         var data = {
+        //             title: title,
+        //             dept_id: <?Php echo $_SESSION['session_dept_id'] ?>,
+        //             operation: 'save_division',
+        //         }
+        //         // console.log(data);
+        //         // return false;
+        //         $.ajax({
+        //             url: "webservice/add_checklist.php",
+        //             type: "POST",
+        //             dataType: 'json',
+        //             data: data,
+        //             success: function(data) {
+        //                 console.log(data);
+        //                 // return false;
+        //                 if (data.status == 'notvalid') {
+        //                     swal("Error !", "File Extension Not Valid", "error");
+        //                 } else if (data.status == 'ok') {
+        //                     get_division();
+        //                     //Success Message
+        //                     //  $('#sa-success').on('click', function() {
+        //                     swal('', "Successfully Created", "success")
+        //                     // });
+
+        //                     $('#en_txtTitle').val('');
+
+        //                     $('#addModal').modal('hide');
+        //                     // $('.wrapper').css("opacity", "0");
+        //                     // $("#data-table-basic").dataTable().fnReloadAjax();
+        //                 } else {
+
+        //                     swal("Error !", "Please try again", "error");
+        //                     // $('.wrapper').css("opacity", ".5");
+        //                 }
+
+        //                 // $('.text').text(JSON.stringify(data));
+        //             },
+
+        //         });
+        //     }
+        // }
+
+
+        // function edit_dept(value) {
+        //     if ($('#editdept-form').parsley().validate() != true) {
+        //         return false;
+
+        //     } else {
+        //         var edittitle, editfilename, editmediaid, editshort_title, editId;
+        //         edittitle = $('#editen_txtTitle').val();
+        //         editId = $('#editId').text();
+        //         var data = {
+        //             title: edittitle,
+        //             dept_id: JSON.parse(editId),
+        //             operation: 'edit_dept',
+        //         }
+        //         // console.log(data);
+        //         // return false;
+        //         $.ajax({
+        //             url: "webservice/add_checklist.php",
+        //             type: "POST",
+        //             dataType: 'json',
+        //             data: data,
+        //             success: function(data) {
+        //                 // console.log(data);
+        //                 // return false;
+        //                 if (data.status == 'ok') {
+        //                     get_division();
+        //                     //Success Message
+        //                     //  $('#sa-success').on('click', function() {
+        //                     swal('', "Successfully Updated", "success")
+        //                     // });
+
+        //                     $('#editen_txtTitle').val('');
+        //                     $('#editModal').modal('hide');
+        //                     // $('.wrapper').css("opacity", "0");
+        //                     // $("#data-table-basic").dataTable().fnReloadAjax();
+        //                 } else {
+
+        //                     swal("Error !", "Please try again", "error");
+        //                     // $('.wrapper').css("opacity", ".5");
+        //                 }
+
+        //                 // $('.text').text(JSON.stringify(data));
+        //             },
+
+        //         });
+        //     }
+        // }
+
+        function add_checklist(value) {
+            if ($('#demo-form').parsley().validate() != true) {
+                return false;
+
+            } else {
+                var title, end_date, start_date, filename, mediaid, link, page_id, short_title,
+
+                    title = $('#txtTitle').val();
+                // start_date = $('#start_date').val();
+                // end_date = $('#end_date').val();
+
+                var mas_docid = $('#row_docid').text();
+                // if (value == 'en') {
+                //     mas_docid = '';
+                // } else {
+                //     mas_docid = JSON.parse(mas_docid)
+                // }
+
+                if ($("#fileCheck").is(':checked')) {
+                    link = ""
+                    filename = $('#selectedmedia').text();
+                    mediaid = $('#selectedmediaid').text();
+                    short_title = $('#short_title').val();
+                } else {
+                    filename = '';
+                    mediaid = ''
+                    link = $('#add_link').val();
+                    short_title = '';
+                }
+
+                var data = {
+                    title: title,
+                    // start_date: start_date,
+                    // end_date: end_date,
+                    filename: filename,
+                    mediaid: mediaid,
+                    link: link,
+                    short_title: short_title,
+                    operation: 'save',
+                    dept_id: <?Php echo $_SESSION['session_dept_id'] ?>,
+                    operation: 'save_division_contents',
+                }
+                console.log(data);
+
+                $.ajax({
+                    url: "webservice/add_checklist.php",
+                    type: "POST",
+                    dataType: 'json',
+                    data: data,
+                    success: function(data) {
+                        console.log(data);
+
+                        if (data.status == 'ok') {
+                            get_division_contents();
+
+                            swal('', "Successfully Created", "success");
+                            $('#txtTitle').val('');
+                            $('#ad_file').val('');
+                            $('#addModal').modal('hide');
+
+                        } else {
+                            swal("Error !", "Please try again", "error");
+                        }
+                    },
+
+                });
+            }
+        }
+
+        function edit_contents(value) {
+
+            if ($('#editdemo-form').parsley().validate() != true) {
+                return false;
+
+            } else {
+                var title, end_date, start_date, filename, mediaid, link, short_title,
+                    title = $('#editTxtTitle').val();
+                // start_date = $('#editstart_date').val();
+                // end_date = $('#editend_date').val();
+
+
+                var cont_id = $('#editId').text();
+                
+                cont_id = JSON.parse(cont_id);
+                if ($("#editfileCheck").is(':checked')) {
+                    link = ""
+                    filename = $('#editselectedmedia').text();
+                    mediaid = $('#editselectedmediaid').text();
+                    short_title = $('#editshort_title').val();
+                } else if ($("#editnotneedcheck").is(':checked')) {
+                    link = ""
+                    filename = '';
+                    mediaid = '';
+
+                } else {
+                    filename = '';
+                    mediaid = ''
+                    link = $('#edit_link').val();
+                    short_title = '';
+                }
+
+                var data = {
+                    title: title,
+                    // start_date: start_date,
+                    // end_date: end_date,
+                    filename: filename,
+                    mediaid: mediaid,
+                    link: link,
+                    short_title: short_title,
+                    dept_id: <?Php echo $_SESSION['session_dept_id'] ?>,
+                    cont_id: cont_id,
+                    operation: 'edit_division_contents',
+                }
+
+                $.ajax({
+                    url: "webservice/add_checklist.php",
+                    type: "POST",
+                    dataType: 'json',
+                    data: data,
+                    success: function(data) {
+                        console.log(data);
+                        //return false;
+                        if (data.status == 'ok') {
+                            get_division_contents();
+                            //Success Message
+                            //  $('#sa-success').on('click', function() {
+                            swal('', "Successfully Created", "success")
+                            // });
+
+                            $('#edittxtTitle').val('');
+                            $('#editad_file').val('');
+                            $('#editModal').modal('hide');
+                            // $('.wrapper').css("opacity", "0");
+                            // $("#data-table-basic").dataTable().fnReloadAjax();
+                        } else {
+
+                            swal("Error !", "Please try again", "error");
+                            // $('.wrapper').css("opacity", ".5");
+                        }
+
+                        // $('.text').text(JSON.stringify(data));
+                    },
+
+                });
+            }
+        }
+
+
+
+        function status_change(dept_id, status) {
+            var status_text;
+            if (status == 'L') {
+                status_text = 'Publish';
+            } else if (status == 'D') {
+                status_text = 'Delete';
+            } else if (status == 'A') {
+                status_text = 'Archive';
+            }
+            var data = {
+                dept_id: dept_id,
+                status: status,
+                operation: 'status_change_dept'
+            }
+
+            swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, " + status_text + " it!",
+                    cancelButtonText: "No, cancel!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                })
+                .then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "webservice/add_checklist.php",
+                            type: "POST",
+                            data: data,
+                            dataType: "JSON",
+                            success: function(data) {
+                                console.log(data);
+                                if (data.status == 'ok') {
+                                    // $('#tblStatus' + id + '').append(status);
+                                    swal("Done!", "It was succesfully " + status_text + "!", "success");
+
+                                    // statusAppend();
+                                    get_division();
+                                } else {
+                                    swal("Error :" + status_text + "!", "Please try again", "error");
+
+                                }
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                swal("Error :" + status_text + "!", "Please try again", "error");
+                            }
+
+
+                        });
+                    } else if (result.dismiss === 'cancel') {
+                        swal("Cancelled", "Your imaginary file is safe :)", "error");
+                    }
+                });
+
+        }
+
+
+
+        function redirect_divison(id) {
+
+            var data = {
+                dept_id: id,
+                operation: 'set_session_dept'
+            }
+            //console.log(data);
+            $.ajax({
+                url: "webservice/add_checklist.php",
+                type: 'POST',
+                dataType: 'json',
+                data: data
+            }).done(function(res) {
+                // console.log(res);
+                // return false;
+                if (res.valid) {
+                    document.location.href = 'mmd_checklist_division.php';
+                }
+            });
+        }
+
+        function set_contents_id(division_id) {
+            $('#set_division_id').text(division_id);
+        }
+
+        // function add_checklist(value) {
+        //     if ($('#add_checklist-form').parsley().validate() != true) {
+        //         return false;
+
+        //     } else {
+        //         var name, designation, email, phone, division_id;
+        //         name = $('#txtname').val();
+        //         designation = $('#txtdesignation').val();
+        //         email = $('#txtemail').val();
+        //         phone = $('#txtphone').val();
+        //         division_id = $('#set_division_id').text();
+        //         var data = {
+        //             name: name,
+        //             designation: designation,
+        //             email: email,
+        //             phone: phone,
+        //             dept_id: <?Php echo $_SESSION['session_dept_id'] ?>,
+        //             operation: 'save_division_contents',
+        //         }
+        //         // console.log(data);
+        //         // return false;
+        //         $.ajax({
+        //             url: "webservice/add_checklist.php",
+        //             type: "POST",
+        //             dataType: 'json',
+        //             data: data,
+        //             success: function(data) {
+        //                 console.log(data);
+        //                 // return false;
+        //                 if (data.status == 'notvalid') {
+        //                     swal("Error !", "File Extension Not Valid", "error");
+        //                 } else if (data.status == 'ok') {
+        //                     get_division_contents(division_id);
+        //                     //Success Message
+        //                     //  $('#sa-success').on('click', function() {
+        //                     swal('', "Successfully Saved", "success")
+        //                     // });
+
+        //                     $('#txtname').val('');
+        //                     $('#txtdesignation').val('');
+        //                     $('#txtemail').val('');
+        //                     $('#txtphone').val('');
+        //                     $('#addcontentModal').modal('hide');
+        //                     // $('.wrapper').css("opacity", "0");
+        //                     // $("#data-table-basic").dataTable().fnReloadAjax();
+        //                 } else {
+
+        //                     swal("Error !", "Please try again", "error");
+        //                     // $('.wrapper').css("opacity", ".5");
+        //                 }
+
+        //                 // $('.text').text(JSON.stringify(data));
+        //             },
+
+        //         });
+        //     }
+        // }
+
+        function editBtn_contents( id) {
+            // $('#set_division_id').text(division_id);
+            var datavalue = {
+                cont_id: JSON.parse(id),
+                operation: 'get_edit_division_contents'
+            }
+            // console.log(datavalue);
+            //   return false;
+            $.ajax({
+                url: "webservice/add_checklist.php",
+                type: "POST",
+                // contentType: 'application/json; charset=utf-8;',
+                dataType: 'JSON',
+                data: datavalue,
+                success: function(data) {
+                    console.log(data);
+                    //    var get_data=  $.parseJSON(data.result);
+                    //  return false;
+                    if (data.status == 'ok') {
+
+                        $('#editId').text(data.result['cont_id']);
+                        $('#StatusType').text();
+                        $('#editTxtTitle').val(data.result['title']);
+                        if (data.result['ad_link'] != '') {
+
+                            $('#editlinkCheck').prop('checked', true);
+                            $('#editfileCheck').prop('checked', false);
+                            $('#edit_link').attr('required', 'required');
+
+                            $('#editlinkDiv').show();
+                            $('#editfileDiv').hide();
+                            $('#edit_link').val(data.result['ad_link']);
+                        } else if (data.result['media_id'] == '' && data.result['ad_link'] == '') {
+                            $('#editlinkCheck').prop('checked', false);
+                            $('#editfileCheck').prop('checked', false);
+                            $('#editnotneedcheck').prop('checked', true);
+                            $('#edit_link').removeAttr('required');
+
+                            $('#editlinkDiv').hide();
+                            $('#editfileDiv').hide();
+
+                        } else {
+                            $('#editfileCheck').prop('checked', true);
+                            $('#editlinkCheck').prop('checked', false);
+                            $('#editshort_title').attr('required', 'required');
+                            $('#editlinkDiv').hide();
+                            $('#editfileDiv').show();
+                            $('#editselectedmedia').text(data.result['filename']);
+                        }
+                        $('#editshort_title').val(data.result['short_title']);
+                        $('#editselectedmediaid').text(data.result['media_id']);
+                        $('#editslt_page').val(data.result['page_id']).trigger('change');
+                        $('#editstart_date').val(data.result['start_dt']);
+                        $('#editend_date').val(data.result['end_date']);
+
+                    } else {
+                        swal("Error !", "Please try again", "error");
+                    }
+                    // $('.text').text(JSON.stringify(data));
+                },
+                error: function(xhr, status, error) {
+                    swal("Error !", "Please try again", "error");
+                }
+
+            });
+
+            // edit Modal popup
+        }
+
+        // function edit_contents(value) {
+        //     if ($('#edit_contents-form').parsley().validate() != true) {
+        //         return false;
+
+        //     } else {
+        //         var name, designation, email, phone, division_id;
+        //         division_id = $('#set_division_id').text();
+        //         name = $('#edittxtname').val();
+        //         designation = $('#edittxtdesignation').val();
+        //         email = $('#edittxtemail').val();
+        //         phone = $('#edittxtphone').val();
+
+        //         cont_id = $('#set_cont_id').text();
+        //         var data = {
+        //             name: name,
+        //             designation: designation,
+        //             email: email,
+        //             phone: phone,
+        //             dept_id: <?Php echo $_SESSION['session_dept_id'] ?>,
+        //             cont_id: JSON.parse(cont_id),
+        //             operation: 'edit_division_contents',
+        //         }
+        //         // console.log(data);
+        //         // return false;
+        //         $.ajax({
+        //             url: "webservice/add_checklist.php",
+        //             type: "POST",
+        //             dataType: 'json',
+        //             data: data,
+        //             success: function(data) {
+        //                 console.log(data);
+        //                 // return false;
+        //                 if (data.status == 'notvalid') {
+        //                     swal("Error !", "File Extension Not Valid", "error");
+        //                 } else if (data.status == 'ok') {
+        //                     get_division_contents(division_id);
+        //                     //Success Message
+        //                     //  $('#sa-success').on('click', function() {
+        //                     swal('', "Successfully Updated", "success")
+        //                     // });
+
+        //                     $('#txtname').val('');
+        //                     $('#txtdesignation').val('');
+        //                     $('#txtemail').val('');
+        //                     $('#txtphone').val('');
+        //                     $('#editcontentsModal').modal('hide');
+        //                     // $('.wrapper').css("opacity", "0");
+        //                     // $("#data-table-basic").dataTable().fnReloadAjax();
+        //                 } else {
+
+        //                     swal("Error !", "Please try again", "error");
+        //                     // $('.wrapper').css("opacity", ".5");
+        //                 }
+
+        //                 // $('.text').text(JSON.stringify(data));
+        //             },
+
+        //         });
+        //     }
+        // }
+        function status_contents_change(id, status) {
+
+// var language = $('#getLang').text();
+//  console.log(language);
+//   return false;
+var status_text;
+if (status == 'L') {
+    status_text = 'Publish';
+} else if (status == 'D') {
+    status_text = 'Delete';
+} else if (status == 'A') {
+    status_text = 'Archive';
+}
+var data = {
+    status: status,
+    cont_id: id,
+    operation: 'status_change_division_contents'
+}
+// console.log(data);
+// return false;
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this imaginary file!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, " + status_text + " it!",
+    cancelButtonText: "No, cancel!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+}).then((result) => {
+    if (result.value) {
+        $.ajax({
+            url: "webservice/add_checklist.php",
+            type: "POST",
+            data: data,
+            dataType: "JSON",
+            success: function(data) {
+
+                if (data.status == 'ok') {
+                    swal("Done!", "It was succesfully " + status_text + "!", "success");
+                    get_division_contents();
+                } else {
+                    swal("Error :" + status_text + "!", "Please try again", "error");
+
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                swal("Error :" + status_text + "!", "Please try again", "error");
+            }
+
+
+        });
+    } else {
+        swal("Cancelled", "Your imaginary file is safe :)", "error");
+    }
+});
+
+}
+        // function status_contents_change(cont_id, division_id) {
+        //     var data = {
+        //         cont_id: cont_id,
+        //         operation: 'status_change_division_contents'
+        //     }
+        //     swal({
+        //             title: "Are you sure?",
+        //             text: "You will not be able to recover this imaginary file!",
+        //             type: "warning",
+        //             showCancelButton: true,
+        //             confirmButtonColor: "#DD6B55",
+        //             confirmButtonText: "Yes Delete it!",
+        //             cancelButtonText: "No, cancel!",
+        //             closeOnConfirm: false,
+        //             closeOnCancel: false
+        //         })
+        //         .then((result) => {
+        //             if (result.value) {
+        //                 $.ajax({
+        //                     url: "webservice/add_checklist.php",
+        //                     type: "POST",
+        //                     data: data,
+        //                     dataType: "JSON",
+        //                     success: function(data) {
+        //                         console.log(data);
+        //                         if (data.status == 'ok') {
+        //                             // $('#tblStatus' + id + '').append(status);
+        //                             swal("Done!", "It was succesfully Deleted!", "success");
+
+        //                             // statusAppend();
+        //                             get_division_contents(division_id);
+        //                         } else {
+        //                             swal("Error : Delete!", "Please try again", "error");
+
+        //                         }
+        //                     },
+        //                     error: function(xhr, ajaxOptions, thrownError) {
+        //                         swal("Error :Delete!", "Please try again", "error");
+        //                     }
+
+
+        //                 });
+        //             } else if (result.dismiss === 'cancel') {
+        //                 swal("Cancelled", "Your imaginary file is safe :)", "error");
+        //             }
+        //         });
+        // }
+    </script>
+</body>
+
+</html>
