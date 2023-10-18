@@ -17,9 +17,10 @@ if ($operation ==  'save') {
     $result_mst = pg_query($db, $get_mst);
     $mst_row = pg_fetch_array($result_mst);
 
-    $countfiles = count($_FILES['file']['name']);
+    $countfiles = $_FILES['file']['name'];
 
-    if ($countfiles == 1) {
+
+    if ($countfiles !== "") {
         $filename = $_FILES['file']['name'];
 
         if ($countfiles == 0 || empty($title)) {
@@ -65,9 +66,9 @@ if ($operation ==  'save') {
         }
     } else {
 
-        $countfiles = count($_FILES['files']['name']);
+        $countfiles = $_FILES['files']['name'];
 
-        if ($countfiles == 0) {
+        if ($countfiles == "") {
             $error = 1;
         } else {
 

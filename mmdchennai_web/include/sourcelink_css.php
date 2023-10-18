@@ -28,15 +28,18 @@
    <link href="css/style.css" rel="stylesheet" />
 
    <?Php
-   $myIp = getHostByName(getHostName());
-   if ($myIp != '10.163.2.190') {
-      // $dynamiccontent = 'dynamiccontent/';
-      // var_dump('expression');die;
-      $media = 'uploads/media/';
-   } else {
-      $dynamiccontent = 'dynamic_contents/';
-      $media = 'uploads/media/';
-   }
+   // $myIp = getHostByName(getHostName());
+   // // var_dump($myIp);die;
+   // if ($myIp != '10.163.2.190') {
+   //    // $dynamiccontent = 'dynamiccontent/';
+   //    // var_dump('expression');die;
+   //    $media = 'uploads/media/';
+   // } else {
+   //    $dynamiccontent = 'dynamic_contents/';
+   //    $media = 'uploads/media/';
+   // }
+
+   // var_dump($media);die;   
 
 
    $last_update = '12 July 2023';

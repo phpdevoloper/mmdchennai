@@ -1,4 +1,7 @@
-<?php include("include/db_connection.php"); ?>
+<?php include("include/db_connection.php"); 
+
+
+?>
 <?php include('include/session.php');
 
 ?>
@@ -13,18 +16,12 @@
 
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<?php 
-	
-	
-	include("include/sourcelink_css.php"); 
-	
-	
-	
-	?>
+	<?php include "include/sourcelink_css.php" ?>
 
 </head>
 
 <body>
+
 	<?php include "include/header.php" ?>
 
 	<?php include "include/sidebar.php" ?>

@@ -5,9 +5,8 @@ $sessionId = $_SESSION['current_user_id'];
 $admin_id = $_SESSION['admin_id'];
 $folder_id = $_POST['folder_id'];
 $get_folder = "SELECT * FROM mst_mediafolder ms
-INNER JOIN niot_user_master lo 
-ON ms.inserted_by = lo.user_id  
-WHERE lo.dept_id= $admin_id and ms.status = 'L' and ms.folder_id = $folder_id";
+where
+ ms.status = 'L' and ms.folder_id = $folder_id";
 
 $result_media = pg_query($db, $get_folder);
 $get_foldername = pg_fetch_array($result_media);
@@ -45,9 +44,9 @@ $get_foldername = pg_fetch_array($result_media);
 
 <script type="text/javascript">
      $(document).ready(function() {
-        
+        get_submedia();
     });
-    get_submedia();
+  
 
     $('#get_foldername').text('<?Php echo $get_foldername['foldername'] ?>');
     $('#filesGroup').removeClass('d-none');

@@ -1357,6 +1357,7 @@ nav a:not(:only-child)::after {
 }
 .post-2{
   width: 247px;
+  height: 159px;
 }
 
 .post .thumbnail {

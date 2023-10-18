@@ -23,7 +23,7 @@ $slider_count = pg_num_rows($resultslider);
     <?Php include "include/header.php" ?>
     <?Php
 
-
+  
     if ($slider_count != 0) { ?>
         <!-- Carousel Start -->
         <div class="container-fluid p-0 mb-2 wow fadeIn" data-wow-delay="0.1s">

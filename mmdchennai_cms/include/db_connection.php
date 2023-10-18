@@ -14,11 +14,11 @@ $credentials = "user=postgres password='postgres'";
 
 $db = pg_connect("$host $port $dbname $credentials");
 
+
 if (!$db) {
     die("Connection failed: ");
 }
 
-$get_link = "http://www.niot.res.in/index.php/vendor/login";
 
 
 // session_start();

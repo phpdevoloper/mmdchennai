@@ -23,6 +23,7 @@ $row_sevices_count = pg_num_rows($result_aboutus);
                 <a class="btn btn-primary" href="#" role="button" onclick="get_edit('open',<?Php echo $page_id ?>);">
                     Edit <i class="fa fa-edit"></i>
                 </a>
+
             </div>
         </div>
         <div class="row">

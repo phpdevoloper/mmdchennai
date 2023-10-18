@@ -155,9 +155,11 @@ if ($operation == 'save') {
     }
     echo json_encode($files_arr);
 } elseif ($operation == 'swipe') {
+  
     $position = $_POST['position'];
     $position = chkbadchar($position);
-
+    echo $operation;
+    exit;
     $i = 1;
     foreach ($position as $k => $v) {
         $sql =

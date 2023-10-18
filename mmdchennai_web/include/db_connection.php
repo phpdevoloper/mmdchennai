@@ -22,7 +22,7 @@ $get_link = "http://www.niot.res.in/index.php/vendor/login";
 
 $myIp = getHostByName(getHostName());
    if ($myIp != '10.163.2.70') {
-            $media = 'media/';
+            $media = 'uploads/media/';
    } else {
            $media = 'uploads/media/';
    }
@@ -74,3 +74,4 @@ $myIp = getHostByName(getHostName());
 //   header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request');
 //   exit;
 // }
+

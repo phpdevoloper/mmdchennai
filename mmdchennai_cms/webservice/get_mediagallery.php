@@ -47,7 +47,7 @@ if ($type == 'images') {
             }
             $date  = $row['uploaded_on'];
             $filesize = $row['filesize'];
-            $round_silsize = round($filesize);
+            // $round_silsize = round($filesize);
             if ($row['file_extension'] == 'pdf') {
                 $imgurl = 'assets/images/pdf_image.png';
             } else {
@@ -298,7 +298,7 @@ if ($count == 0) {
         }
         $date  = $row['uploaded_on'];
         $filesize = $row['filesize'];
-        $round_silsize = round($filesize);
+        // $round_silsize = round($filesize);
         if ($row['file_extension'] == 'pdf') {
             $imgurl = 'assets/images/pdf_image.png';
         } else {

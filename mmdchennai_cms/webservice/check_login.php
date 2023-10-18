@@ -1,5 +1,8 @@
 <?php include_once '../include/db_connection.php';
 include '../include/checkval.php';
+//include '../include/session.php';
+// session_name('niot_admin');
+// session_name("niot_admin");
 session_start();
 $currdate = date('Y-m-d H:i:s');
 // ini_set("session.cookie_path", "/niot_admin/");

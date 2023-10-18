@@ -1,7 +1,6 @@
 <?php
 include("../include/db_connection.php");
 include '../include/session.php';
-// var_dump($_SESSION  );die;
 $sessionId = $_SESSION['current_user_id'];
 $status = $_POST['status'];
 $cur_lang = $_POST['lang'];

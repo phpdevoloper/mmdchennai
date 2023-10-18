@@ -22,6 +22,7 @@ if ($status == '') {
     $get_media = "select * from mst_media ms 
     inner join mst_mediafolder  me on ms.folder_id = me.folder_id
     where ms.status='L' and file_extension in ($status_condition) and me.folder_id = $folder_id order by ms.uploaded_on desc";
+    
 }
 
 $result_media = pg_query($db, $get_media);
@@ -57,7 +58,7 @@ while (
     }
     $date  = $row['uploaded_on'];
     $filesize = $row['filesize'];
-    $round_silsize = round($filesize);
+    // $round_silsize = round($filesize);
     if ($row['file_extension'] == 'pdf') {
         $imgurl = 'assets/images/pdf_image.png';
     } else {
