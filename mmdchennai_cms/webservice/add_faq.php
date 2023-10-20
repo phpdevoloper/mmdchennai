@@ -56,9 +56,8 @@ if ($operation == 'save_rti') {
     }
     echo json_encode($files_arr);
 } else if ($operation == 'save_faq') {
-    if (
-        empty($question) ||  empty($answer)
-    ) {
+    // var_dump('sdf');die;
+    if (empty($question) ||  empty($answer)) {
         $error = 1;
     } else {
         if ($question) {

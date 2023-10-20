@@ -144,6 +144,16 @@
                         <span class="micon dw dw-calendar1"></span><span class="mtext">CONTACT US</span>
                     </a>
                 </li>
+                <li>
+                    <a href="mmd_faq.php" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-calendar1"></span><span class="mtext">FAQ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mmd_public_information.php" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-calendar1"></span><span class="mtext">Public Information</span>
+                    </a>
+                </li>
              
                 <li>
                     <a href="#" class="dropdown-toggle no-arrow">

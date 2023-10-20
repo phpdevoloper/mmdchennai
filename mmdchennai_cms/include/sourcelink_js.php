@@ -23,12 +23,11 @@
 <script src="vendors/scripts/tinymce/jquery.tinymce.min.js"></script>
 <script src="vendors/scripts/tinymce/custom.tinymce.js"></script>
 <script src="vendors/scripts/tinymce/tinymce.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js" integrity="sha512-Fq/wHuMI7AraoOK+juE5oYILKvSPe6GC5ZWZnvpOO/ZPdtyA29n+a5kVLP4XaLyDy9D1IBPYzdFycO33Ijd0Pg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="vendors/scripts/parsley.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="vendors/scripts/parsley.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="src/plugins/sha512/sha512.min.js"></script>
 <script src="src/plugins/sha512/sha512.js"></script>
 <!-- add sweet alert js & css in footer -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 <script src="src/plugins/sweetalert2/sweetalert2.all.js"></script>
 <script src="src/plugins/sweetalert2/sweet-alert.init.js"></script>
 <script src="src/plugins/jquery-ui/jquery-ui.min.js" ></script>
@@ -437,9 +436,6 @@
             url: 'webservice/get_modal_newmedia.php',
             data: data,
             success: function(response, textStatus, xhr) {
-
-                console.log(response);
-
                 $("#get_media").html(response);
 
             },

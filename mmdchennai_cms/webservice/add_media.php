@@ -18,12 +18,14 @@ if ($operation ==  'save') {
     $mst_row = pg_fetch_array($result_mst);
 
     $countfiles = $_FILES['file']['name'];
-
-
+    
+    
     if ($countfiles !== "") {
         $filename = $_FILES['file']['name'];
-
-        if ($countfiles == 0 || empty($title)) {
+        
+        
+        // var_dump($countfiles == 0);die;
+        if ($countfiles == "" || empty($title)) {
             $error = 1;
         } else {
             if ($title) {

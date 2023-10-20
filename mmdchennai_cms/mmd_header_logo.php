@@ -286,6 +286,7 @@ include 'include/session.php';
         function addFiles() {
             $('#set_operation').text('save');
             get_newmedia();
+           
             $('#uploadmodal').modal('show');
             // $('#fileDiv').show();
             $('#short_title').attr('required', 'required');

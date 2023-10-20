@@ -1,7 +1,7 @@
 <?Php
 include("include/db_connection.php");
 
-$get_value = "select * from mmd_rti_faq where status ='L' order by position_order asc";
+$get_value = "select * from mmd_faq where status ='L' order by position_order asc";
 $result_value = pg_query($db, $get_value);
 $get_Count = pg_num_rows($result_value);
 
