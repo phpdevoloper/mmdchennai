@@ -466,7 +466,7 @@ $pagename = 'public_information';
         }
 
         function addFiles() {
-            
+            // console.log('dfgdfg1');
             $('#set_operation').text('save');
             get_newmedia();
             $('#uploadmodal').modal('show');
@@ -486,7 +486,7 @@ $pagename = 'public_information';
             var checkedValue = $('.subject-list:checked').val();
             var get_operation = $('#set_operation').text();
             var ext = media_filename.split('.').pop();
-            console.log(media_filename);
+      
             if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'pdf') {
                 if (get_operation == 'save') {
                     $('#fileDiv').show();

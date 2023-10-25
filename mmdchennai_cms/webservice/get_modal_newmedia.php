@@ -1,6 +1,9 @@
 <?php
 include("../include/db_connection.php");
 include '../include/session.php';
+
+
+
 $admin_id = $_SESSION['admin_id'];
 $get_media = "SELECT * FROM mst_mediafolder ms
 
@@ -40,11 +43,7 @@ $get_row = pg_num_rows($result_query);
 
             <?Php } ?>
             <div id="main-folders" class="folderflex align-items-stretch flex-wrap">
-                <?php while (
-                    $row = pg_fetch_array(
-                        $result_query
-                    )
-                ) { ?>
+                <?php while($row = pg_fetch_array($result_query)) { ?>
                     <div class="d-inline-flex">
                         <div class="mediafolder-container">
                             <!-- <div class="row folder-action">
@@ -221,8 +220,6 @@ $get_row = pg_num_rows($result_query);
             url: 'webservice/get_modal_media.php',
             data: data,
             success: function(response, textStatus, xhr) {
-
-                console.log(response);
 
                 $('#get_file').html(response);
                 //  table.columns.adjust().draw();
