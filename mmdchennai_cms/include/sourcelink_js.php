@@ -422,7 +422,7 @@
 
     function get_newmedia() {
         var status = $('#sltmedia').val();
-        console.log('status');
+    
 
         data = {
             status: status,

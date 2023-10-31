@@ -12,13 +12,13 @@
                             </a><span>
                                 | </span>
 
-                            <i class="fa fa-question"></i><a rel="noopener" href="#"> Help </a>
+                            <i class="fa fa-question"></i><a rel="noopener" href="help.php"> Help </a>
                             <span>|</span>
 
-                            <i class="fa fa-comment"></i> <a rel="noopener" href="niot_feedback.php"> Feedback </a>
+                            <i class="fa fa-comment"></i> <a rel="noopener" href="feedback.php"> Feedback </a>
                             <span>|</span>
 
-                            <i class="fa fa-id-badge"></i> <a rel="noopener" href="#" onclick="set_session_home_menu('','','niot_contactus.php')"> Contact Us</a>
+                            <i class="fa fa-id-badge"></i> <a rel="noopener" href="mmd_contactus.php"> Contact Us</a>
 
                         </div>
                         <div class="col-lg-2 col-md-2 col-12"></div>

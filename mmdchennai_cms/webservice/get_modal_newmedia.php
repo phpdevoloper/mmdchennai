@@ -46,104 +46,15 @@ $get_row = pg_num_rows($result_query);
                 <?php while($row = pg_fetch_array($result_query)) { ?>
                     <div class="d-inline-flex">
                         <div class="mediafolder-container">
-                            <!-- <div class="row folder-action">
-                                <div class="col-lg-12 pull-right media_btn" style="text-align:right">
-                                    <i class="fa fa-edit edit " data-toggle="modal" data-target="#editfolderModal" onclick="editbtn(<?Php echo $row['folder_id'] ?>,'<?php echo $row['foldername'] ?>');"></i>
-                                    <i class="fa fa-trash delete" onclick="deletebtn(<?Php echo $row['folder_id'] ?>,'<?Php echo $row['foldername'] ?>')"></i>
-                                </div>
-                            </div> -->
                             <div class="media-action" onclick="get_file(<?Php echo $row['folder_id'] ?>);">
                                 <div class="mediafolder-icon">
                                     <i class="fa fa-folder mediafolder-icon-color "></i>
                                 </div>
-
                                 <div class="mediafolder-name text-center"><?Php echo $row['foldername'] ?></div>
                             </div>
                         </div>
                     </div>
                 <?Php } ?>
-                <!-- <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name-large</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name-large</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name-extra-large<buttonv>
-                            </buttonv>
-                        </div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name-hyper-extra-large-1235445684121384513</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name</div>
-                    </button>
-                </div>
-                <div class="d-inline-flex">
-                    <button class="mediafolder-container">
-                        <div class="mediafolder-icon">
-                            <i class="fa fa-folder mediafolder-icon-color"></i>
-                        </div>
-                        <div class="mediafolder-name">mediafolder-name</div>
-                    </button>
-                </div> -->
             </div>
         </div>
         <!-- End mediafolders Container -->

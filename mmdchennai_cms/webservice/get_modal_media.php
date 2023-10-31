@@ -77,8 +77,6 @@ $get_foldername = pg_fetch_array($result_media);
             data: data,
             success: function(response, textStatus, xhr) {
 
-                console.log(response);
-
                 $('#get_submedia').html(response);
                 //  table.columns.adjust().draw();
             },

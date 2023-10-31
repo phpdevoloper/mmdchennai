@@ -95,7 +95,7 @@ $pagename = 'public_information';
                                 <img src="vendors/images/logo.gif" alt="MMD Logo">
                             </div>
                             <div class="col-lg-9">
-                                <h3 class="text-center">Add Forms</h3>
+                                <h3 class="text-center">Add Information</h3>
                             </div>
                             <div class="col-lg-1">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -115,7 +115,7 @@ $pagename = 'public_information';
                         </div>
                         <div class="form-group ">
                             <label for="title">File (Images and Video)<span class="mandatory"> * </span></label>
-                            <input type="text" class="form-control input-sm inputlength" onclick="addFiles();" id="Selectedmedia" name="title" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
+                            <input type="text" class="form-control input-sm inputlength" onclick="addImages();" id="Selectedmedia" name="title" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
                             <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
                             <span hidden id="Selectedmediaid"></span>
                         </div>
@@ -335,25 +335,19 @@ $pagename = 'public_information';
             tblLink = $('#tblEnLink' + id + '').text();
 
 
-            //  console.log(editTitle, editDate, editFilename, tblLink);
-
             var datavalue = {
                 doc_id: JSON.parse(id),
                 pagename: '<?Php echo $pagename ?>',
                 operation: 'get_edit'
             }
-            // console.log(datavalue);
-            //   return false;
+
             $.ajax({
                 url: "webservice/add_contents.php",
                 type: "POST",
-                // contentType: 'application/json; charset=utf-8;',
                 dataType: 'JSON',
                 data: datavalue,
                 success: function(data) {
-                    console.log(data);
-                    //    var get_data=  $.parseJSON(data.result);
-                    // return false;
+               
                     if (data.status == 'ok') {
 
                         $('#editId').text(data.result['doc_id']);
@@ -412,326 +406,74 @@ $pagename = 'public_information';
             $('#prevDate').text(editDate);
         }
 
-        function showFile() {
-            $('#set_operation').text('save');
+       
+
+
+
+        function addImages() {
+            $('#set_operation').text('addInfo');
             get_newmedia();
             $('#uploadmodal').modal('show');
-            // $('#uploadmodal').modal('show');
-
-        }
-
-        function showLink() {
-
-            $('#selectedmedia').text('');
-            $('#selectedmediaid').val('');
-            $('#linkDiv').show();
-            $('#fileDiv').hide();
-            $("#fileCheck").prop('checked', false);
-            $('#short_title').removeAttr('required');
-            $('#add_link').attr('required', 'required');
-            var checked = $("input[type=checkbox]:checked").length;
-            if (checked == 0) {
-                $("#linkCheck").prop('checked', true);
-            }
-
-            exactSize = 0;
-            ad_files = "";
-        }
-
-        function editshowFile() {
-            $('#set_operation').text('edit');
-            get_newmedia();
-            $('#uploadmodal').modal('show');
-            $('#editfileDiv').show();
-            $('#editlinkDiv').hide();
-            // $('#uploadmodal').modal('show');
-        }
-
-        function editshowLink() {
-
-            $('#editselectedmedia').text('');
-            $('#editselectedmediaid').val('');
-            $('#editlinkDiv').show();
-            $('#editfileDiv').hide();
-            $("#editfileCheck").prop('checked', false);
-            $('#editshort_title').removeAttr('required');
-            $('#edit_link').attr('required', 'required');
-            var checked = $("input[type=checkbox]:checked").length;
-            if (checked == 0) {
-                $("#editlinkCheck").prop('checked', true);
-            }
-
-            exactSize = 0;
-            ad_files = "";
-        }
-
-        function addFiles() {
-            // console.log('dfgdfg1');
-            $('#set_operation').text('save');
-            get_newmedia();
-            $('#uploadmodal').modal('show');
-            // $('#fileDiv').show();
             $('#short_title').attr('required', 'required');
         }
 
-        function editFiles() {
-            $('#set_operation').text('edit');
-            get_newmedia();
-            $('#uploadmodal').modal('show');
-            // $('#fileDiv').show();
-            $('#editshort_title').attr('required', 'required');
-        }
+        
+        // function status_change(id, status) {
 
-        function get_mediavalue(media_filename, media_shorttitle, media_id) {
-            var checkedValue = $('.subject-list:checked').val();
-            var get_operation = $('#set_operation').text();
-            var ext = media_filename.split('.').pop();
-      
-            if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'pdf') {
-                if (get_operation == 'save') {
-                    $('#fileDiv').show();
-                    $('#linkDiv').hide();
-                    $('#selectedmedia').text(media_filename);
-                    $('#selectedmediaid').text(media_id);
-                    $('#short_title').val(media_shorttitle);
-                    $("#linkCheck").prop('checked', false);
-                    $('#add_link').removeAttr('required');
-                    $('#short_title').attr('required', 'required');
+        //     var status_text;
+        //     if (status == 'L') {
+        //         status_text = 'Publish';
+        //     } else if (status == 'D') {
+        //         status_text = 'Delete';
+        //     } else if (status == 'A') {
+        //         status_text = 'Archive';
+        //     }
+        //     var data = {
+        //         status: status,
+        //         doc_id: id,
+        //         operation: 'status_change',
+        //         pagename: '<?Php echo $pagename ?>',
+        //     }
+  
+        //     swal({
+        //         title: "Are you sure?",
+        //         text: "You will not be able to recover this imaginary file!",
+        //         type: "warning",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#DD6B55",
+        //         confirmButtonText: "Yes, " + status_text + " it!",
+        //         cancelButtonText: "No, cancel!",
+        //         closeOnConfirm: false,
+        //         closeOnCancel: false
+        //     }).then((result) => {
+        //         if (result.value) {
+        //             $.ajax({
+        //                 url: "webservice/add_contents.php",
+        //                 type: "POST",
+        //                 data: data,
+        //                 dataType: "JSON",
+        //                 success: function(data) {
 
-                    var checked = $("input[type=checkbox]:checked").length;
-                    if (checked == 0) {
-                        $("#fileCheck").prop('checked', true);
-                    }
+        //                     if (data.status == 'ok') {
+        //                         swal("Done!", "It was succesfully " + status_text + "!", "success");
+        //                         get_records();
+        //                     } else {
+        //                         swal("Error :" + status_text + "!", "Please try again", "error");
 
-                } else {
-
-                    $('#editfileDiv').show();
-                    $('#editselectedmedia').text(media_filename);
-                    $('#editselectedmediaid').text(media_id);
-                    $('#editshort_title').val(media_shorttitle);
-                    $("#editlinkCheck").prop('checked', false);
-                    $('#edit_link').removeAttr('required');
-                    $('#editshort_title').attr('required', 'required');
-
-                    var checked = $("input[type=checkbox]:checked").length;
-                    if (checked == 0) {
-                        $("#editfileCheck").prop('checked', true);
-                    }
-                }
-                $('#uploadmodal').modal('hide');
-
-            } else {
-                swal("Error !", "Images and Documents Only Allowed", "error");
-                get_newmedia();
-            }
-
-        }
-
-        function add_contents(value) {
-            if ($('#demo-form').parsley().validate() != true) {
-                return false;
-
-            } else {
-                var title, end_date, start_date, filename, mediaid, link, page_id, short_title,
-
-                    title = $('#txtTitle').val();
-                // start_date = $('#start_date').val();
-                // end_date = $('#end_date').val();
-
-                var mas_docid = $('#row_docid').text();
-                // if (value == 'en') {
-                //     mas_docid = '';
-                // } else {
-                //     mas_docid = JSON.parse(mas_docid)
-                // }
-
-                if ($("#fileCheck").is(':checked')) {
-                    link = ""
-                    filename = $('#selectedmedia').text();
-                    mediaid = $('#selectedmediaid').text();
-                    short_title = $('#short_title').val();
-                } else {
-                    filename = '';
-                    mediaid = ''
-                    link = $('#add_link').val();
-                    short_title = '';
-                }
-
-                var data = {
-                    title: title,
-                    // start_date: start_date,
-                    // end_date: end_date,
-                    filename: filename,
-                    mediaid: mediaid,
-                    link: link,
-                    short_title: short_title,
-                    operation: 'save',
-                    pagename: '<?Php echo $pagename ?>'
-                }
-                console.log(data);
-
-                $.ajax({
-                    url: "webservice/add_contents.php",
-                    type: "POST",
-                    dataType: 'json',
-                    data: data,
-                    success: function(data) {
-                        console.log(data);
-
-                        if (data.status == 'ok') {
-                            get_records();
-
-                            swal('', "Successfully Created", "success");
-                            $('#txtTitle').val('');
-                            $('#ad_file').val('');
-                            $('#addModal').modal('hide');
-
-                        } else {
-                            swal("Error !", "Please try again", "error");
-                        }
-                    },
-
-                });
-            }
-        }
-
-        function edit_contents(value) {
-
-            if ($('#editdemo-form').parsley().validate() != true) {
-                return false;
-
-            } else {
-                var title, end_date, start_date, filename, mediaid, link, short_title,
-                    title = $('#editTxtTitle').val();
-                // start_date = $('#editstart_date').val();
-                // end_date = $('#editend_date').val();
+        //                     }
+        //                 },
+        //                 error: function(xhr, ajaxOptions, thrownError) {
+        //                     swal("Error :" + status_text + "!", "Please try again", "error");
+        //                 }
 
 
-                var docid = $('#editId').text();
-                docid = JSON.parse(docid);
-                if ($("#editfileCheck").is(':checked')) {
-                    link = ""
-                    filename = $('#editselectedmedia').text();
-                    mediaid = $('#editselectedmediaid').text();
-                    short_title = $('#editshort_title').val();
-                } else if ($("#editnotneedcheck").is(':checked')) {
-                    link = ""
-                    filename = '';
-                    mediaid = '';
+        //             });
+        //         } else {
+        //             swal("Cancelled", "Your imaginary file is safe :)", "error");
+        //         }
+        //     });
 
-                } else {
-                    filename = '';
-                    mediaid = ''
-                    link = $('#edit_link').val();
-                    short_title = '';
-                }
-
-                var data = {
-                    title: title,
-                    // start_date: start_date,
-                    // end_date: end_date,
-                    filename: filename,
-                    mediaid: mediaid,
-                    link: link,
-                    short_title: short_title,
-                    operation: 'edit',
-                    pagename: '<?Php echo $pagename ?>',
-                    mas_id: docid
-                }
-
-                $.ajax({
-                    url: "webservice/add_contents.php",
-                    type: "POST",
-                    dataType: 'json',
-                    data: data,
-                    success: function(data) {
-                        console.log(data);
-                        //return false;
-                        if (data.status == 'ok') {
-                            get_records();
-                            //Success Message
-                            //  $('#sa-success').on('click', function() {
-                            swal('', "Successfully Created", "success")
-                            // });
-
-                            $('#edittxtTitle').val('');
-                            $('#editad_file').val('');
-                            $('#editModal').modal('hide');
-                            // $('.wrapper').css("opacity", "0");
-                            // $("#data-table-basic").dataTable().fnReloadAjax();
-                        } else {
-
-                            swal("Error !", "Please try again", "error");
-                            // $('.wrapper').css("opacity", ".5");
-                        }
-
-                        // $('.text').text(JSON.stringify(data));
-                    },
-
-                });
-            }
-        }
-
-        function status_change(id, status) {
-
-            // var language = $('#getLang').text();
-            //  console.log(language);
-            //   return false;
-            var status_text;
-            if (status == 'L') {
-                status_text = 'Publish';
-            } else if (status == 'D') {
-                status_text = 'Delete';
-            } else if (status == 'A') {
-                status_text = 'Archive';
-            }
-            var data = {
-                status: status,
-                doc_id: id,
-                operation: 'status_change',
-                pagename: '<?Php echo $pagename ?>',
-            }
-            // console.log(data);
-            // return false;
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, " + status_text + " it!",
-                cancelButtonText: "No, cancel!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: "webservice/add_contents.php",
-                        type: "POST",
-                        data: data,
-                        dataType: "JSON",
-                        success: function(data) {
-
-                            if (data.status == 'ok') {
-                                swal("Done!", "It was succesfully " + status_text + "!", "success");
-                                get_records();
-                            } else {
-                                swal("Error :" + status_text + "!", "Please try again", "error");
-
-                            }
-                        },
-                        error: function(xhr, ajaxOptions, thrownError) {
-                            swal("Error :" + status_text + "!", "Please try again", "error");
-                        }
-
-
-                    });
-                } else {
-                    swal("Cancelled", "Your imaginary file is safe :)", "error");
-                }
-            });
-
-        }
+        // }
 
         
     </script>

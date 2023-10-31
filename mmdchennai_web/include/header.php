@@ -61,7 +61,7 @@ $menuresult = pg_query($db, $menu_query);
                     </li>
                     <li><span class="toolbarline"></span></li>
                     <li><a rel="noopener" href="screenreader.php" title="Screen Reader Access"> <i class="fa fa-volume-up"></i></a></li>
-                    <li><span class="toolbarline"></span></li>
+                    <!-- <li><span class="toolbarline"></span></li> -->
                     <!-- <li>
                        <form id='form_lang'>
                            <select class=" langselect" id="slt_langsession" onchange="changeLang();" style="width: 100%">
