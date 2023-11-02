@@ -50,9 +50,9 @@ $menuresult = pg_query($db, $menu_query);
                     <li class="dropdown-submenu">
                         <a href="#" class="subhover" tabindex="-1"> <i class=" fa fa-wheelchair"></i></a>
                         <ul class="tooldropdown-menu">
-                            <li><a rel="noopener" href="#" id="btn-decrease" onclick="set_font_size('decrease');">A-</a></li>
-                            <li><a rel="noopener" href="#" id="btn-orig" onclick="set_font_size('');">A</a></li>
-                            <li><a rel="noopener" href="#" id="btn-increase" onclick="set_font_size('increase');"></i>A+</a></li>
+                            <li><a rel="noopener" href="javascript:void(0);" data-event-type="decrease" id="btn-decrease" title="Font Size Decrease">A-</a></li>
+                            <li><a rel="noopener" href="#" data-event-type="normal" title="Normal Font - selected" id="btn-orig">A</a></li>
+                            <li><a rel="noopener" href="javascript:void(0);" data-event-type="increase" title="Font Size Increase" id="btn-increase"></i>A+</a></li>
                             <li><a rel="noopener" href="javascript:void(0);" style="color:#fff;background-color:#111;display: block; padding-left: 3px;
                                  border-radius: 4px;" class="dark" onclick="myFunction('dark');">A<sup>&nbsp;</sup></a></li>
                             <li> <a rel="noopener" href="javascript:void(0);" class="light" style="color:#000;background-color:#fff;display: block; padding-left: 3px;
@@ -96,6 +96,8 @@ $menuresult = pg_query($db, $menu_query);
                             <li><a rel="noopener" href="https://in.linkedin.com/MoESNIOT" target="blank" class="external_link" title="linkedIn"><i class="fa fa-linkedin social-icons"></i></a></li>
                         </ul>
                     </li>
+                    <li><span class="toolbarline"></span></li>
+                    <li><a rel="noopener" href="#" title="Google translator"><i class="fa fa-language"></i></a></li>
                 </ul>
             </div>
 

@@ -115,9 +115,9 @@ $pagename = 'public_information';
                         </div>
                         <div class="form-group ">
                             <label for="title">File (Images and Video)<span class="mandatory"> * </span></label>
-                            <input type="text" class="form-control input-sm inputlength" onclick="addImages();" id="Selectedmedia" name="title" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
+                            <input type="text" class="form-control input-sm inputlength" onclick="addImages();" id="SelectedmediaImage" name="title" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
                             <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
-                            <span hidden id="Selectedmediaid"></span>
+                            <span hidden id="SelectedmediaImageid"></span>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
@@ -410,13 +410,127 @@ $pagename = 'public_information';
 
 
 
-        function addImages() {
-            $('#set_operation').text('addInfo');
+        function showFile() {
+            $('#set_operation').text('save');
             get_newmedia();
             $('#uploadmodal').modal('show');
+            // $('#uploadmodal').modal('show');
+
+        }
+        function showLink() {
+            $('#selectedmedia').text('');
+            $('#selectedmediaid').val('');
+            $('#linkDiv').show();
+            $('#fileDiv').hide();
+            $("#fileCheck").prop('checked', false);
+            $('#short_title').removeAttr('required');
+            $('#add_link').attr('required', 'required');
+            var checked = $("input[type=checkbox]:checked").length;
+            if (checked == 0) {
+                $("#linkCheck").prop('checked', true);
+            }
+
+            exactSize = 0;
+            ad_files = "";
+        }
+
+        function addImages() {
+            $('#set_operation').text('addInfo');
+            get_mediaImages();
+            $('#uploadImage').modal('show');
             $('#short_title').attr('required', 'required');
         }
 
+
+        function get_mediaImages() {   
+
+            $.ajax({
+                type: 'POST',
+                // contentType: "application/json",
+                // dataType: "json",
+                url: 'webservice/get_modal_newmediaImage.php',
+                success: function(response, textStatus, xhr) {
+                    $("#get_mediaImage").html(response);
+
+                },
+                complete: function(xhr) {
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var response = XMLHttpRequest;
+                    swal("Error !", "Please try again", "error");
+
+                }
+            });
+        }
+
+        function get_mediavalueImages(media_filename, media_shorttitle, media_id) {
+            var checkedValue = $('.subject-list:checked').val();
+            var get_operation = $('#set_operation').text();
+          
+            var ext = media_filename.split('.').pop();
+            if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'mp4' || ext == 'mp3') {
+                if (get_operation == 'addInfo') {
+                    $('#SelectedmediaImage').val(media_filename);
+                    $('#SelectedmediaImageid').text(media_id);
+                    // $('#short_title').val(media_shorttitle);
+                } else {
+
+                    // $('#editfileDiv').show();
+                    $('#editselectedmedia').val(media_filename);
+                    $('#editselectedmediaid').text(media_id);
+                    $('#editshort_title').val(media_shorttitle);
+                }
+
+                $('#uploadImage').modal('hide');
+            } else {
+                swal("Error !", "Images and Video Only Allowed", "error");
+                get_mediaImages();
+            }
+        }
+        function get_mediavalue(media_filename, media_shorttitle, media_id) {
+            var checkedValue = $('.subject-list:checked').val();
+            var get_operation = $('#set_operation').text();
+            var ext = media_filename.split('.').pop();
+            if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'pdf') {
+                if (get_operation == 'save') {
+                    $('#fileDiv').show();
+                    $('#linkDiv').hide();
+                    $('#selectedmedia').text(media_filename);
+                    $('#selectedmediaid').text(media_id);
+                    $('#short_title').val(media_shorttitle);
+                    $("#linkCheck").prop('checked', false);
+                    $('#add_link').removeAttr('required');
+                    $('#short_title').attr('required', 'required');
+
+                    var checked = $("input[type=checkbox]:checked").length;
+                    if (checked == 0) {
+                        $("#fileCheck").prop('checked', true);
+                    }
+
+                } else {
+
+                    $('#editfileDiv').show();
+                    $('#editselectedmedia').text(media_filename);
+                    $('#editselectedmediaid').text(media_id);
+                    $('#editshort_title').val(media_shorttitle);
+                    $("#editlinkCheck").prop('checked', false);
+                    $('#edit_link').removeAttr('required');
+                    $('#editshort_title').attr('required', 'required');
+
+                    var checked = $("input[type=checkbox]:checked").length;
+                    if (checked == 0) {
+                        $("#editfileCheck").prop('checked', true);
+                    }
+                }
+                $('#uploadmodal').modal('hide');
+
+            } else {
+                swal("Error !", "Images and Documents Only Allowed", "error");
+                get_newmedia();
+            }
+
+        }
         
         // function status_change(id, status) {
 

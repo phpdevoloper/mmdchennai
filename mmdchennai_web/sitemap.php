@@ -64,7 +64,7 @@
                         </li>
                     <?Php } else { ?>
                         <li>
-                            <a href="<?Php echo $menuRow[2] ?>"><?Php echo $menuRow[1];  ?> </a>
+                            <i class="fa fa-angle-double-right"></i><a href="<?Php echo $menuRow[2] ?>"><?Php echo $menuRow[1];  ?> </a>
                             <?Php
                             $sub = "select * FROM mst_mmd_menu WHERE mainmenu_status='L' and  submenu_status = 'L' and submenu_id=$menuRow[0] order by submenu_order asc";
                             $subResult = pg_query($db, $sub);

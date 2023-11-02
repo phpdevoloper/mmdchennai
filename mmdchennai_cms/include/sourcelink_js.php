@@ -84,6 +84,57 @@
         </div>
     </div>
 </div>
+<div class="modal animated fade" id="uploadImage" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <img src="vendors/images/logo.gif" alt="MMD Logo">
+                        </div>
+                        <div class="col-lg-9">
+                            <h3 class="text-center">Select Document</h3>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <span hidden id="StatusType"></span>
+                <span id="get_foldername" hidden></span>
+
+
+            </div>
+            <div class="modal-body scroll-content" style="padding-top:10px;overflow-y: overlay;overflow-x: overlay;">
+                <div class="row">
+                    <!-- <div class="col-lg-12">
+                        <div class="col-lg-2">
+                            <button class="btn btn-success notika-btn-success pull-left" data-toggle="modal" data-target="#mediamodal" style="margin-left:10px;"><i class="icofont icofont-plus"> </i> Add New</button>
+                        </div>
+                        
+
+                        <div class="col-lg-3">
+                            <div class="container mb-3 mt-3">
+                                <button class="btn btn-default btn-grid" title="Grid View"><i class="fa fa-th"></i></button>
+                                <button class="btn btn-default btn-list" title="List View"><i class="fa fa-list-ul"></i></button>
+                            </div>
+                           
+                        </div>
+                    </div> -->
+                </div>
+                <div class="row" style="padding-top:15px;">
+                    <div class="col-lg-12" id="get_mediaImage">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 <script>
     $(document).ready(function() {
@@ -286,7 +337,7 @@
                                             text: 'Opener',
                                             value: 'opener'
                                         }
-                                    ],
+                                    ], 
                                     flex: true
                                 }, {
                                     type: 'selectbox',

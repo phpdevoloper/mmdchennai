@@ -23,7 +23,7 @@ $slider_count = pg_num_rows($resultslider);
     <?Php include "include/header.php" ?>
     <?Php
 
-
+  
     if ($slider_count != 0) { ?>
         <!-- Carousel Start -->
         <div class="container-fluid p-0 mb-2 wow fadeIn" data-wow-delay="0.1s">
@@ -225,50 +225,32 @@ $slider_count = pg_num_rows($resultslider);
                     </div>
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                         <section class="posts">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <article class="post post-2">
-                                        <div class="thumbnail">
-                                            <img class="img-fluid img-thumbnail" src="img/leaders/leader1.png" />
-                                        </div>
-                                        <strong class="author">Shri Sarbananda Sonowal</strong>
-                                        <small class="time">Honorable Cabinet Minister</small>
-                                        <!-- <span class="content">Something something politics</span> -->
-                                    </article>
+                            <article class="post">
+                                <div class="thumbnail">
+                                    <img class="img-fluid img-thumbnail" src="img/leaders/leader1.png" />
                                 </div>
-                                <div class="col-lg-6">
-                                    <article class="post post-2">
-                                        <div class="thumbnail">
-                                            <img class="img-fluid img-thumbnail" src="img/leaders/leader2.jpg" />
-                                        </div>
-                                        <strong class="author">Shri Shripad Naik</strong>
-                                        <small class="time">Honorable Minister of State</small>
-                                        <!-- <span class="content">Something something family</span> -->
-                                    </article>
+                                <strong class="author">Shri Sarbananda Sonowal</strong>
+                                <small class="time">Honorable Cabinet Minister</small>
+                                <!-- <span class="content">Something something politics</span> -->
+                            </article>
+
+                            <article class="post">
+                                <div class="thumbnail">
+                                    <img class="img-fluid img-thumbnail" src="img/leaders/leader2.jpg" />
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <article class="post post-2">
-                                        <div class="thumbnail">
-                                            <img class="img-fluid img-thumbnail" src="img/leaders/leader3.jpg" />
-                                        </div>
-                                        <strong class="author">Shri Shantanu Thakur</strong>
-                                        <small class="time">Honorable Minister of State</small>
-                                        <!-- <span class="content">Something something software development</span> -->
-                                    </article>
+                                <strong class="author">Shri Shripad Naik</strong>
+                                <small class="time">Honorable Minister of State</small>
+                                <!-- <span class="content">Something something family</span> -->
+                            </article>
+
+                            <article class="post">
+                                <div class="thumbnail">
+                                    <img class="img-fluid img-thumbnail" src="img/leaders/leader3.jpg" />
                                 </div>
-                                <div class="col-lg-6">
-                                    <article class="post post-2">
-                                        <div class="thumbnail">
-                                            <img class="img-fluid img-thumbnail" src="img/leaders/DG.png" />
-                                        </div>
-                                        <strong class="author">Shri Shyam Jagannathan, IAS</strong>
-                                        <small class="time">Director General of Shipping</small>
-                                        <!-- <span class="content">Something something politics</span> -->
-                                    </article>
-                                </div>
-                            </div>
+                                <strong class="author">Shri Shantanu Thakur</strong>
+                                <small class="time">Honorable Minister of State</small>
+                                <!-- <span class="content">Something something software development</span> -->
+                            </article>
                         </section>
                     </div>
                 </div>
@@ -601,7 +583,7 @@ $slider_count = pg_num_rows($resultslider);
                                         <a href="#">Certificates issued to Ships</a>
                                     </h3>
 
-                                    <a href="#" class="read-more">read more</a>
+                                    <a href="certificate_issued.php" class="read-more">read more</a>
                                 </div>
                             </div>
 
@@ -615,7 +597,7 @@ $slider_count = pg_num_rows($resultslider);
                                         <a href="#"> PSC Detention List</a>
                                     </h3>
 
-                                    <a href="#" class="read-more">read more</a>
+                                    <a href="psc_detention_list.php" class="read-more">read more</a>
                                 </div>
                             </div>
 
@@ -629,7 +611,7 @@ $slider_count = pg_num_rows($resultslider);
                                         <a href="#"> Rights to Information</a>
                                     </h3>
 
-                                    <a href="#" class="read-more">read more</a>
+                                    <a href="right_to_information.php" class="read-more">read more</a>
                                 </div>
                             </div>
 
@@ -643,7 +625,7 @@ $slider_count = pg_num_rows($resultslider);
                                         <a href="#">List of Ship Registered</a>
                                     </h3>
 
-                                    <a href="#" class="read-more">read more</a>
+                                    <a href="list_ship_registration.php" class="read-more">read more</a>
                                 </div>
                             </div>
                         </div>
