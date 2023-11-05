@@ -50,9 +50,9 @@ $menuresult = pg_query($db, $menu_query);
                     <li class="dropdown-submenu">
                         <a href="#" class="subhover" tabindex="-1"> <i class=" fa fa-wheelchair"></i></a>
                         <ul class="tooldropdown-menu">
-                            <li><a rel="noopener" href="javascript:void(0);" data-event-type="decrease" id="btn-decrease" title="Font Size Decrease">A-</a></li>
-                            <li><a rel="noopener" href="#" data-event-type="normal" title="Normal Font - selected" id="btn-orig">A</a></li>
-                            <li><a rel="noopener" href="javascript:void(0);" data-event-type="increase" title="Font Size Increase" id="btn-increase"></i>A+</a></li>
+                            <li class="fontSizeEvent"><a rel="noopener" href="javascript:void(0);" data-event-type="decrease" id="btn-decrease" title="Font Size Decrease">A-</a></li>
+                            <li class="fontSizeEvent"><a rel="noopener" href="#" data-event-type="normal" title="Normal Font - selected" id="btn-orig">A</a></li>
+                            <li class="fontSizeEvent"><a rel="noopener" href="javascript:void(0);" data-selected-text="selected" data-event-type="increase" title="Font Size Increase" data-label="Font Size Increase" aria-label="Font Size Increase"></i>A+</a></li>
                             <li><a rel="noopener" href="javascript:void(0);" style="color:#fff;background-color:#111;display: block; padding-left: 3px;
                                  border-radius: 4px;" class="dark" onclick="myFunction('dark');">A<sup>&nbsp;</sup></a></li>
                             <li> <a rel="noopener" href="javascript:void(0);" class="light" style="color:#000;background-color:#fff;display: block; padding-left: 3px;

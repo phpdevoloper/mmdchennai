@@ -166,7 +166,7 @@ $pagename = 'public_information';
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success subLang" onclick="add_contents(this.value);">Submit</button>
+                    <button type="button" class="btn btn-success subLang" onclick="add_info(this.value);">Submit</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -299,6 +299,73 @@ $pagename = 'public_information';
 
                 }
             });
+        }
+        function add_info(value) {
+            if ($('#demo-form').parsley().validate() != true) {
+                return false;
+
+            } else {
+                var title, end_date, start_date, filename, mediaid, link, page_id, short_title,
+
+                    title = $('#txtTitle').val();
+                // start_date = $('#start_date').val();
+                // end_date = $('#end_date').val();
+
+                var mas_docid = $('#row_docid').text();
+                // if (value == 'en') {
+                //     mas_docid = '';
+                // } else {
+                //     mas_docid = JSON.parse(mas_docid)
+                // }
+
+                if ($("#fileCheck").is(':checked')) {
+                    link = ""
+                    filename = $('#selectedmedia').text();
+                    mediaid = $('#selectedmediaid').text();
+                    short_title = $('#short_title').val();
+                } else {
+                    filename = '';
+                    mediaid = ''
+                    link = $('#add_link').val();
+                    short_title = '';
+                }
+
+                var data = {
+                    title: title,
+                    // start_date: start_date,
+                    // end_date: end_date,
+                    filename: filename,
+                    mediaid: mediaid,
+                    link: link,
+                    short_title: short_title,
+                    operation: 'save',
+                    pagename: '<?Php echo $pagename ?>'
+                }
+                console.log(data);
+
+                $.ajax({
+                    url: "webservice/add_info.php",
+                    type: "POST",
+                    dataType: 'json',
+                    data: data,
+                    success: function(data) {
+                        console.log(data);
+
+                        if (data.status == 'ok') {
+                            get_records();
+
+                            swal('', "Successfully Created", "success");
+                            $('#txtTitle').val('');
+                            $('#ad_file').val('');
+                            $('#addModal').modal('hide');
+
+                        } else {
+                            swal("Error !", "Please try again", "error");
+                        }
+                    },
+
+                });
+            }
         }
 
         function editBtn(id) {
