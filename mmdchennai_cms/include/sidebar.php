@@ -13,12 +13,12 @@
             <ul id="accordion-menu">
                 <li>
                     <a href="index.php" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+                        <span class="micon dw dw-house-1"></span><span class="mtext">HOME</span>
                     </a>
                 </li>
                 <li>
                     <a href="mmd_media.php" class="dropdown-toggle no-arrow">
-                        <span class="micon"><i class="fa fa-folder"></i></span><span class="mtext">Media</span>
+                        <span class="micon"><i class="fa fa-folder"></i></span><span class="mtext">MEDIA</span>
                     </a>
                 </li>
                 <!-- <li class="dropdown">
@@ -32,7 +32,7 @@
 					</li> -->
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-edit2"></span><span class="mtext">About Us</span>
+                        <span class="micon dw dw-edit2"></span><span class="mtext">ABOUT US</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="mmd_history.php">History</a></li>
@@ -98,17 +98,17 @@
                 </li>
                 <li>
                     <a href="mmd_acts_rules.php" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-calendar1"></span><span class="mtext">ACTS/RULES</span>
+                        <span class="micon dw dw-clipboard"></span><span class="mtext">ACTS/RULES</span>
                     </a>
                 </li>
                 <li>
                     <a href="mmd_circulars.php" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-calendar1"></span><span class="mtext">Circulars</span>
+                        <span class="micon dw dw-calendar1"></span><span class="mtext">CIRCULAR</span>
                     </a>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-apartment"></span><span class="mtext"> DOWNLOADS </span>
+                        <span class="micon dw dw-download1"></span><span class="mtext"> DOWNLOADS </span>
                     </a>
                     <ul class="submenu">
                         <li><a href="mmd_forms.php">Forms</a></li>
@@ -146,28 +146,37 @@
                 </li>
                 <li>
                     <a href="mmd_faq.php" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-calendar1"></span><span class="mtext">FAQ</span>
+                        <span class="micon dw dw-question-1"></span><span class="mtext">FAQ</span>
                     </a>
                 </li>
                 <li>
                     <a href="mmd_public_information.php" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-calendar1"></span><span class="mtext">Public Information</span>
-                    </a>
-                </li>
-             
-                <li>
-                    <a href="#" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-calendar1"></span><span class="mtext">Photo Gallery</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-calendar1"></span><span class="mtext">Video Gallery</span>
+                        <span class="micon dw dw-information"></span><span class="mtext">PUBLIC INFORMATION</span>
                     </a>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-analytics-21"></span><span class="mtext">Portal Content</span>
+                        <span class="micon dw dw dw-gallery"></span><span class="mtext">GALLERY</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">PHOTO GALLERY</a></li>
+                        <li><a href="#">VIDEOS GALLERY</a></li>
+                    </ul>
+                </li>
+             
+                <!-- <li>
+                    <a href="#" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-gallery"></span><span class="mtext">PHOTO GALLERY</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-calendar1"></span><span class="mtext">VIDEOS GALLERY</span>
+                    </a>
+                </li> -->
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-analytics-21"></span><span class="mtext">PORTAL CONTENT</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="mmd_slider.php">Slider</a></li>

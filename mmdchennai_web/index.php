@@ -226,7 +226,7 @@ $slider_count = pg_num_rows($resultslider);
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                         <section class="posts">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-sm-">
                                     <article class="post post-2">
                                         <div class="thumbnail">
                                             <img class="img-fluid img-thumbnail" src="img/leaders/leader1.png" />

@@ -33,10 +33,10 @@
              </div>
              <div class="col-lg-3 col-md-6 footer_color">
                  <h5 class="text-light mb-4">Useful Links</h5>
-                 <a class="btn btn-link" href="https://www.imo.org/" target="_blank">International Maritime Organization</a>
-                 <a class="btn btn-link" href="https://www.ilo.org/global/lang--en/index.htm" target="_blank">International Labour Organization</a>
-                 <a class="btn btn-link" href="https://www.iomou.org/" target="_blank">Indian Ocean Memorandum of Understandings on Port State Control</a>
-                 <a class="btn btn-link" href="https://www.irclass.org/" target="_blank">Indian Register of Shipping</a>
+                 <a class="btn btn-link external_link" href="https://www.imo.org/" target="_blank">International Maritime Organization</a>
+                 <a class="btn btn-link external_link" href="https://www.ilo.org/global/lang--en/index.htm" target="_blank">International Labour Organization</a>
+                 <a class="btn btn-link external_link" href="https://www.iomou.org/" target="_blank">Indian Ocean Memorandum of Understandings on Port State Control</a>
+                 <a class="btn btn-link external_link" href="https://www.irclass.org/" target="_blank">Indian Register of Shipping</a>
              </div> 
          </div>
      </div>
@@ -89,13 +89,13 @@
                     </div>
                 </div> -->
              <section class="customer-logos slider">
-                 <div class="slide"><img src="img/footer/footer1.png" /></div>
-                 <div class="slide"><img src="img/footer/footer2.png" /></div>
-                 <div class="slide"><img src="img/footer/footer3.png" /></div>
-                 <div class="slide"><img src="img/footer/footer4.png" /></div>
-                 <div class="slide"><img src="img/footer/footer1.png" /></div>
-                 <div class="slide"><img src="img/footer/footer2.png" /></div>
-                 <div class="slide"><img src="img/footer/footer3.png" /></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer1.png" /></a></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer2.png" /></a></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer3.png" /></a></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer4.png" /></a></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer1.png" /></a></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer2.png" /></a></div>
+                 <div class="slide"><a rel="noopener" href="" class="external_link"><img src="img/footer/footer3.png" /></a></div>
              </section>
          </div>
      </div>

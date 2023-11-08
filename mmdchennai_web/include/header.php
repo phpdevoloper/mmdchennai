@@ -16,7 +16,7 @@ $menuresult = pg_query($db, $menu_query);
 <!-- Topbar Start -->
 <div class="container-fluid  toolbar_bg px-4 wow fadeIn" data-wow-delay="0.1s">
     <div class="row gx-0 align-items-center d-lg-flex">
-        <div class="col-lg-6 px-5 text-start toottop_title">
+        <div class="col-lg-6 text-start toottop_title">
             Mercantile Marine Department,Chennai
             <!-- <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="small text-secondary" href="#">Home</a></li>
@@ -25,7 +25,7 @@ $menuresult = pg_query($db, $menu_query);
                     <li class="breadcrumb-item"><a class="small text-secondary" href="#">Privacy</a></li>
                 </ol> -->
         </div>
-        <div class="col-lg-5 px-5 text-end">
+        <div class="col-lg-5 text-end">
             <div class="short_contact_list toolbar-dropdown">
                 <!-- <small>Follow us:</small>
                <div class="h-100 d-inline-flex align-items-center">
@@ -122,42 +122,14 @@ $menuresult = pg_query($db, $menu_query);
                 <div class="head1">Mercantile Marine Department,Chennai</div>
                 <div class="h-2">Directorate General of Shipping</div>
                 <div class="head2">
-                    <p>
                         Ministry of Ports, Shipping & Waterways <br />
                         Government of India
-                    </p>
                 </div>
             </div>
 
             <div class="col-lg-5 col-md-7 d-none d-lg-block">
                 <div class="row">
-                    <div class="col-2">
-                        <!-- <div class="d-flex align-items-center justify-content-end">
-                            <div class="flex-shrink-0 btn-lg-square border rounded-circle">
-                                <i class="far fa-clock text-primary"></i>
-                            </div>
-                            <div class="ps-3">
-                                <p class="mb-2">Opening Hour</p>
-                                <h6 class="mb-0">Mon - Fri, 8:00 - 9:00</h6>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="col-2">
-                        <!-- <div class="d-flex align-items-center justify-content-end">
-                            <div class="flex-shrink-0 btn-lg-square border rounded-circle">
-                                <i class="fa fa-phone text-primary"></i>
-                            </div>
-                            <div class="ps-3">
-                                <p class="mb-2">Call Us</p>
-                                <h6 class="mb-0">+012 345 6789</h6>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="col-8" style="
-                display: flex;
-                align-items: baseline;
-                justify-content: flex-end;
-              ">
+                    <div class="col-8" style="display: flex; align-items: baseline; justify-content: flex-end;">
                         <?Php $get_logos = "select * from mst_logo where status ='L' order by position_order limit 3";
                         $result_logs = pg_query($db, $get_logos);
                         while ($row_logo = pg_fetch_array($result_logs)) {

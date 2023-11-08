@@ -7,14 +7,6 @@ $status = $_POST['status'];
 $cur_lang = $_POST['lang'];
 $table_name = $_POST['page_name'];
 
-$statusChange = ['ta', 'hi', 'en'];
-
-$language = ['en', 'hi', 'ta'];
-
-
-$statuslang["en"] = array();
-$statuslang["ta"] = array();
-$statuslang["hi"] = array();
 
 
 $table = 'mst_' . $table_name . '';
@@ -89,6 +81,13 @@ if ($status == '') {
                     where ms.media_id = $media_id";
                         $result_media = pg_query($db, $get_file);
                         $row_media = pg_fetch_array($result_media);
+
+                        $mediaimgid = $row['mediaimgid'];
+                        $get_file_img = "select me.foldername,ms.filesize,ms.alt_filename as filename  from mst_media ms 
+                    inner join mst_mediafolder me on ms.folder_id = me.folder_id 
+                    where ms.media_id = $mediaimgid";
+                        $res_media = pg_query($db, $get_file_img);
+                        $media_img = pg_fetch_array($res_media);
                     ?>
 
                         <tr>
@@ -99,7 +98,9 @@ if ($status == '') {
                             <td id="tblEnTitle" <?php echo $row['scroll_id']  ?>>
                                 <?php echo $row['title'] ?>
                             </td>
-
+                            <td>
+                                <a rel="noopener" href='uploads/media/<?Php echo  $media_img['foldername'] ?>/<?php echo $media_img['filename'] ?>' target="_blank" class="view_btn" title="View Here"> view </a> 
+                            </td>
                             <td id="tblEnTitle" <?php echo $row['scroll_id']  ?>>
                                 <?php if ($row['filename'] == "" && $row['ad_link'] == "") {
                                     $file = '';
@@ -109,18 +110,13 @@ if ($status == '') {
                                     $file = $row['filename'];
                                 }
                                
-
-
                                 if ($row['filename'] != '') {
                                 ?>
                                     <a rel="noopener" href='uploads/media/<?Php echo  $row_media['foldername'] ?>/<?php echo $row_media['filename'] ?>' target="_blank" class="view_btn" title="View Here"> view Ad (<?php echo  $row_media['filesize'];  ?>) </a>
                                 <?php   } else {
                                 ?>
                                     <a rel="noopener" target="blank" href='<?php echo $row['ad_link']; ?>' class="view_btn"> click Here </a><?php
-                                                                                                                            }
-                                                                                                                                ?>
-
-
+                                                                                                                            }  ?>
                             </td>
 
                             <td data-title="Status"><span class="<?Php echo $class ?>">
@@ -131,10 +127,10 @@ if ($status == '') {
                                         <i class="dw dw-more"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal" onclick="editBtn('<?php echo $row['doc_id'] ?>');"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#" onclick="status_change(<?php echo $row['doc_id'] ?>,'L');"><i class="fa fa-upload"></i> Publish</a>
-                                        <a class="dropdown-item" href="#" onclick="status_change(<?php echo $row['doc_id'] ?>,'A');"><i class="fa fa-archive"></i> Archive</a>
-                                        <a class="dropdown-item" href="#" onclick="status_change(<?php echo $row['doc_id'] ?>,'D');"><i class="dw dw-delete-3"></i> Delete</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal" onclick="editBtn('<?php echo $row['info_id'] ?>');"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#" onclick="status_change(<?php echo $row['info_id'] ?>,'L');"><i class="fa fa-upload"></i> Publish</a>
+                                        <a class="dropdown-item" href="#" onclick="status_change(<?php echo $row['info_id'] ?>,'A');"><i class="fa fa-archive"></i> Archive</a>
+                                        <a class="dropdown-item" href="#" onclick="status_change(<?php echo $row['info_id'] ?>,'D');"><i class="dw dw-delete-3"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>

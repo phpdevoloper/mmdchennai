@@ -115,7 +115,7 @@ $pagename = 'public_information';
                         </div>
                         <div class="form-group ">
                             <label for="title">File (Images and Video)<span class="mandatory"> * </span></label>
-                            <input type="text" class="form-control input-sm inputlength" onclick="addImages();" id="SelectedmediaImage" name="title" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
+                            <input type="text" class="form-control input-sm inputlength" onclick="addImages();" id="SelectedmediaImage" name="info_image" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
                             <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
                             <span hidden id="SelectedmediaImageid"></span>
                         </div>
@@ -204,7 +204,12 @@ $pagename = 'public_information';
                             <label for="title"><span id="editTitle"> </span><span class="mandatory"> *</span></label>
                             <input type="text" class="form-control" name="title" maxlength="500" data-parsley-length="[2, 500]" id="editTxtTitle" placeholder="Enter Title" required="">
                         </div>
-
+                        <div class="form-group ">
+                            <label for="title">File (Images and Video)<span class="mandatory"> * </span></label>
+                            <input type="text" class="form-control input-sm inputlength" onclick="editImage();" id="edmediaImage" name="info_image" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                            <span hidden id="edmediaImageid"></span>
+                        </div>
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-4" style="padding-top:10px;">
@@ -248,7 +253,7 @@ $pagename = 'public_information';
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success  subLang" onclick="edit_contents(this.value);" class="">Update</button>
+                    <button type="button" class="btn btn-success  subLang" onclick="edit_info(this.value);" class="">Update</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -305,18 +310,12 @@ $pagename = 'public_information';
                 return false;
 
             } else {
-                var title, end_date, start_date, filename, mediaid, link, page_id, short_title,
+                var title, end_date, start_date, info_image,filename, mediaimgid,mediaid, link, page_id, short_title;
 
-                    title = $('#txtTitle').val();
-                // start_date = $('#start_date').val();
-                // end_date = $('#end_date').val();
-
+                title = $('#txtTitle').val();
                 var mas_docid = $('#row_docid').text();
-                // if (value == 'en') {
-                //     mas_docid = '';
-                // } else {
-                //     mas_docid = JSON.parse(mas_docid)
-                // }
+                info_image = $('#SelectedmediaImage').val();
+                mediaimgid = $('#SelectedmediaImageid').text();
 
                 if ($("#fileCheck").is(':checked')) {
                     link = ""
@@ -334,14 +333,17 @@ $pagename = 'public_information';
                     title: title,
                     // start_date: start_date,
                     // end_date: end_date,
+                    info_image : info_image,
+                    filename: filename,
                     filename: filename,
                     mediaid: mediaid,
+                    mediaimgid:mediaimgid,
                     link: link,
                     short_title: short_title,
                     operation: 'save',
                     pagename: '<?Php echo $pagename ?>'
                 }
-                console.log(data);
+
 
                 $.ajax({
                     url: "webservice/add_info.php",
@@ -367,7 +369,83 @@ $pagename = 'public_information';
                 });
             }
         }
+        function edit_contents(value) {
+            if ($('#editdemo-form').parsley().validate() != true) {
+                return false;
 
+            } else {
+                var title, end_date, start_date, info_image,filename, mediaimgid,mediaid, link, page_id, short_title;
+                title = $('#editTxtTitle').val();
+                info_image = $('#edmediaImage').val();
+                mediaimgid = $('#edmediaImageid').text();
+        
+                var docid = $('#editId').text();
+
+                docid = JSON.parse(docid);
+                if ($("#editfileCheck").is(':checked')) {
+                    link = ""
+                    filename = $('#editselectedmedia').text();
+                    mediaid = $('#editselectedmediaid').text();
+                    short_title = $('#editshort_title').val();
+                } else if ($("#editnotneedcheck").is(':checked')) {
+                    link = ""
+                    filename = '';
+                    mediaid = '';
+
+                } else {
+                    filename = '';
+                    mediaid = ''
+                    link = $('#edit_link').val();
+                    short_title = '';
+                }
+
+                var data = {
+                    title: title,
+                    // start_date: start_date,
+                    // end_date: end_date,
+                    info_image : info_image,
+                    filename: filename,
+                    mediaid: mediaid,
+                    mediaimgid:mediaimgid,
+                    link: link,
+                    short_title: short_title,
+                    operation: 'edit',
+                    pagename: '<?Php echo $pagename ?>',
+                    mas_id: docid
+                }
+
+                $.ajax({
+                    url: "webservice/add_info.php",
+                    type: "POST",
+                    dataType: 'json',
+                    data: data,
+                    success: function(data) {
+                        console.log(data);
+                        //return false;
+                        if (data.status == 'ok') {
+                            get_records();
+                            //Success Message
+                            //  $('#sa-success').on('click', function() {
+                            swal('', "Successfully Created", "success")
+                            // });
+
+                            $('#edittxtTitle').val('');
+                            $('#editad_file').val('');
+                            $('#editModal').modal('hide');
+                            // $('.wrapper').css("opacity", "0");
+                            // $("#data-table-basic").dataTable().fnReloadAjax();
+                        } else {
+
+                            swal("Error !", "Please try again", "error");
+                            // $('.wrapper').css("opacity", ".5");
+                        }
+
+                        // $('.text').text(JSON.stringify(data));
+                    },
+
+                });
+            }
+        }
         function editBtn(id) {
 
             // return false;
@@ -409,15 +487,16 @@ $pagename = 'public_information';
             }
 
             $.ajax({
-                url: "webservice/add_contents.php",
+                url: "webservice/add_info.php",
                 type: "POST",
                 dataType: 'JSON',
                 data: datavalue,
                 success: function(data) {
+                    console.log(data.result['info_image']);
                
                     if (data.status == 'ok') {
 
-                        $('#editId').text(data.result['doc_id']);
+                        $('#editId').text(data.result['info_id']);
                         $('#StatusType').text();
                         $('#editTxtTitle').val(data.result['title']);
                         if (data.result['ad_link'] != '') {
@@ -448,6 +527,9 @@ $pagename = 'public_information';
                         }
                         $('#editshort_title').val(data.result['short_title']);
                         $('#editselectedmediaid').text(data.result['media_id']);
+                        $('#edmediaImage').val(data.result['info_image']);
+                        $('#edmediaImageid').text(data.result['mediaimgid']);
+
                         $('#editslt_page').val(data.result['page_id']).trigger('change');
                         $('#editstart_date').val(data.result['start_dt']);
                         $('#editend_date').val(data.result['end_date']);
@@ -506,6 +588,13 @@ $pagename = 'public_information';
             get_mediaImages();
             $('#uploadImage').modal('show');
             $('#short_title').attr('required', 'required');
+        }
+        function editImage() {
+            $('#set_operation').text('addInfo');
+            get_mediaImages();
+            $('#uploadImage').modal('show');
+            // $('#fileDiv').show();
+            $('#editshort_title').attr('required', 'required');
         }
 
 

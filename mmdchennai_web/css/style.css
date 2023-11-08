@@ -550,7 +550,7 @@
 }
 
 .transport .head1 {
-  font-size: 16pt;
+  /* font-size: 16pt; */
   color: #111;
   font-weight: 700;
   /* margin-top: 12px; */
@@ -1356,8 +1356,9 @@ nav a:not(:only-child)::after {
   min-height: 108px;
 }
 .post-2{
-  width: 247px;
+  /* width: 247px; */
   height: 170px;
+  box-shadow: 7px 3px 10px 10px #ab9d9d;
 }
 
 .post .thumbnail {
@@ -1440,7 +1441,7 @@ nav a:not(:only-child)::after {
   line-height: 1.6rem;
   padding: 5px;
   letter-spacing: 0rem;
-  font-size: 2rem;
+  /* font-size: 2rem; */
   /* font-family: "Maven Pro", sans-serif; */
   font-weight: 700;
   max-height: 180px;
@@ -2010,7 +2011,7 @@ body {
   margin: 20px 15px 20px;
   border-radius: 15px;
   padding-top: 1px;
-  width: 300px;
+  /* width: 300px; */
   box-shadow: 0px 14px 22px -9px #bbcbd8;
 }
 
@@ -2593,7 +2594,7 @@ li {
 
 .article__footer {
   color: #818181;
-  font-size: 0.875rem;
+  /* font-size: 0.875rem; */
   margin-top: 10px;
   position: relative;
   right: 0;
@@ -2614,7 +2615,7 @@ li {
 }
 
 .toottop_title {
-  font-size: 14px;
+  /* font-size: 14px; */
   font-weight: 500;
 }
 
@@ -5290,6 +5291,22 @@ li {
     margin-top: 10px;
   }
 }
+
+@media (max-width: 768px) {
+  .d-lg-block {
+    display: block !important;
+  }
+  .transport .h-2 {
+    font-size: 12pt !important;
+  }
+  .head2{
+    font-size: 12px;
+
+
+    
+  }
+}
+
 .faq_card_align
 {
   padding:1px;

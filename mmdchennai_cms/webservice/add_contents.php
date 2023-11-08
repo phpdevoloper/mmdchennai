@@ -29,10 +29,7 @@ $tablename = $_POST['pagename'];
 $tablename = chkbadchar($tablename);
 
 if ($operation == 'save') {
-    if (
-        empty($title)  || ((empty($filename) || empty($media_id) || empty($short_title)) &&  empty($link))
-    ) {
-     
+    if (empty($title)  || ((empty($filename) || empty($media_id) || empty($short_title)) &&  empty($link))) {
         $error = 1;
     } else {
         if ($title) {
@@ -145,11 +142,9 @@ if ($operation == 'save') {
         $files_arr['status'] = 'error';
     }
     echo json_encode($files_arr);
+    
 } elseif ($operation == 'edit') {
-    if (
-        empty($title)  || ((empty($filename) || empty($media_id) || empty($short_title)) &&  empty($link)) || empty($mas_id)
-    ) {
-       
+    if (empty($title)  || ((empty($filename) || empty($media_id) || empty($short_title)) &&  empty($link)) || empty($mas_id)) {      
         $error = 1;
     } else {
         if ($title) {

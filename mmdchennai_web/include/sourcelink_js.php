@@ -13,6 +13,7 @@
   <script src="js/jquery.dataTables.min.js"></script>
   <script src="js/dataTables.bootstrap5.min.js"></script>
   <script src="js/fontresize.js"></script>
+  <script src="js/sweetalert.min.js"></script>
   <script src="js/main.js"></script>
   <script>
     (function($) {
@@ -33,8 +34,7 @@
 
     })(jQuery);
 
- function google_search() {
-
+    function google_search() {
         var search_value = $('#txt_search').val();
 
         if (search_value != '') {
@@ -44,4 +44,27 @@
         }
 
     }
+
+    $(".external_link").on("click", function(e) {
+      swal_title = 'MMD-Chennai';
+      swal_text = 'You are being redirected to an external website. Please note that Mercantile Marine Department,Chennai cannot be held responsible for external websites content & privacy policies.';
+      e.preventDefault();
+      var getURL_en = this.href;
+      swal({
+              title: swal_title,
+              text: swal_text,
+              confirmButtonText: "Ok",
+              showCancelButton: true,
+              confirmButtonColor: "#041e42",
+              cancelButtonColor: "#DD6B55",
+
+          },
+          function(isConfirm) {
+              if (isConfirm) {
+                  window.open(getURL_en);
+              }
+          }
+      )
+      });
+
   </script>

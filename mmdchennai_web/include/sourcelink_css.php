@@ -21,9 +21,8 @@
    <link href="css/bootstrap.min.css" rel="stylesheet" />
    <link rel="stylesheet" type="text/css" href="css/icon-font.min.css">
    <link href="lib/datatables/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-   <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" /> -->
-
-   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-bs5/1.13.4/dataTables.bootstrap5.min.css" integrity="sha512-zY8EbjNubt5sVVeNIxLQuU6lrDn0zYpaxCtS6mBBaqQREH1ZNQLdUxhHZjPaZhrw1CbEZkNdShEbIInJxzs9dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+   <link href="css/sweetalert.min.css" rel="stylesheet" />
+   
    <!-- Template Stylesheet -->
    <link href="css/style.css" rel="stylesheet" />
 
