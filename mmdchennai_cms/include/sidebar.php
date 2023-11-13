@@ -159,7 +159,7 @@
                         <span class="micon dw dw dw-gallery"></span><span class="mtext">GALLERY</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#">PHOTO GALLERY</a></li>
+                        <li><a href="mmd_photogallery.php">PHOTO GALLERY</a></li>
                         <li><a href="#">VIDEOS GALLERY</a></li>
                     </ul>
                 </li>

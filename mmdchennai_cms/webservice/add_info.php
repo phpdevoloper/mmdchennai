@@ -161,5 +161,99 @@ if ($operation == 'save') {
 
     
 } elseif ($operation == 'edit') {
+
+    if (empty($title) || ((empty($filename) || empty($media_id) || empty($short_title)) && empty($info_image) &&  empty($link))) {
+        $error = 1;
+    }else {
+        if ($title) {
+            $char_title = checkrtidoctitle($title);
+            $length_title = chklen1500($title);
+            if (empty($char_title) || empty($length_title)) {
+                $error = 1;  
+            }
+        }
+        if ($info_image) {
+            $char_info_filename = chktitle($info_image);
+            $length_info_filename = chklen200($info_image);
+            $check_info_filename = chkallfile($info_image);
+            if (empty($char_info_filename) || empty($length_info_filename) || empty($check_info_filename)) {  
+                $error = 1;
+            }
+        }
+        if (empty($link)) {
+
+            if (empty($filename) || empty($media_id) || empty($short_title)) {            
+                $error = 1;
+            } else {
+                if ($media_id) {
+                    $char_media_id = chkint($media_id);
+                    if (empty($char_media_id)) {
+                        $error = 1;
+                    }
+                }
+                if ($mediaimgid) {
+                    $char_mediaimgid = chkint($mediaimgid);
+                    if (empty($char_mediaimgid)) {
+                        $error = 1;
+                    }
+                }
+                if ($filename) {
+                    $char_filename = chktitle($filename);
+                    $length_filename = chklen200($filename);
+                    $check_filename = chkallfile($filename);
+                    if (empty($char_filename) || empty($length_filename) || empty($check_filename)) {
+                        
+                        $error = 1;
+                    }
+                }
+                if ($short_title) {
+                    $char_short_title = chktitle($short_title);
+                    $length_short_title = chklen20($short_title);
+                    if (empty($char_short_title) || empty($length_short_title)) {
+                        
+                        $error = 1;
+                    }
+                }
+            }
+        }else {
+            if ($link) {
+                $length_link = chklen200($link);
+                $check_url = url($link);
+                if (empty($length_link) ||  empty($check_url)) {
+                    $error = 1;
+                }
+            }
+        }
+        if ($sessionId) {
+            $char_sessionId = chkint($sessionId);
+            if (empty($char_sessionId)) {               
+                $error = 1;
+            }
+        }
+        if ($currdate) {
+            $check_currdate = check_datetime($currdate);
+            if (empty($check_currdate)) {               
+                $error = 1;
+            }
+        }
+        
+    }  
     
+    if ($error != 1) {
+
+       $edit_query = "update mst_" . $tablename . " set title ='$title' ,info_image = '$info_image', filename = '$filename',media_id= '$media_id' ,
+       mediaimgid = '$mediaimgid', short_title = '$short_title',ad_link ='$link' ,updated_by ='$sessionId' ,updated_on='$currdate'  where info_id = $mas_id";
+        $edit_result = pg_query($db, $edit_query);
+        if ($edit_result) {
+            $files_arr['status'] = 'ok';
+        } else {
+        
+            $files_arr['status'] = 'error';
+        }
+
+    } else {
+        $files_arr['status'] = 'error';
+    }
+
+    echo json_encode($files_arr);
 } 

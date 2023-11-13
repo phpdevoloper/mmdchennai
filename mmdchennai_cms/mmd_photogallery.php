@@ -1,640 +1,749 @@
-<?php include 'include/session.php';
-include("include/db_connection.php");
-
-$dir_en_query = "select  *  from niot_whoswho_en where designation='niot_director' and contents <> '' limit 1";
-
-$resultdir_en = pg_query($db, $dir_en_query);
-$resultdirector_en_count = pg_num_rows($resultdir_en);
-
-
-$row1 = pg_fetch_array(
-    $resultdir_en
-);
-
-$dir_hi_query = "select  *  from niot_whoswho_hi where designation='niot_director' and contents <> '' limit 1";
-
-$resultdir_hi = pg_query($db, $dir_hi_query);
-$resultdirector_hi_count = pg_num_rows($resultdir_hi);
-
-$row2 = pg_fetch_array(
-    $resultdir_hi
-);
-
-$dir_ta_query = "select  *  from niot_whoswho_ta where designation='niot_director' and contents <> '' limit 1";
-
-$resultdir_ta = pg_query($db, $dir_ta_query);
-$resultdirector_ta_count = pg_num_rows($resultdir_ta);
-
-
-$row3 = pg_fetch_array(
-    $resultdir_ta
-);
-
+<?php include("include/db_connection.php");
+include 'include/session.php';
+$pagename = 'public_information';
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>NIOT - Photo Gallery</title>
-
-    <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Meta -->
+    <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="codedthemes">
-    <meta name="keywords" content=", Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-    <meta name="author" content="codedthemes">
-
-    <?php include 'include/source_css.php'; ?>
+    <title>MMD-Chennai | Forms</title>
 
 
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <?php include "include/sourcelink_css.php" ?>
+    <style>
+    .gallery-section {
+        position: relative;
+        z-index: 1;
+    }
+
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  max-width: 1320px;
+  flex-wrap: wrap;
+  margin: 25px auto;
+  /* gap: 14px; */
+}
+.gallery a {
+  display: flex;
+}
+.gallery img {
+  width: 200px;
+  height: 220px;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 10px 10px;
+
+  border: 12px solid #fff;
+    border-bottom: 66px solid #fff;
+    box-shadow: 3px 3px 3px #888;
+    /* height: auto; */
+    /* max-width: 100%; */
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+.sets .hide,
+.sets .pophide {
+  width: 0%;
+  opacity: 0;
+}
+
+
+.openDiv {
+  width: 100%;
+  height: 100vh;
+  background: #000000e7;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  z-index: 9999;
+}
+.imgPreview {
+  width: 70%;
+  object-fit: scale-down;
+  max-height: 40vw;
+  height: auto;
+}
+
+
+
+
+
+/* resposive CSS Code */
+
+@media max-width: 1199px {
+  .section-padding {
+    padding-top: 70px;
+  }
+}
+@media (max-width: 991px) {
+  .section-padding {
+    padding-top: 50px;
+  }
+}
+@media (max-width: 767px) {
+  .title {
+    font-size: 36px;
+  }
+  .gallery img {
+    margin: 8px 8px;
+    width: 175px;
+  }
+}
+
+@media (max-width: 540px) {
+  .section-padding {
+    padding-top: 30px;
+  }
+  
+  .gallery img {
+    margin: 8px 6px;
+    width: 155px;
+  }
+
+  .imgPreview {
+    width: 90%;
+    max-height: 50vh;
+    height: auto;
+  }
+  
+}
+    </style>
 
 </head>
 
-<body class="sidebar-mini fixed">
-    <div class="wrapper">
-        <div class="loader-bg">
-            <div class="loader-bar">
-            </div>
-        </div>
-        <!-- Navbar-->
-        <?php include 'include/header.php'; ?>
-        <!-- Side-Nav-->
-        <?php include('include/sidebar.php') ?>
-        <div class="content-wrapper">
-            <!-- Container-fluid starts -->
-            <div class="container-fluid">
-                <!-- Row Starts -->
-                <div class="row">
-                    <div class="col-sm-12 p-0">
-                        <div class="main-header">
-                            <!-- <h4>Who's Who</h4> -->
-                            <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
-                                <li class="breadcrumb-item"><a href="index.php"><i class="icofont icofont-home"></i></a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#!">Photo Gallery</a>
-                                </li>
-                                <!-- <li class="breadcrumb-item"><a href="#!">Contact Us</a>
-                                </li> -->
-                                <!-- <li class="breadcrumb-item"><a href="#!">Mission Statement </a>
-                                </li> -->
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 text-center" style="border-radius:0px;padding-bottom:0px;background-color:#d3d3d3;">
-                        <h3 style="color:#111">Photo Gallery</h3>
-                    </div>
-                    <div class="col-lg-12">
-                        <!-- Row start -->
-                        <div class="row" style="background:#fff">
-                            <div class="col-lg-12" style="padding-top:10px;">
-                                <div class="card" style="background:#eeeeee">
-                                    <div class="row">
-                                        <div class="col-lg-12" style="padding-top:10px;">
-                                            <!-- <div class="col-lg-6"> -->
-                                            <div class="col-lg-2">
-                                                <button class="btn btn-success notika-btn-success pull-left" data-toggle="modal" data-target="#addModal" style="margin-left:10px;" onclick="addNew('en');"><i class="icofont icofont-plus"> </i> Add New</button>
-                                            </div>
-                                            <div class="col-lg-8">
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="container mb-3 mt-3">
-                                                    <button class="btn btn-primary btn-grid" title="Grid View"><i class="fa fa-th"></i></button>
-                                                    <button class="btn btn-danger btn-list" title="List View"><i class="fa fa-list-ul"></i></button>
-                                                </div>
-                                                <!-- </div> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Radio-Button start -->
-                                    <!-- <div class="card-header">
-                                 <h5 class="card-header-text">Bootstrap Tab</h5>
-                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-                              </div> -->
-                                    <div class="card-block file_manager grid-container">
-                                        <div class="row clearfix">
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_922_CHE_2010_Patent_Certificate.jpg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_922_CHE_2010_Patent_Certificate.jpg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_b1.jpg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_b1.jpg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_banner3.jpeg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_banner3.jpeg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_Constitution_Web_Banner_hindi3.jpg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_Constitution_Web_Banner_hindi3.jpg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_img_03.jpg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_img_03.jpg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+<body>
 
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_IMG_03.jpeg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_IMG_03.jpeg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_img_02.jpg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_img_02.jpg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_DSC_0012_013.JPG" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_DSC_0012_013.JPG" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_Constitution_Web_Banner_hindi3.jpg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_Constitution_Web_Banner_hindi3.jpg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_DSC_0012.JPG" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_DSC_0012.JPG" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_Banner.JPG" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_Banner.JPG" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-md-4 col-sm-12 wrap">
-                                                <div class="file_card">
-                                                    <div class="file">
-                                                        <a href="assets/images/events/banner_banner3.jpeg" class="gallerycard" data-lightbox="example-set">
-                                                            <div class="icon">
-                                                                <!-- <div class="card-wrapper"> -->
-                                                                <img src="assets/images/events/banner_banner3.jpeg" alt="Danish Nature" />
-                                                                <!-- </div> -->
-                                                            </div>
-                                                            <div class="hover">
-                                                                <button type="button" class="btn btn-icon btn-danger">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="file-name">
-                                                                <p class="m-b-5 text-muted">Document_2017.doc</p>
-                                                                <small>Size: 89KB <span class="date text-muted">Dec 15, 2017</span></small>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="#" id="loadMore">Load More</a>
-                                    </div>
+    <?php include "include/header.php" ?>
+
+    <?php include "include/sidebar.php" ?>
+    <div class="main-container">
+        <div class="pd-ltr-20">
+            <div class="pd-ltr-20 xs-pd-20-10">
+                <div class="min-height-200px">
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="title">
+                                    <h4>Photo Gallery</h4>
                                 </div>
+                                <nav aria-label="breadcrumb" role="navigation">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Photo Gallery</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class="col-md-6 col-sm-12 text-right">
+
+                                <a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#addModal">
+                                    Add New <i class="fa fa-plus"></i>
+                                </a>
                             </div>
                         </div>
-                        <!-- Row end -->
                     </div>
+                    <!-- Simple Datatable start -->
+                    <div class="card-box mb-30">
+                       
+                        <div class="pd-20">
+                            <div class="gallery sets">
+                                <a class="all Bollywood"><img src="https://iili.io/y7W4t4.md.webp"/>
+                                        <p>Image 1<br>more Text ...</p>
+                                </a>
+
+                                <a class="all Bollywood"><img src="https://i.redd.it/a90376enwvg91.jpg"/></a>
+
+                                <a class="all Bollywood"><img src="https://iili.io/y7waOg.md.jpg"/></a>
+                                
+                                <a class="all Bollywood"><img src="https://iili.io/y7WrNf.webp"/></a>
+                                
+                                <a class="all Hollywood"><img src="https://i.redd.it/wh6hbexev2v91.jpg"/></a>
+                                
+                                <a class="all Hollywood"><img src="https://i.redd.it/4b6s83hss9p91.jpg"/></a>
+                                
+                                <a class="all tv"><img src="https://i.redd.it/2s7w09k01ol91.jpg"/></a>
+                                <a class="all tv"><img src="https://i.redd.it/2s7w09k01ol91.jpg"/></a>
+                                <a class="all tv"><img src="https://i.redd.it/2s7w09k01ol91.jpg"/></a>
+                                
+                            </div>
+                            <!-- <div id="getrecords">
+
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- Simple Datatable End -->
                 </div>
             </div>
         </div>
-        <!-- Container-fluid ends -->
     </div>
-
-    <!-- Container-fluid ends -->
-    </div>
-
-
     <!-- Add Modal popup Start-->
 
     <div class="modal animated fade modal-popout-bg" id="addModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
         <div class="modal-dialog modals-default">
             <div class="modal-content">
                 <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
-                    <div class="col-lg-12" style="padding-bottom:10px;">
-                        <div class="col-lg-2">
-                            <!-- <a href="#" > -->
-                            <img src="assets/images/niotHeader.png" alt="Niot Logo" class="pull-right">
-                        </div>
-                        <div class="col-lg-9" style="padding-top:10px;">
-                            <h2 class="text-center">Add New Images</h2>
-                        </div>
-                        <div class="col-lg-1">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Add Information</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-body" style="padding-top:10px;">
+                    <span hidden id="row_docid"></span>
                     <form id="demo-form" data-parsley-validate="">
-                        <div class="form-group">
+                        <div class="form-group limited-length">
                             <label for="title">Title<span class="mandatory"> *</span></label>
-                            <textarea type="text" class="form-control" id="txtevent" name="title" placeholder="Enter Event" required="" data-parsley-length="[2, 500]" data-parsley-group="block1" data-parsley-trigger="change"></textarea>
+                            <input type="text" class="form-control input-sm inputlength" id="txtTitle" name="title" maxlength="500" placeholder="Enter Title" required="" data-parsley-length="[2, 500]" data-parsley-trigger="keyup change keypress">
+
+                            <div class="pull-right" style="font-weight:500"><span class="counter"></span><span class="max-length"></span></div>
                             <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
                         </div>
-                        <!-- <div class="col-lg-12">
-                            <div class="col-lg-4" style="padding-top:10px;">
-                                <label>Document Type<span class="mandatory">*</span> </label>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="fm-checkbox form-group">
-                                    <label> File <input type="checkbox" class="" id="fileCheck" onclick="showFile();" name="checkbox" required="" data-parsley-trigger="change" data-parsley-group="block1" data-parsley-mincheck="1" /> <i></i> </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="fm-checkbox form-group">
-                                    <label>Link <input type="checkbox" class="" id="linkCheck" name="checkbox" onchange="showLink();" /> <i></i> </label>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="form-group">
-                            <label for="title">Alternative Name<span class="mandatory"> *</span></label>
-                            <input type="text" class="form-control" id="txtvenue" name="title" placeholder="Enter Venue" required="" data-parsley-length="[2, 5000]" data-parsley-group="block1" data-parsley-trigger="change">
+                        <div class="form-group ">
+                            <label for="title">File (Images and Video)<span class="mandatory"> * </span></label>
+                            <input type="text" class="form-control input-sm inputlength" onclick="addImages();" id="SelectedmediaImage" name="info_image" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
                             <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                            <span hidden id="SelectedmediaImageid"></span>
                         </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4" style="padding-top:10px;">
+                                    <label>Document Type<span class="mandatory">*</span> </label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label> File <input type="checkbox" class="" id="fileCheck" onclick="showFile();" name="checkbox" required="" data-parsley-trigger="keyup change keypress" data-parsley-group="block1" data-parsley-mincheck="1" /> <i></i> </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label>Link <input type="checkbox" class="" id="linkCheck" name="checkbox" onchange="showLink();" /> <i></i> </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-lg-12" id="fileDiv">
                                 <div class="form-group">
-                                    <label for="email1">File<span class="mandatory"> *</span></label>
-                                    <input type="file" class="form-control input-sm" id="ad_file" accept="image/*" name="file" data-parsley-trigger="change">
+                                    <label for="email1">Selected media :</label>
+                                    <span hidden id="selectedmediaid"></span>
+                                    <span id="selectedmedia"></span>
+                                    <!--  <input type="file" class="form-control input-sm" id="ad_file" accept="application/pdf" name="file" data-parsley-trigger="change"> -->
                                 </div>
-
-                                <!-- <label for="email1" style="color:#40c4ff">Add More File <i class="fa fa-plus" onclick="addmorefile();"></i></label> -->
+                                <div class="form-group limited-length">
+                                    <label for="email1">Short Title <span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm inputlength" maxlength="20" id="short_title" required="" data-parsley-length="[2, 20]" data-parsley-trigger="keyup change keypress" data-parsley-checktitle>
+                                    <div class="pull-right" style="font-weight:500"><span class="counter"></span></span><span class="max-length"></span></div>
+                                </div>
                             </div>
                             <!-- <div class="col-lg-1" style="padding-top:30px;">
                             <b> or </b>
-                        </div> -->
-                            <!-- <div class="col-lg-12" id="linkDiv">
-                                <div class="form-group">
-                                    <label for="email1"><span class="addURl"> </span><span class="mandatory"> *</span></label>
-                                    <input type="text" class="form-control input-sm" id="add_link" name="url" placeholder="Enter Link" data-parsley-type="url" data-parsley-trigger="change">
+                             </div> -->
+                            <div class="col-lg-12" id="linkDiv">
+                                <div class="form-group limited-length">
+                                    <label for="email1">Link<span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm inputlength" id="add_link" maxlength="100" name="url" placeholder="Enter Link" data-parsley-type="url" data-parsley-trigger="change">
+                                    <div class="pull-right" style="font-weight:500"><span class="counter"></span></span><span class="max-length"></span></div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                         <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
-
                     </form>
                 </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-success" onclick="add_Events(this.value);" id="subLang">Submit</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success subLang" onclick="add_info(this.value);">Submit</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Add Modal popup End-->
+    <!-- Edit Modal popup Start-->
 
-    <?php include("include/source_js.php") ?>
+    <div class="modal animated fade" id="editModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Edit Forms</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <span hidden id="editId"></span>
+                    <span hidden id="StatusType"></span>
+                    <span hidden id="set_operation"></span>
+                </div>
+
+                <div class="modal-body" style="padding-top:10px;">
+                    <form id="editdemo-form" data-parsley-validate="">
+                        <div class="form-group">
+                            <label for="title"><span id="editTitle"> </span><span class="mandatory"> *</span></label>
+                            <input type="text" class="form-control" name="title" maxlength="500" data-parsley-length="[2, 500]" id="editTxtTitle" placeholder="Enter Title" required="">
+                        </div>
+                        <div class="form-group ">
+                            <label for="title">File (Images and Video)<span class="mandatory"> * </span></label>
+                            <input type="text" class="form-control input-sm inputlength" onclick="editImage();" id="edmediaImage" name="info_image" readonly maxlength="100" placeholder="Select Image" required="" data-parsley-trigger="keyup change keypress">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                            <span hidden id="edmediaImageid"></span>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4" style="padding-top:10px;">
+                                    <label>Document Type<span class="mandatory">*</span> </label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label> File <input type="checkbox" class="" id="editfileCheck" onclick="editshowFile();" name="checkbox" required="" data-parsley-trigger="change" data-parsley-group="block1" data-parsley-mincheck="1" /> <i></i> </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fm-checkbox form-group">
+                                        <label>Link <input type="checkbox" class="" id="editlinkCheck" name="checkbox" onchange="editshowLink();" /> <i></i> </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12" id="editfileDiv">
+                                <div class="form-group">
+                                    <label for="email1">Selected media :</label>
+                                    <span hidden id="editselectedmediaid"></span>
+                                    <span id="editselectedmedia"></span>
+                                </div>
+                                <div class="form-group limited-textarea">
+                                    <label for="email1">Short Title <span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm textarea" maxlength="20" id="editshort_title" data-parsley-length="[2, 20]" data-parsley-trigger="keyup change keypress" data-parsley-checktitle>
+                                    <div class="pull-right" style="font-weight:500"><span class="counter"></span></span><span class="max-length"></span></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" id="editlinkDiv">
+                                <div class="form-group">
+                                    <label for="email1">Edit Link<span class="mandatory"> *</span></label>
+                                    <input type="text" class="form-control input-sm" id="edit_link" name="url" placeholder="Enter Link" data-parsley-type="url" data-parsley-trigger="keyup change keypress">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success  subLang" onclick="edit_info(this.value);" class="">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal popup End-->
+    <!-- js -->
+    <?php include "include/sourcelink_js.php" ?>
     <script>
-        $(document).ready(function() {
+        
+    
+        // function add_info(value) {
+        //     if ($('#demo-form').parsley().validate() != true) {
+        //         return false;
 
-        });
+        //     } else {
+        //         var title, end_date, start_date, info_image,filename, mediaimgid,mediaid, link, page_id, short_title;
+
+        //         title = $('#txtTitle').val();
+        //         var mas_docid = $('#row_docid').text();
+        //         info_image = $('#SelectedmediaImage').val();
+        //         mediaimgid = $('#SelectedmediaImageid').text();
+
+        //         if ($("#fileCheck").is(':checked')) {
+        //             link = ""
+        //             filename = $('#selectedmedia').text();
+        //             mediaid = $('#selectedmediaid').text();
+        //             short_title = $('#short_title').val();
+        //         } else {
+        //             filename = '';
+        //             mediaid = ''
+        //             link = $('#add_link').val();
+        //             short_title = '';
+        //         }
+
+        //         var data = {
+        //             title: title,
+        //             info_image : info_image,
+        //             filename: filename,
+        //             mediaid: mediaid,
+        //             mediaimgid:mediaimgid,
+        //             link: link,
+        //             short_title: short_title,
+        //             operation: 'save',
+        //             pagename: '<?Php echo $pagename ?>'
+        //         }
 
 
-        function savedata(type, lang) {
-            var value, checkrowcount;
-            console.log(type);
-            value = tinyMCE.get('save' + type + '').getContent().replace(/'/g, "");
-            // value = tinyMCE.get('savevision_hi').getContent().replace(/'/g, "");
-            // checkrowcount = vision_encount;
-            // if (type == 'vision_en') {
-            //     checkrowcount = vision_encount;
-            //     //   value = tinyMCE.get('savevision_en').getContent().replace(/'/g, "");
-            // } else if (type == 'vision_hi') {
-            //     checkrowcount = vision_hicount;
-            //     //value = tinyMCE.get('savevision_hi').getContent().replace(/'/g, "");
-            // } else {
-            //     checkrowcount = vision_tacount;
-            //     // value = tinyMCE.get('savevision_ta').getContent().replace(/'/g, "");
-            // }
+        //         $.ajax({
+        //             url: "webservice/add_info.php",
+        //             type: "POST",
+        //             dataType: 'json',
+        //             data: data,
+        //             success: function(data) {
+        //                 console.log(data);
 
-            data = {
-                value: value,
-                type: 'niot_director',
-                lang: lang,
-                operation: 'save',
-                // checkrowcount: checkrowcount
-            }
+        //                 if (data.status == 'ok') {
+        //                     get_records();
 
+        //                     swal('', "Successfully Created", "success");
+        //                     $('#txtTitle').val('');
+        //                     $('#ad_file').val('');
+        //                     $('#addModal').modal('hide');
 
-            $.ajax({
-                type: 'POST',
-                // contentType: "application/json",
-                // dataType: "json",
-                url: 'webservice/whos_whosave.php',
-                data: data,
-                success: function(response, textStatus, xhr) {
+        //                 } else {
+        //                     swal("Error !", "Please try again", "error");
+        //                 }
+        //             },
 
-                    console.log(response);
+        //         });
+        //     }
+        // }
+        // function edit_info(value) {
+        //     if ($('#editdemo-form').parsley().validate() != true) {
+        //         return false;
 
-                    swal({
-                        title: "",
-                        text: "Successfully Saved!",
-                        type: "success",
-                        buttons: [
-                            'NO',
-                            'YES'
-                        ],
-                    }).then(function(isConfirm) {
-                        if (isConfirm) {
-                            location.reload();
-                        } else {
-                            //if no clicked => do something else
-                        }
-                    });
-                },
-                complete: function(xhr) {
+        //     } else {
+        //         var title, end_date, start_date, info_image,filename, mediaimgid,mediaid, link, page_id, short_title;
+        //         title = $('#editTxtTitle').val();
+        //         info_image = $('#edmediaImage').val();
+        //         mediaimgid = $('#edmediaImageid').text();
+        
+        //         var docid = $('#editId').text();
 
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var response = XMLHttpRequest;
-                    swal("Error :Archive!", "Please try again", "error");
+        //         docid = JSON.parse(docid);
+        //         if ($("#editfileCheck").is(':checked')) {
+        //             link = ""
+        //             filename = $('#editselectedmedia').text();
+        //             mediaid = $('#editselectedmediaid').text();
+        //             short_title = $('#editshort_title').val();
+        //         } else if ($("#editnotneedcheck").is(':checked')) {
+        //             link = ""
+        //             filename = '';
+        //             mediaid = '';
 
-                }
-            });
-        }
+        //         } else {
+        //             filename = '';
+        //             mediaid = ''
+        //             link = $('#edit_link').val();
+        //             short_title = '';
+        //         }
 
-        // function updateText(type, lang) {
-        //     var editvalue;
-        //     editvalue = tinyMCE.get('edit' + type + '').getContent().replace(/'/g, "");
-        //     // if (type == 'vision') {
-        //     //     editvalue = tinyMCE.get('editvision').getContent().replace(/'/g, "");
-        //     // } else if (type == 'missionstatement') {
-        //     //     editvalue = tinyMCE.get('editmision').getContent().replace(/'/g, "");
-        //     // } else {
-        //     //     editvalue = tinyMCE.get('editkey').getContent().replace(/'/g, "");
-        //     // }
+        //         var data = {
+        //             title: title,
+        //             // start_date: start_date,
+        //             // end_date: end_date,
+        //             info_image : info_image,
+        //             filename: filename,
+        //             mediaid: mediaid,
+        //             mediaimgid:mediaimgid,
+        //             link: link,
+        //             short_title: short_title,
+        //             operation: 'edit',
+        //             pagename: '<?Php echo $pagename ?>',
+        //             mas_id: docid
+        //         }
 
-        //     data = {
-        //         value: editvalue,
-        //         type: 'niot_director',
-        //         lang: lang,
-        //         operation: 'edit',
-        //         // checkrowcount: checkrowcount
+        //         $.ajax({
+        //             url: "webservice/add_info.php",
+        //             type: "POST",
+        //             dataType: 'json',
+        //             data: data,
+        //             success: function(data) {
+              
+        //                 if (data.status == 'ok') {
+        //                     get_records();
+                            
+        //                     swal('', "Successfully Created", "success")
+        //                     $('#edittxtTitle').val('');
+        //                     $('#editad_file').val('');
+        //                     $('#editModal').modal('hide');
+                        
+        //                 } else {
+        //                     swal("Error !", "Please try again", "error");
+        //                 }
+
+                       
+        //             },
+
+        //         });
+        //     }
+        // }
+        // function editBtn(id) {
+
+      
+        //     var editId, editTitle, editDate, editFilename, tblLink;
+        //     var editLabel = {
+
+        //         "en_label": {
+        //             "header": "Edit Scrolling Text",
+        //             "preview": "Preview Scrolling Text",
+        //             "title": "Edit Title",
+        //             "date": "Edit Date",
+        //             "file": "Edit File Name",
+        //             "url": "Edit Link"
+        //         },
+
         //     }
 
+        //     $('#editModalHeader').text(editLabel.en_label.header);
+        //     $('#previewModalHeader').text(editLabel.en_label.preview);
+        //     $('#editTitle').text(editLabel.en_label.title);
+        //     $('#editFile').text(editLabel.en_label.file);
+        //     $('#editDate').text(editLabel.en_label.date);
+        //     $('#editLink').text(editLabel.en_label.date);
+
+
+        //     // append the data
+
+        //     editTitle = $('#tblEnTitle' + id + '').text();
+        //     editDate = $('#tblEnDate' + id + '').text();
+        //     tblFileName = $('#tblEnFileName' + id + '').text();
+        //     tblLink = $('#tblEnLink' + id + '').text();
+
+
+        //     var datavalue = {
+        //         doc_id: JSON.parse(id),
+        //         pagename: '<?Php echo $pagename ?>',
+        //         operation: 'get_edit'
+        //     }
+
+        //     $.ajax({
+        //         url: "webservice/add_info.php",
+        //         type: "POST",
+        //         dataType: 'JSON',
+        //         data: datavalue,
+        //         success: function(data) {
+        //             console.log(data.result['info_image']);
+               
+        //             if (data.status == 'ok') {
+
+        //                 $('#editId').text(data.result['info_id']);
+        //                 $('#StatusType').text();
+        //                 $('#editTxtTitle').val(data.result['title']);
+        //                 if (data.result['ad_link'] != '') {
+
+        //                     $('#editlinkCheck').prop('checked', true);
+        //                     $('#editfileCheck').prop('checked', false);
+        //                     $('#edit_link').attr('required', 'required');
+
+        //                     $('#editlinkDiv').show();
+        //                     $('#editfileDiv').hide();
+        //                     $('#edit_link').val(data.result['ad_link']);
+        //                 } else if (data.result['media_id'] == '' && data.result['ad_link'] == '') {
+        //                     $('#editlinkCheck').prop('checked', false);
+        //                     $('#editfileCheck').prop('checked', false);
+        //                     $('#editnotneedcheck').prop('checked', true);
+        //                     $('#edit_link').removeAttr('required');
+
+        //                     $('#editlinkDiv').hide();
+        //                     $('#editfileDiv').hide();
+
+        //                 } else {
+        //                     $('#editfileCheck').prop('checked', true);
+        //                     $('#editlinkCheck').prop('checked', false);
+        //                     $('#editshort_title').attr('required', 'required');
+        //                     $('#editlinkDiv').hide();
+        //                     $('#editfileDiv').show();
+        //                     $('#editselectedmedia').text(data.result['filename']);
+        //                 }
+        //                 $('#editshort_title').val(data.result['short_title']);
+        //                 $('#editselectedmediaid').text(data.result['media_id']);
+        //                 $('#edmediaImage').val(data.result['info_image']);
+        //                 $('#edmediaImageid').text(data.result['mediaimgid']);
+
+        //                 $('#editslt_page').val(data.result['page_id']).trigger('change');
+        //                 $('#editstart_date').val(data.result['start_dt']);
+        //                 $('#editend_date').val(data.result['end_date']);
+
+        //             } else {
+        //                 swal("Error !", "Please try again", "error");
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             swal("Error !", "Please try again", "error");
+        //         }
+
+        //     });
+
+        //     // edit Modal popup
+
+
+        //     // Preview Modal popup
+        //     $('#previewId').text(id);
+        //     $('#prevTitle').text(editTitle);
+        //     $('#prevFileName').text(tblFileName);
+        //     $('#prevDate').text(editDate);
+        // }
+
+       
+
+
+
+        // function showFile() {
+        //     $('#set_operation').text('save');
+        //     get_newmedia();
+        //     $('#uploadmodal').modal('show');
+        //     // $('#uploadmodal').modal('show');
+
+        // }
+        // function showLink() {
+        //     $('#selectedmedia').text('');
+        //     $('#selectedmediaid').val('');
+        //     $('#linkDiv').show();
+        //     $('#fileDiv').hide();
+        //     $("#fileCheck").prop('checked', false);
+        //     $('#short_title').removeAttr('required');
+        //     $('#add_link').attr('required', 'required');
+        //     var checked = $("input[type=checkbox]:checked").length;
+        //     if (checked == 0) {
+        //         $("#linkCheck").prop('checked', true);
+        //     }
+
+        //     exactSize = 0;
+        //     ad_files = "";
+        // }
+
+        // function addImages() {
+        //     $('#set_operation').text('addInfo');
+        //     get_mediaImages();
+        //     $('#uploadImage').modal('show');
+        //     $('#short_title').attr('required', 'required');
+        // }
+        // function editImage() {
+        //     $('#set_operation').text('addInfo');
+        //     get_mediaImages();
+        //     $('#uploadImage').modal('show');
+        //     // $('#fileDiv').show();
+        //     $('#editshort_title').attr('required', 'required');
+        // }
+
+
+        // function get_mediaImages() {   
 
         //     $.ajax({
         //         type: 'POST',
-        //         // contentType: "application/json",
-        //         // dataType: "json",
-        //         url: 'webservice/whos_whosave.php',
-        //         data: data,
+        //         url: 'webservice/get_modal_newmediaImage.php',
         //         success: function(response, textStatus, xhr) {
+        //             $("#get_mediaImage").html(response);
 
-        //             console.log(response);
-
-        //             // swal({
-        //             // 		title: "Good job",
-        //             // 		text: "You clicked the button!",
-        //             // 		type: "success"
-        //             // 	},
-        //             // 	function() {
-        //             // 		location.reload();
-        //             // 	}
-        //             // );
-        //             swal({
-        //                 title: "",
-        //                 text: "Successfully Updated!",
-        //                 type: "success",
-        //                 buttons: [
-        //                     'NO',
-        //                     'YES'
-        //                 ],
-        //             }).then(function(isConfirm) {
-        //                 if (isConfirm) {
-        //                     location.reload();
-        //                 } else {
-        //                     //if no clicked => do something else
-        //                 }
-        //             });
         //         },
         //         complete: function(xhr) {
 
         //         },
         //         error: function(XMLHttpRequest, textStatus, errorThrown) {
         //             var response = XMLHttpRequest;
-        //             swal("Error :Archive!", "Please try again", "error");
+        //             swal("Error !", "Please try again", "error");
 
         //         }
         //     });
         // }
 
+        // function get_mediavalueImages(media_filename, media_shorttitle, media_id) {
+        //     var checkedValue = $('.subject-list:checked').val();
+        //     var get_operation = $('#set_operation').text();
+          
+        //     var ext = media_filename.split('.').pop();
+        //     if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'mp4' || ext == 'mp3') {
+        //         if (get_operation == 'addInfo') {
+        //             $('#SelectedmediaImage').val(media_filename);
+        //             $('#SelectedmediaImageid').text(media_id);
+        //             // $('#short_title').val(media_shorttitle);
+        //         } else {
 
+        //             // $('#editfileDiv').show();
+        //             $('#editselectedmedia').val(media_filename);
+        //             $('#editselectedmediaid').text(media_id);
+        //             $('#editshort_title').val(media_shorttitle);
+        //         }
 
-        // var url = window.location;
-        // console.log(url);
-        // // for sidebar menu but not for treeview submenu
-        // $('ul.sidebar-menu a').filter(function() {
-        //     return this.href == url;
+        //         $('#uploadImage').modal('hide');
+        //     } else {
+        //         swal("Error !", "Images and Video Only Allowed", "error");
+        //         get_mediaImages();
+        //     }
+        // }
+        // function get_mediavalue(media_filename, media_shorttitle, media_id) {
+        //     var checkedValue = $('.subject-list:checked').val();
+        //     var get_operation = $('#set_operation').text();
+        //     var ext = media_filename.split('.').pop();
+        //     if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'pdf') {
+        //         if (get_operation == 'save') {
+        //             $('#fileDiv').show();
+        //             $('#linkDiv').hide();
+        //             $('#selectedmedia').text(media_filename);
+        //             $('#selectedmediaid').text(media_id);
+        //             $('#short_title').val(media_shorttitle);
+        //             $("#linkCheck").prop('checked', false);
+        //             $('#add_link').removeAttr('required');
+        //             $('#short_title').attr('required', 'required');
 
-        // }).parent().siblings().removeClass('active').end().addClass('active');
-        // // for treeview which is like a submenu
-        // $('ul.treeview-menu a').filter(function() {
-        //     return this.href == url;
-        // }).parentsUntil(".sidebar-menu > .treeview-menu").siblings().removeClass('active menu-open').end().addClass('active menu-open');
+        //             var checked = $("input[type=checkbox]:checked").length;
+        //             if (checked == 0) {
+        //                 $("#fileCheck").prop('checked', true);
+        //             }
+
+        //         } else {
+
+        //             $('#editfileDiv').show();
+        //             $('#editselectedmedia').text(media_filename);
+        //             $('#editselectedmediaid').text(media_id);
+        //             $('#editshort_title').val(media_shorttitle);
+        //             $("#editlinkCheck").prop('checked', false);
+        //             $('#edit_link').removeAttr('required');
+        //             $('#editshort_title').attr('required', 'required');
+
+        //             var checked = $("input[type=checkbox]:checked").length;
+        //             if (checked == 0) {
+        //                 $("#editfileCheck").prop('checked', true);
+        //             }
+        //         }
+        //         $('#uploadmodal').modal('hide');
+
+        //     } else {
+        //         swal("Error !", "Images and Documents Only Allowed", "error");
+        //         get_newmedia();
+        //     }
+
+        // }
+
     </script>
+
 </body>
 
 </html>

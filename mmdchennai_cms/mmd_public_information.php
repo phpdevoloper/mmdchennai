@@ -331,10 +331,7 @@ $pagename = 'public_information';
 
                 var data = {
                     title: title,
-                    // start_date: start_date,
-                    // end_date: end_date,
                     info_image : info_image,
-                    filename: filename,
                     filename: filename,
                     mediaid: mediaid,
                     mediaimgid:mediaimgid,
@@ -369,7 +366,7 @@ $pagename = 'public_information';
                 });
             }
         }
-        function edit_contents(value) {
+        function edit_info(value) {
             if ($('#editdemo-form').parsley().validate() != true) {
                 return false;
 
