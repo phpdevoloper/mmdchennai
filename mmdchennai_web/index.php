@@ -1,5 +1,5 @@
 <?php include("include/db_connection.php");
-$slider = "select * from mst_slider where status= 'L' order by position_order ";
+$slider = "select * from mst_slider where status= 'L' order by position_order";
 $resultslider = pg_query($db, $slider);
 $slider_count = pg_num_rows($resultslider);
 

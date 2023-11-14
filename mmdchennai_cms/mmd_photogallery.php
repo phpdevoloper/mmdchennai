@@ -1,6 +1,14 @@
 <?php include("include/db_connection.php");
 include 'include/session.php';
 $pagename = 'public_information';
+
+$images_query ="SELECT * FROM mst_photogallery where status='L' order by uploaded_on desc";
+$result_images = pg_query($db, $images_query);
+$count_images = pg_fetch_all($result_images);
+// var_dump($count_images);die;
+// $folder_id = $_SESSION['mediafolder_id'];
+// $foldername = $_SESSION['media_foldername'];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,114 +23,24 @@ $pagename = 'public_information';
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <?php include "include/sourcelink_css.php" ?>
     <style>
-    .gallery-section {
-        position: relative;
-        z-index: 1;
+
+    .gallery-box{
+        text-align: center;
+    box-shadow: 7px 3px 10px 10px #ab9d9d;
+    }
+    .gallery-box a img{
+        padding: 10px 10px;
+    }
+    .gallery-box .mediaimg{
+        opacity: 0;
+    }
+    .gallery-box:hover .mediaimg {
+        opacity: 1;
+    }
+    .info-box h5{
+        padding: 5px 5px;
     }
 
-
-.gallery {
-  display: flex;
-  justify-content: center;
-  width: fit-content;
-  max-width: 1320px;
-  flex-wrap: wrap;
-  margin: 25px auto;
-  /* gap: 14px; */
-}
-.gallery a {
-  display: flex;
-}
-.gallery img {
-  width: 200px;
-  height: 220px;
-  object-fit: cover;
-  transition: 0.3s ease-in-out;
-  border-radius: 12px;
-  overflow: hidden;
-  margin: 10px 10px;
-
-  border: 12px solid #fff;
-    border-bottom: 66px solid #fff;
-    box-shadow: 3px 3px 3px #888;
-    /* height: auto; */
-    /* max-width: 100%; */
-}
-
-.gallery img:hover {
-  transform: scale(1.1);
-}
-
-.sets .hide,
-.sets .pophide {
-  width: 0%;
-  opacity: 0;
-}
-
-
-.openDiv {
-  width: 100%;
-  height: 100vh;
-  background: #000000e7;
-  position: fixed;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  left: 0;
-  z-index: 9999;
-}
-.imgPreview {
-  width: 70%;
-  object-fit: scale-down;
-  max-height: 40vw;
-  height: auto;
-}
-
-
-
-
-
-/* resposive CSS Code */
-
-@media max-width: 1199px {
-  .section-padding {
-    padding-top: 70px;
-  }
-}
-@media (max-width: 991px) {
-  .section-padding {
-    padding-top: 50px;
-  }
-}
-@media (max-width: 767px) {
-  .title {
-    font-size: 36px;
-  }
-  .gallery img {
-    margin: 8px 8px;
-    width: 175px;
-  }
-}
-
-@media (max-width: 540px) {
-  .section-padding {
-    padding-top: 30px;
-  }
-  
-  .gallery img {
-    margin: 8px 6px;
-    width: 155px;
-  }
-
-  .imgPreview {
-    width: 90%;
-    max-height: 50vh;
-    height: auto;
-  }
-  
-}
     </style>
 
 </head>
@@ -161,7 +79,28 @@ $pagename = 'public_information';
                     <div class="card-box mb-30">
                        
                         <div class="pd-20">
-                            <div class="gallery sets">
+                         <div class="row">
+                            <div class="col-lg-4">
+                                <div class="gallery-box">
+                                    <div class="mediaimg pull-right">
+                                        <button type="button" class="btn btn-icon btn-warning" title="copy to clipboard" onclick="copy_clip('<?Php echo $copy_clip ?>');">
+                                            <i class="fa fa-copy"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-success" title="Edit Here" data-toggle="modal" data-target="#editmediaModal" onclick="editbtn(<?Php echo $row['media_id'] ?>,'<?php echo $row['title'] ?>');">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-icon btn-danger" title="Delete Here" onclick="deletebtn(<?Php echo $row['media_id'] ?>);">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    <a href="" class="info-box">
+                                        <img src="https://i.redd.it/a90376enwvg91.jpg" alt="">
+                                        <h5>Testing</h5>
+                                    </a>
+                                </div>
+                            </div>
+                         </div>
+                            <!-- <div class="gallery sets">
                                 <a class="all Bollywood"><img src="https://iili.io/y7W4t4.md.webp"/>
                                         <p>Image 1<br>more Text ...</p>
                                 </a>
@@ -180,7 +119,8 @@ $pagename = 'public_information';
                                 <a class="all tv"><img src="https://i.redd.it/2s7w09k01ol91.jpg"/></a>
                                 <a class="all tv"><img src="https://i.redd.it/2s7w09k01ol91.jpg"/></a>
                                 
-                            </div>
+                            </div> -->
+
                             <!-- <div id="getrecords">
 
                             </div> -->
@@ -362,6 +302,53 @@ $pagename = 'public_information';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success  subLang" onclick="edit_info(this.value);" class="">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal animated fade modal-popout-bg" id="editmediaModal" role="dialog" tabindex="-1" data-keyboard="true" data-backdrop="static">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header" style=" border-bottom: 1px solid #e8e8e8;">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="vendors/images/logo.gif" alt="MMD Logo">
+                            </div>
+                            <div class="col-lg-9">
+                                <h3 class="text-center">Edit Media</h3>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-body" style="padding-top:10px;">
+                    <span hidden id="media_id"></span>
+
+
+                    <form id="editmedia-form" data-parsley-validate="">
+                        <div clas="row" id="fileDiv">
+                            <div class="form-group">
+                                <label for="title">Edit Title<span class="mandatory"> *</span></label>
+                                <input type="text" class="form-control" id="edittxtTitle" name="title" placeholder="Enter Title" required="" ddata-parsley-length="[3,100]" required data-parsley-checkmediatitle='' data-parsley-trigger="keyup change keypress">
+                                <!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="title">Alternative Title<span class="mandatory"> *</span></label>
+                                <input type="text" class="form-control" id="alt_title" name="title" placeholder="Enter Title" required="" data-parsley-length="[2, 5000]" data-parsley-group="block1" data-parsley-trigger="change">
+                              
+                            </div> -->
+
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit_media();">Update</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -741,6 +728,11 @@ $pagename = 'public_information';
         //     }
 
         // }
+
+        function editbtn(media_id, title) {
+            $('#media_id').text(media_id);
+            $('#edittxtTitle').val(title);
+        }
 
     </script>
 
