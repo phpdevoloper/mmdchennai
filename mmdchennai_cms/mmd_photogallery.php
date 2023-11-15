@@ -80,25 +80,29 @@ $count_images = pg_fetch_all($result_images);
                        
                         <div class="pd-20">
                          <div class="row">
+                            <?php 
+                              foreach ($count_images as $cate) {
+                            ?>
                             <div class="col-lg-4">
                                 <div class="gallery-box">
                                     <div class="mediaimg pull-right">
                                         <button type="button" class="btn btn-icon btn-warning" title="copy to clipboard" onclick="copy_clip('<?Php echo $copy_clip ?>');">
                                             <i class="fa fa-copy"></i>
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-success" title="Edit Here" data-toggle="modal" data-target="#editmediaModal" onclick="editbtn(<?Php echo $row['media_id'] ?>,'<?php echo $row['title'] ?>');">
+                                        <button type="button" class="btn btn-icon btn-success" title="Edit Here" data-toggle="modal" data-target="#editmediaModal" onclick="editbtn(<?Php echo $cate['doc_id'] ?>,'<?php echo $cate['title'] ?>');">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-danger" title="Delete Here" onclick="deletebtn(<?Php echo $row['media_id'] ?>);">
+                                        <button type="button" class="btn btn-icon btn-danger" title="Delete Here" onclick="deletebtn(<?Php echo $cate['doc_id'] ?>);">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </div>
                                     <a href="" class="info-box">
-                                        <img src="https://i.redd.it/a90376enwvg91.jpg" alt="">
-                                        <h5>Testing</h5>
+                                        <img src="uploads/media/local/20230718122750mmdchennai_120231017132534.jpg" alt="">
+                                        <h5><?php echo $cate['title'];?></h5>
                                     </a>
                                 </div>
                             </div>
+                            <?php } ?>
                          </div>
                             <!-- <div class="gallery sets">
                                 <a class="all Bollywood"><img src="https://iili.io/y7W4t4.md.webp"/>
@@ -732,6 +736,45 @@ $count_images = pg_fetch_all($result_images);
         function editbtn(media_id, title) {
             $('#media_id').text(media_id);
             $('#edittxtTitle').val(title);
+        }
+
+        function edit_media() {
+            if ($('#editmedia-form').parsley().validate() != true) {
+                return false;
+
+            } else {
+                var edittitle, editmedia_id;
+                edittitle = $.trim($('#edittxtTitle').val());
+                editmedia_id = JSON.parse($('#media_id').text());
+                console.log(edittitle,editmedia_id);
+                var editdata = {
+                    title: edittitle,
+                    media_id: editmedia_id,
+                    operation: 'edit_category'
+                }
+
+                $.ajax({
+                    url: "webservice/add_gallery.php",
+                    type: 'post',
+                    data: editdata,
+                    dataType: 'json',
+
+                    success: function(data) {
+
+                        if (data.status = "ok") {
+                            
+                            swal('', "Successfully Created", "success");
+                            $('#editmediaModal').modal('hide');
+                            get_records();
+
+                        } else {
+
+                            swal("Error :Publish!", "Please try again", "error");
+                        }
+                    },
+
+                });
+            }
         }
 
     </script>
