@@ -96,7 +96,7 @@ $count_images = pg_fetch_all($result_images);
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </div>
-                                    <a href="#" class="info-box" onclick="redirect_url_front_gal(<?Php echo $cate['doc_id'] ?>)">
+                                    <a href="" class="info-box">
                                         <img src="uploads/media/local/20230718122750mmdchennai_120231017132534.jpg" alt="">
                                         <h5><?php echo $cate['title'];?></h5>
                                     </a>
@@ -775,30 +775,6 @@ $count_images = pg_fetch_all($result_images);
 
                 });
             }
-        }
-        function redirect_url_front_gal(id) {
-            var data = {
-                id: id,
-                //lang: currentLang,
-                pagename: 'gallery',
-                get_pagename: pagename
-            }
-
-            $.ajax({
-                url: "webservice/gallery_session.php",
-                type: 'POST',
-                dataType: 'json',
-                data: data
-            }).done(function(res) {
-
-                if (res.valid) {
-                    if (get_type == 'video') {
-                        document.location.href = 'niot_videogallerydetails.php';
-                    } else {
-                        document.location.href = 'mmd_view_photogallery.php';
-                    }
-                }
-            });
         }
 
     </script>
