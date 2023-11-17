@@ -1,149 +1,270 @@
 <?php
+
 include_once '../include/db_connection.php';
 include '../include/session.php';
 include '../include/checkval.php';
-// var_dump($_POST);die;
+$operation  = $_POST['operation'];
+$title      = $_POST['title'];
+$title      = chkbadchar($title);
+$filename   = $_POST['filename'];
+$media_id   = $_POST['mediaid'];
+$media_id   = chkbadchar($media_id);
+$short_title = $_POST['short_title'];
+$short_title = chkbadchar($short_title);
+$sessionId      = $_SESSION['current_user_id'];
+$sessionId      = chkbadchar($sessionId);
+$currdate       = date('Y-m-d h:i:s');
+$slider_id      = $_POST['slider_id'];
+$slider_id      = chkbadchar($slider_id);
 
-$title = $_POST['title'];
-$media_id = $_POST['title'];
-$operation = $_POST['operation'];
-$sessionId = $_SESSION['current_user_id'];
-// echo $sessionId;
-// exit;
-$currdate = date('Y-m-d h:i:s');
-$folder_id = $_POST['folder_id'];
-$doc_type = $_POST['doc_type'];
-$title = $_REQUEST['title'];
 
-if ($operation == 'edit_category') {
-    $title = $_POST['title'];
-    $media_id = $_POST['media_id'];
-    // $folder_id = $_POST['folder_id'];
-    if (empty($title) || empty($media_id)) {
+
+if ($operation == 'save') {
+    // var_dump($title);die;
+    if (empty($title) || empty($filename) || empty($media_id) || empty($short_title)) {
         $error = 1;
     } else {
         if ($title) {
-            $char_title = chktitle($title);
-            $length_title = chklen100($title);
+            $char_title = checkrtidoctitle($title);
+            $length_title = chklen1500($title);
             if (empty($char_title) || empty($length_title)) {
                 $error = 1;
             }
         }
+
         if ($media_id) {
             $char_media_id = chkint($media_id);
             if (empty($char_media_id)) {
                 $error = 1;
             }
         }
+        if ($filename) {
+            $char_filename = chktitle($filename);
+            $length_filename = chklen200($filename);
+            $check_filename = chkfileslider($filename);
+            if (
+                empty($char_filename) ||
+                empty($length_filename) ||
+                empty($check_filename)
+            ) {
+                $error = 1;
+            }
+        }
+        if ($short_title) {
+            $char_short_title = chktitle($short_title);
+            $length_short_title = chklen20($short_title);
+            if (empty($char_short_title) || empty($length_short_title)) {
+                $error = 1;
+            }
+        }
     }
-
-    redirect_error($error);
+    
     if ($error != 1) {
-        $edit_query = "update mst_photogallery set title = '$title',updated_by = '$sessionId',updated_on = '$currdate' where doc_id = $media_id";
-        // echo $edit_query;exit;
-        $result_media = pg_query($db, $edit_query);
+        $query = "insert into mst_photogallery(title,short_title,filename,media_id,inserted_by,uploaded_on,updated_on) 
+        values('$title','$filename','$short_title','$media_id','$sessionId','$currdate','$currdate')";
+        // echo $query;die;
+        $result = pg_query($db, $query);
 
-        if ($result_media) {
-            $data['status'] = 'ok';
-            $data['result'] = $edit_query;
+        if ($result) {
+            $files_arr['status'] = 'ok';
         } else {
-            $data['status'] = 'ok';
-            $data['result'] = $edit_query;
+            $files_arr['status'] = 'error';
         }
     } else {
-        $data['status'] = 'ok';
-        $data['result'] = $error;
+        $files_arr['status'] = 'error';
     }
-    echo json_encode($data);
-    exit;
-
-} else if ($operation == 'delete_media') {
-
-    
-    $media_id = $_POST['media_id'];
-    if (empty($media_id)) {
+    echo json_encode($files_arr);
+}elseif ($operation == 'save_photo') {
+    if (empty($title) || empty($filename) || empty($media_id) || empty($short_title)) {
         $error = 1;
     } else {
+        if ($title) {
+            $char_title = checkrtidoctitle($title);
+            $length_title = chklen1500($title);
+            if (empty($char_title) || empty($length_title)) {
+                $error = 1;
+            }
+        }
+
         if ($media_id) {
             $char_media_id = chkint($media_id);
             if (empty($char_media_id)) {
                 $error = 1;
             }
         }
+        if ($filename) {
+            $char_filename = chktitle($filename);
+            $length_filename = chklen200($filename);
+            $check_filename = chkfileslider($filename);
+            if (
+                empty($char_filename) ||
+                empty($length_filename) ||
+                empty($check_filename)
+            ) {
+                $error = 1;
+            }
+        }
+        if ($short_title) {
+            $char_short_title = chktitle($short_title);
+            $length_short_title = chklen20($short_title);
+            if (empty($char_short_title) || empty($length_short_title)) {
+                $error = 1;
+            }
+        }
     }
-    redirect_error($error);
+    
     if ($error != 1) {
-        $delete_query = "update mst_media set status='N',updated_by = '$sessionId',updated_on = '$currdate' where media_id = $media_id";
-        $result_media = pg_query($db, $delete_query);
-        if ($result_media) {
-            $data['status'] = 'ok';
-            $data['result'] = $delete_query;
+        $query = "insert into mmd_photogallery(title,filename,short_title,mas_doc_id,media_id,inserted_by,uploaded_on,updated_on) 
+        values('$title','$filename','$short_title','".$_SESSION['gallery_id']."','$media_id','$sessionId','$currdate','$currdate')";
+        // echo $query;die;
+        $result = pg_query($db, $query);
+
+        if ($result) {
+            $files_arr['status'] = 'ok';
         } else {
-            $data['status'] = 'err';
-            $data['result'] = $delete_query;
+            $files_arr['status'] = 'error';
         }
     } else {
-        $data['status'] = 'err';
-        $data['result'] = $error;
+        $files_arr['status'] = 'error';
     }
-    echo json_encode($data);
+    echo json_encode($files_arr);
+    
+}elseif ($operation == 'get_edit') {
+    if (empty($slider_id)) {
+        $error = 1;
+    } else {
+        if ($slider_id) {
+            $char_slider_id = chkint($slider_id);
+            if (empty($char_slider_id)) {
+                $error = 1;
+            }
+        }
+    }
+    if ($error != 1) {
+        $edit_query = "select * from mst_slider where slider_id = $slider_id";
+        $edit_result = pg_query($db, $edit_query);
+        $edit_value = pg_fetch_array($edit_result);
+        if ($edit_value) {
+            $files_arr['status'] = 'ok';
+            $files_arr['result'] = $edit_value;
+        } else {
+            $files_arr['status'] = 'error';
+        }
+    } else {
+        $files_arr['status'] = 'error';
+    }
+    echo json_encode($files_arr);
+} elseif ($operation == 'edit') {
+    if (
+        empty($title) ||
+        empty($filename) ||
+        empty($media_id) ||
+        empty($short_title)
+    ) {
+        $error = 1;
+    } else {
+        if ($title) {
+            $char_title = checkrtidoctitle($title);
+            $length_title = chklen1500($title);
+            if (empty($char_title) || empty($length_title)) {
+                $error = 1;
+            }
+        }
+
+        if ($media_id) {
+            $char_media_id = chkint($media_id);
+            if (empty($char_media_id)) {
+                $error = 1;
+            }
+        }
+        if ($filename) {
+            $char_filename = chktitle($filename);
+            $length_filename = chklen200($filename);
+            $check_filename = chkfileslider($filename);
+            if (
+                empty($char_filename) ||
+                empty($length_filename) ||
+                empty($check_filename)
+            ) {
+                $error = 1;
+            }
+        }
+        if ($short_title) {
+            $char_short_title = chktitle($short_title);
+            $length_short_title = chklen20($short_title);
+            if (empty($char_short_title) || empty($length_short_title)) {
+                $error = 1;
+            }
+        }
+    }
+    if ($error != 1) {
+        $edit_query = "update mst_slider set title ='$title' ,filename = '$filename',media_id= '$media_id',short_title ='$short_title' ,updated_by ='$sessionId' ,updated_on='$currdate'  where slider_id = $slider_id";
+        $edit_result = pg_query($db, $edit_query);
+        if ($edit_result) {
+            $files_arr['status'] = 'ok';
+        } else {
+            $files_arr['status'] = 'error';
+        }
+    } else {
+        $files_arr['status'] = 'error';
+    }
+    echo json_encode($files_arr);
+} elseif ($operation == 'swipe') {
+  
+    $position = $_POST['position'];
+    $position = chkbadchar($position);
+    echo $operation;
     exit;
-    $get_previous = "select foldername from mst_mediafolder where status='L' and folder_id = $folder_id";
-    $result_old = pg_query($db, $get_previous);
-    $get_oldname = pg_fetch_array($result_old);
-    // $oldoutput_dir = '../uploads/media/' . $get_oldname['foldername'] . '/';
-    // $newoutput_dir = '../uploads/media/deleted_media/' . $get_oldname['foldername'] . '/';
-    $delete_name = date('YmdHis');
+    $i = 1;
+    foreach ($position as $k => $v) {
+        $sql =
+            'Update mst_slider SET position_order=' .
+            $i .
+            ' WHERE slider_id=' .
+            $v;
 
-    $source_file = '../uploads/media/' . $get_oldname['foldername'] . '/';
-    $destination_path = '../uploads/media/' . $get_oldname['foldername'] . '/' . $filename . '';
-    if (rename($source_file, $destination_path . pathinfo($source_file, PATHINFO_BASENAME))) {
+        $result = pg_query($db, $sql);
 
-        $delete_query = "update mst_media set status='N',updated_by = '$sessionId',updated_on = '$currdate' where media_id = $media_id";
-        $result_media = pg_query($db, $delete_query);
-        if ($result_media) {
-            $data['status'] = 'ok';
-            $data['result'] = $delete_query;
+        $i++;
+        if ($result) {
+            $files_arr['status'] = 'ok';
         } else {
-            $data['status'] = 'err';
-            $data['result'] = $delete_query;
+            $files_arr['status'] = 'err';
+        }
+    }
+    echo json_encode($files_arr);
+} else if ($operation == "status_change") {
+    $status = $_POST['status'];
+    $status = chkbadchar($status);
+    if (
+        empty($slider_id) ||
+        empty($status)
+    ) {
+        $error = 1;
+    } else {
+        if ($slider_id) {
+            $char_slider_id = chkint($slider_id);
+            if (empty($char_slider_id)) {
+                $error = 1;
+            }
+        }
+    }
+
+    if ($error != 1) {
+
+        $edit_query = "update  mst_slider set status= '$status' where slider_id = $slider_id ";
+        $edit_result = pg_query($db, $edit_query);
+
+        if ($edit_result) {
+            $files_arr['status'] = 'ok';
+            
+        } else {
+            $files_arr['status'] = 'error';
+            
         }
     } else {
-
-        $data['status'] = 'err';
-        $data['result'] =  $destination_path;
+        $files_arr['status'] = 'error';
+        $files_arr['result'] = $error;
     }
-    echo json_encode($data);
-
-    exit;
-    if (move_uploaded_file($delete_name, $oldoutput_dir)) {
-
-        // Moving file to New directory 
-        if (rename(realpath($oldoutput_dir) . '/' . $folder_name, realpath($newoutput_dir) . '/' . $delete_name)) {
-        } else {
-            $data['status'] = 'err';
-            // $data['result'] = $delete_query;
-        }
-    } else {
-        $data['status'] = 'err';
-        $data['result'] = $delete_name;
-    }
-    echo json_encode($data);
-} else if ($operation == 'media_session') {
-    session_start();
-    if (isset($_POST['id'])) {
-        $_SESSION['mediafolder_id'] = $_POST['id'];
-        $_SESSION['media_foldername'] = $_POST['media_foldername'];
-        // $_SESSION['alt_mediafoldername'] = $_POST['alt_mediafoldername'];
-        // $_SESSION['currentlang'] = $_POST['lang'];
-        $result['valid'] = TRUE;
-    }
-    $result['mediafolder_id']  = $_SESSION['mediafolder_id'];
-    $result['media_foldername']  = $_SESSION['media_foldername'];
-    // $result['alt_mediafoldername']  = $_SESSION['alt_mediafoldername'];
-    // $result['alt_foldername']  = $_SESSION['alt_foldername'];
-    // $result['lang']  = $_SESSION['currentlang'];
-    // echo  json_encode($_SESSION['session_empcode']);
-    echo json_encode($result);
-    exit();
+    echo json_encode($files_arr);
 }
