@@ -3,6 +3,8 @@
 include_once '../include/db_connection.php';
 include '../include/session.php';
 include '../include/checkval.php';
+
+
 $operation  = $_POST['operation'];
 $title      = $_POST['title'];
 $title      = chkbadchar($title);
@@ -14,8 +16,8 @@ $short_title = chkbadchar($short_title);
 $sessionId      = $_SESSION['current_user_id'];
 $sessionId      = chkbadchar($sessionId);
 $currdate       = date('Y-m-d h:i:s');
-$slider_id      = $_POST['slider_id'];
-$slider_id      = chkbadchar($slider_id);
+$gallery_id      = $_POST['doc_id'];
+$gallery_id      = chkbadchar($gallery_id);
 
 
 
@@ -61,7 +63,7 @@ if ($operation == 'save') {
     
     if ($error != 1) {
         $query = "insert into mst_photogallery(title,short_title,filename,media_id,inserted_by,uploaded_on,updated_on) 
-        values('$title','$filename','$short_title','$media_id','$sessionId','$currdate','$currdate')";
+        values('$title','$short_title','$filename','$media_id','$sessionId','$currdate','$currdate')";
         // echo $query;die;
         $result = pg_query($db, $query);
 
@@ -130,20 +132,22 @@ if ($operation == 'save') {
     echo json_encode($files_arr);
     
 }elseif ($operation == 'get_edit') {
-    if (empty($slider_id)) {
+   
+    if (empty($gallery_id)) {
         $error = 1;
     } else {
-        if ($slider_id) {
-            $char_slider_id = chkint($slider_id);
-            if (empty($char_slider_id)) {
+        if ($gallery_id) {
+            $char_gallery_id = chkint($gallery_id);
+            if (empty($char_gallery_id)) {
                 $error = 1;
             }
         }
     }
     if ($error != 1) {
-        $edit_query = "select * from mst_slider where slider_id = $slider_id";
+        $edit_query = "select * from mst_photogallery where doc_id = $gallery_id";
         $edit_result = pg_query($db, $edit_query);
         $edit_value = pg_fetch_array($edit_result);
+
         if ($edit_value) {
             $files_arr['status'] = 'ok';
             $files_arr['result'] = $edit_value;
@@ -154,13 +158,9 @@ if ($operation == 'save') {
         $files_arr['status'] = 'error';
     }
     echo json_encode($files_arr);
+
 } elseif ($operation == 'edit') {
-    if (
-        empty($title) ||
-        empty($filename) ||
-        empty($media_id) ||
-        empty($short_title)
-    ) {
+    if (empty($title) || empty($filename) || empty($media_id) || empty($short_title)) {
         $error = 1;
     } else {
         if ($title) {
@@ -198,8 +198,10 @@ if ($operation == 'save') {
         }
     }
     if ($error != 1) {
-        $edit_query = "update mst_slider set title ='$title' ,filename = '$filename',media_id= '$media_id',short_title ='$short_title' ,updated_by ='$sessionId' ,updated_on='$currdate'  where slider_id = $slider_id";
+        $edit_query = "update mst_photogallery set title ='$title' ,filename = '$filename',media_id= '$media_id',short_title ='$short_title' ,updated_by ='$sessionId' ,updated_on='$currdate'  where doc_id = '$gallery_id'";
         $edit_result = pg_query($db, $edit_query);
+
+
         if ($edit_result) {
             $files_arr['status'] = 'ok';
         } else {

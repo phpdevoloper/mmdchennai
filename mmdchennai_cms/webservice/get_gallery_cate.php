@@ -7,7 +7,7 @@ include '../include/checkval.php';
 
 $operation = $_POST['operation'];
 $sessionId = $_SESSION['current_user_id'];
-$get_slider = "select * from mmd_photogallery where mas_doc_id='".$_SESSION['gallery_id']."'";
+$get_slider = "select * from mst_photogallery ORDER BY doc_id DESC";
 $result_slider = pg_query($db, $get_slider);
 $row_slider_count = pg_num_rows($result_slider);
 
