@@ -3,13 +3,11 @@ include 'include/db_connection.php';
 include 'include/session.php';
 $images_query =
     "select * from mst_media where status='L' and file_extension in ('jpeg','jpg','gif','png') order by uploaded_on desc";
+
 $result_images = pg_query($db, $images_query);
-$count_images = pg_fetch_all($result_images);
-
-var_dump($count_images);die;
-
-
-
+$count_images = pg_num_rows($result_images);
+$folder_id = $_SESSION['mediafolder_id'];
+$foldername = $_SESSION['media_foldername'];
 ?>
 <!DOCTYPE html>
 <html>

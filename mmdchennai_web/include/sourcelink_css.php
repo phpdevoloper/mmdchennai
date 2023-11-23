@@ -8,8 +8,8 @@
 
    <!-- Icon Font Stylesheet -->
    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" /> -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+   <link rel="stylesheet" href="css/fontawesome-free-6.4.2/css/all.min.css"/>
+   <link href="css/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
 
    <!-- Libraries Stylesheet -->
    <link href="lib/animate/animate.min.css" rel="stylesheet" />
@@ -22,6 +22,8 @@
    <link rel="stylesheet" type="text/css" href="css/icon-font.min.css">
    <link href="lib/datatables/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
    <link href="css/sweetalert.min.css" rel="stylesheet" />
+   <link href="css/glightbox.min.css" rel="stylesheet" />
+   <link href="css/swiper-bundle.min.css" rel="stylesheet" />
    
    <!-- Template Stylesheet -->
    <link href="css/style.css" rel="stylesheet" />

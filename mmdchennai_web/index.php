@@ -661,8 +661,22 @@ $slider_count = pg_num_rows($resultslider);
                         Gallery
                     </h6>
                 </div>
-                <div class="row g-5">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3" data-wow-delay="0.1s">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <ul id="portfolio-flters">
+                            <!-- <li data-filter="*" class="filter-active">All</li> -->
+                            <li data-filter=".filter-app" class="filter-active">PHOTOS</li>
+                            <li data-filter=".filter-vide">VIDEOS</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row g-5 portfolio-container">
+                <?php $images_query ="SELECT * FROM mst_photogallery where status='L' order by uploaded_on desc";
+                        $result_images = pg_query($db, $images_query);
+                        $count_images = pg_fetch_all($result_images);
+
+?>
+                    <!-- <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 filter-app" data-wow-delay="0.1s">
                         <a class="service-item d-block rounded text-center h-100 p-4" href="">
                             <img class="custom-gallery rounded mb-4" src="img/mmdchennai_1.jpg" alt="" />
                         </a>
@@ -671,37 +685,56 @@ $slider_count = pg_num_rows($resultslider);
                                 <h4 class="gallery_title">Gallery Group 1</h4>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3" data-wow-delay="0.3s">
-                        <a class="service-item d-block rounded text-center h-100 p-4" href="">
-                            <img class="custom-gallery rounded mb-4" src="img/mmdchennai_2.jpg" alt="" />
-                            <h4 class="mb-0 gallery_title">Gallery Group 2</h4>
+                    </div> -->
+                    <?php foreach ($count_images as $cate) { 
+                        $media_id = $cate['media_id'];
+                        $get_file = "select me.foldername,ms.filesize,ms.alt_filename as filename  from mst_media ms 
+                                inner join mst_mediafolder me on ms.folder_id = me.folder_id 
+                                where ms.media_id = $media_id";
+                        $result_media = pg_query($db, $get_file);
+                        $row_media = pg_fetch_array($result_media);
+                    ?>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 portfolio-item filter-app" data-wow-delay="0.3s">
+                        <a class="service-item d-block rounded text-center h-100 p-4" href="javascript:void(0);" onclick="redirect_url_front_gal(<?Php echo $cate['doc_id'] ?>)">
+                            <img class="custom-gallery rounded mb-4" src="uploads/media/<?Php echo  $row_media['foldername'] ?>/<?php echo $row_media['filename'] ?>" alt="" />
+                            <h4 class="mb-0 gallery_title"><?php echo $cate['title'];?></h4>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3" data-wow-delay="0.5s">
+                    <?php } ?>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 portfolio-item filter-vide" data-wow-delay="0.3s">
+                        <a class="service-item d-block rounded text-center h-100 p-4" href="javascript:void(0);" onclick="redirect_url_front_gal(<?Php echo $cate['doc_id'] ?>)">
+                            <img class="custom-gallery rounded mb-4" src="uploads/media/<?Php echo  $row_media['foldername'] ?>/<?php echo $row_media['filename'] ?>" alt="" />
+                            <h4 class="mb-0 gallery_title"><?php echo $cate['title'];?></h4>
+                        </a>
+                    </div>
+
+                    <div class="portfolio-item filter-vide">
+                        <a href="">View All</a>
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 filter-app" data-wow-delay="0.5s">
                         <a class="service-item d-block rounded text-center h-100 p-4" href="">
                             <img class="custom-gallery rounded mb-4" src="img/mmdchennai_3.jpg" alt="" />
                             <h4 class="mb-0 gallery_title">Gallery Group 3</h4>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3" data-wow-delay="0.1s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 filter-vide" data-wow-delay="0.1s">
                         <a class="service-item d-block rounded text-center h-100 p-4" href="">
                             <img class="custom-gallery rounded mb-4" src="img/mmdchennai_4.jpg" alt="" />
                             <h4 class="mb-0 gallery_title ">Gallery Group 4</h4>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 filter-vide" data-wow-delay="0.3s">
                         <a class="service-item d-block rounded text-center h-100 p-4" href="">
                             <img class="custom-gallery rounded mb-4" src="img/mmdchennai_1.jpg" alt="" />
                             <h4 class="mb-0 gallery_title">Gallery Group 5</h4>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 " data-wow-delay="0.5s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp mb-3 filter-vide" data-wow-delay="0.5s">
                         <a class="service-item d-block rounded text-center h-100 p-4" href="">
                             <img class="custom-gallery rounded mb-4" src="img/mmdchennai_3.jpg" alt="" />
                             <h4 class="mb-0 gallery_title">Gallery Group 6</h4>
                         </a>
-                    </div>
+                    </div> -->
                     <!-- <div class="featuredPropBox"> -->
                     <!-- <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="effect effect-four">
@@ -832,272 +865,8 @@ $slider_count = pg_num_rows($resultslider);
 
     </div>
     </div>
-
-    <!-- <div class="services">
-                <div class="services__box">
-                    <figure class="services__icon">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                    </figure>
-                   
-                    <a href="">Exam Schedule</a>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#fd6494">
-                        <ion-icon name="code-slash-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Desenvolvimento Front-End
-                        </h2>
-                    </div>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#43f390">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            SEO
-                        </h2>
-
-                    </div>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#ffb508">
-                        <ion-icon name="bar-chart-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Marketing Digital
-                        </h2>
-
-                    </div>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#37ba82">
-                        <ion-icon name="videocam-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Edição de Vídeos
-                        </h2>
-
-                    </div>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#cd57ff">
-                        <ion-icon name="game-controller-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Desenvolvimento de Jogos
-                        </h2>
-
-                    </div>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#cd57ff">
-                        <ion-icon name="game-controller-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Desenvolvimento de Jogos
-                        </h2>
-
-                    </div>
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#cd57ff">
-                        <ion-icon name="game-controller-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Desenvolvimento de Jogos
-                        </h2>
-
-                    </div>
-
-                </div>
-                <div class="services__box">
-                    <figure class="services__icon" style="--i:#cd57ff">
-                        <ion-icon name="game-controller-outline"></ion-icon>
-                    </figure>
-                    <div class="services__content">
-                        <h2 class="services__title">
-                            Desenvolvimento de Jogos
-                        </h2>
-                    
-    </div>
-
-    </div>
-
-    </div> -->
     </div>
     </div>
-
-
-    <!-- Project Start -->
-    <!-- <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="section-title bg-white text-center text-primary px-3">Our Projects</h6>
-                <h1 class="display-6 mb-4">Learn More About Our Complete Projects</h1>
-            </div>
-            <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="project-item border rounded h-100 p-4" data-dot="01">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-1.jpg" alt="">
-                        <a href="img/project-1.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="02">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-2.jpg" alt="">
-                        <a href="img/project-2.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="03">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-3.jpg" alt="">
-                        <a href="img/project-2.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="04">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-4.jpg" alt="">
-                        <a href="img/project-4.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="05">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-5.jpg" alt="">
-                        <a href="img/project-5.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="06">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-6.jpg" alt="">
-                        <a href="img/project-6.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="07">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-7.jpg" alt="">
-                        <a href="img/project-7.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="08">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-8.jpg" alt="">
-                        <a href="img/project-8.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="09">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-9.jpg" alt="">
-                        <a href="img/project-9.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="10">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded" src="img/project-10.jpg" alt="">
-                        <a href="img/project-10.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>UI / UX Design</h6>
-                    <span>Digital agency website design and development</span>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Project End -->
-
-    <!-- Team Start -->
-    <!-- <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="section-title bg-white text-center text-primary px-3">Our Team</h6>
-                <h1 class="display-6 mb-4">We Are A Creative Team For Your Dream Project</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item text-center p-4">
-                        <img class="img-fluid border rounded-circle w-75 p-2 mb-4" src="img/team-1.jpg" alt="">
-                        <div class="team-text">
-                            <div class="team-title">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social">
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item text-center p-4">
-                        <img class="img-fluid border rounded-circle w-75 p-2 mb-4" src="img/team-2.jpg" alt="">
-                        <div class="team-text">
-                            <div class="team-title">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social">
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item text-center p-4">
-                        <img class="img-fluid border rounded-circle w-75 p-2 mb-4" src="img/team-3.jpg" alt="">
-                        <div class="team-text">
-                            <div class="team-title">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social">
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle" href=""><i
-                                        class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Team End -->
 
     <?Php include "include/footer.php";
     include "include/sourcelink_js.php"
@@ -1179,44 +948,112 @@ $slider_count = pg_num_rows($resultslider);
             $(".owl-prev").html('<i class="fa fa-chevron-left"></i>');
             $(".owl-next").html('<i class="fa fa-chevron-right"></i>');
         });
-        // search-box open close js code
-        let navbar = document.querySelector(".navbar");
-        let searchBox = document.querySelector(".search-box .bx-search");
-        // let searchBoxCancel = document.querySelector(".search-box .bx-x");
-
-        searchBox.addEventListener("click", () => {
-            navbar.classList.toggle("showInput");
-            if (navbar.classList.contains("showInput")) {
-                searchBox.classList.replace("bx-search", "bx-x");
-            } else {
-                searchBox.classList.replace("bx-x", "bx-search");
-            }
-        });
 
         // sidebar open close js code
-        let navLinks = document.querySelector(".nav-links");
-        let menuOpenBtn = document.querySelector(".navbar .bx-menu");
-        let menuCloseBtn = document.querySelector(".nav-links .bx-x");
-        menuOpenBtn.onclick = function() {
-            navLinks.style.left = "0";
-        };
-        menuCloseBtn.onclick = function() {
-            navLinks.style.left = "-100%";
-        };
+        // document.addEventListener('DOMContentLoaded', function() {
+
+            
+        //     let navLinks = document.querySelector(".nav-links");
+        //     let menuOpenBtn = document.querySelector(".navbar .bx-menu");
+        //     let menuCloseBtn = document.querySelector(".nav-links .bx-x");
+          
+            
+        //     if (menuOpenBtn && navLinks && menuCloseBtn) {
+        //         menuOpenBtn.onclick = function() {
+        //             navLinks.style.left = "0";
+        //         };
+            
+        //         menuCloseBtn.onclick = function() {
+        //             navLinks.style.left = "-100%";
+        //         };
+        //     } else {
+        //         console.error("One or more elements not found. Check your selectors.");
+        //     }
+        // });
+
 
         // sidebar submenu open close js code
-        let htmlcssArrow = document.querySelector(".htmlcss-arrow");
-        htmlcssArrow.onclick = function() {
-            navLinks.classList.toggle("show1");
-        };
-        let moreArrow = document.querySelector(".more-arrow");
-        moreArrow.onclick = function() {
-            navLinks.classList.toggle("show2");
-        };
-        let jsArrow = document.querySelector(".js-arrow");
-        jsArrow.onclick = function() {
-            navLinks.classList.toggle("show3");
-        };
+        // let htmlcssArrow = document.querySelector(".htmlcss-arrow");
+        // htmlcssArrow.onclick = function() {
+        //     navLinks.classList.toggle("show1");
+        // };
+        // let moreArrow = document.querySelector(".more-arrow");
+        // moreArrow.onclick = function() {
+        //     navLinks.classList.toggle("show2");
+        // };
+        // let jsArrow = document.querySelector(".js-arrow");
+        // jsArrow.onclick = function() {
+        //     navLinks.classList.toggle("show3");
+        // };
+
+        function redirect_url_front_gal(id) {
+            console.log('res');
+            var data = {
+                id: id,
+                //lang: currentLang,
+                // pagename: 'gallery',
+                // get_pagename: pagename
+            }
+
+            $.ajax({
+                url: "webservice/gallery_session.php",
+                type: 'POST',
+                dataType: 'json',
+                data: data
+            }).done(function(res) {
+            
+                if (res.valid == true) {
+                        document.location.href = 'mmd_view_photogallery.php';
+                }
+            });
+        }
+
+        /**
+   * Porfolio isotope and filter
+   */
+  window.addEventListener('load', () => {
+    let portfolioContainer = document.querySelector('.portfolio-container');
+    if (portfolioContainer) {
+        let portfolioIsotope = new Isotope(portfolioContainer, {
+            itemSelector: '.portfolio-item'
+        });
+        // console.log('portfolioIsotope', portfolioIsotope);
+
+        let portfolioFilters = document.querySelectorAll('#portfolio-flters li');
+        console.log(portfolioFilters);
+
+        portfolioFilters.forEach(function (filter) {
+            filter.addEventListener('click', function (e) {
+                e.preventDefault();
+                portfolioFilters.forEach(function (el) {
+                    el.classList.remove('filter-active');
+                });
+                this.classList.add('filter-active');
+
+                portfolioIsotope.arrange({
+                    filter: this.getAttribute('data-filter')
+                });
+            });
+        });
+    }
+});
+
+
+  // search-box open close js code
+        // let navbar = document.querySelector(".navbar");
+        // let searchBox = document.querySelector(".search-box .bx-search");
+        // // let searchBoxCancel = document.querySelector(".search-box .bx-x");
+
+        // searchBox.addEventListener("click", () => {
+        //     navbar.classList.toggle("showInput");
+        //     if (navbar.classList.contains("showInput")) {
+        //         searchBox.classList.replace("bx-search", "bx-x");
+        //     } else {
+        //         searchBox.classList.replace("bx-x", "bx-search");
+        //     }
+        // });
+    
+
     </script>
 </body>
 

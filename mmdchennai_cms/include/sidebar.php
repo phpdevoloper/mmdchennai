@@ -160,7 +160,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="mmd_photogallery.php">PHOTO GALLERY</a></li>
-                        <li><a href="#">VIDEOS GALLERY</a></li>
+                        <li><a href="   .php">VIDEOS GALLERY</a></li>
                     </ul>
                 </li>
              
@@ -185,6 +185,11 @@
                         <li><a href="mmd_scrollingtext.php"> Scrolling Text (Latest News)</a></li>
                         <li><a href="mmd_header_logo.php"> Header Logo Update</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a href="mmd_feedbacks.php" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-information"></span><span class="mtext">FEEDBACK</span>
+                    </a>
                 </li>
                 <!-- <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">

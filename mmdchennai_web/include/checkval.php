@@ -137,12 +137,15 @@ function chklen3000($str)
 	if (strlen($str) > 3000) {
 		return '';
 	}
+	
 	return 1;
 }
 
 
 function chklen5000($str)
 {
+	// var_dump(strlen($str));die;
+	
 	if (strlen($str) < 10 || strlen($str) > 5000) {
 		return '';
 	}
@@ -264,6 +267,7 @@ function chkmediatitle($str)
 function specialcharacter_limit($str)
 {
 	if (preg_match('/[\'^£$%&*()}{@#~?><>|=_+¬-]/', $str)) {
+		
 		return 1;
 		// one or more of the 'special characters' found in $string
 	} else {
