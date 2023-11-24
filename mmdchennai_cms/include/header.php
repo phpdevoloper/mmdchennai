@@ -36,6 +36,9 @@ if (!$_SESSION['current_user_id']) {
                 <h4>Mercantile Marine Department,Chennai</h4>
             </div>
             <div class="row">
+                <h5 class="header_name">Directorate General of Shipping</h5>
+            </div>
+            <div class="row">
                 <h6 class="header_name">Ministry of Ports, Shipping & Waterways</h6>
             </div>
             <div class="row">
@@ -58,7 +61,7 @@ if (!$_SESSION['current_user_id']) {
                     <!-- <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a> -->
-                    <a class="dropdown-item" href="mmd_user_profile.php"><i class="dw dw-user-12"></i>View Profile</a>
+                    <a class="dropdown-item" href="mmd_user_profile.php"><i class="dw dw-settings2"></i>Setting</a>
                     <a class="dropdown-item" href="login.php"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>

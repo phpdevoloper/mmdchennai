@@ -160,7 +160,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="mmd_photogallery.php">PHOTO GALLERY</a></li>
-                        <li><a href="   .php">VIDEOS GALLERY</a></li>
+                        <li><a href="mmd_videos.php">VIDEOS GALLERY</a></li>
                     </ul>
                 </li>
              
