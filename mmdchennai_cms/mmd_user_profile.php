@@ -201,13 +201,13 @@ $pagename = 'feedback';
     <script>
     var page_name;
     $(document).ready(function() {
-        // get_records();
+        // get_user();
         $('#fileDiv').hide();
         $('#linkDiv').hide();
         page_name = '<?Php echo $pagename ?>';
     });
 
-    function get_records() {
+    function get_user() {
 
         var cur_lang = $('#getLang').text();
         var status = $('#slt_status').val();
@@ -222,7 +222,7 @@ $pagename = 'feedback';
             type: 'POST',
             // contentType: "application/json",
             // dataType: "json",    
-            url: 'webservice/get_feedback.php',
+            url: 'webservice/get_userProfiles.php',
             data: data,
             success: function(response, textStatus, xhr) {
                 $('#getrecords').html(response);
