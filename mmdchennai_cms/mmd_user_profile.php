@@ -113,40 +113,29 @@ $pagename = 'feedback';
                                             <!-- Setting Tab start -->
                                             <div class="tab-pane fade height-100-p active show" id="setting" role="tabpanel">
                                                 <div class="profile-setting">
-                                                    <form>
+                                                    <form id="updateProfile" data-parsley-validate="">
                                                         <ul class="profile-edit-list row">
                                                             <li class="weight-500 col-md-6">
                                                                 <h4 class="text-blue h5 mb-20">Edit Your Personal
                                                                     Setting</h4>
                                                                 <div class="form-group">
-                                                                    <label>Full Name</label>
+                                                                    <label>User Name</label>
                                                                     <input class="form-control form-control-lg"
-                                                                        type="text">
+                                                                        type="text" name="user_name" id="user_name">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Title</label>
+                                                                    <label>New password<span class="mandatory"> * </span></label>
                                                                     <input class="form-control form-control-lg"
-                                                                        type="text">
+                                                                        type="password" name="user_password" id="user_password" maxlength="16" required="">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Email</label>
+                                                                    <label>Confirm password<span class="mandatory"> * </span></label>
                                                                     <input class="form-control form-control-lg"
-                                                                        type="email">
-                                                                </div>
-                                                                
-                                                                <div class="form-group">
-                                                                    <label>Old Password</label>
-                                                                    <input class="form-control form-control-lg"
-                                                                        type="text">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>New password</label>
-                                                                    <input class="form-control form-control-lg"
-                                                                        type="text">
+                                                                        type="password" name="confirm_password" id="confirm_password" maxlength="16" data-parsley-equalto="#user_password" required="">
                                                                 </div>
                                                                 <div class="form-group mb-0">
-                                                                    <input type="submit" class="btn btn-primary"
-                                                                        value="Update Information">
+                                                                    <input type="submit" class="btn btn-primary" onclick="update_pass()"
+                                                                        value="Update Password">
                                                                 </div>
                                                             </li>
                                                             <li class="weight-500 col-md-6">
@@ -201,35 +190,26 @@ $pagename = 'feedback';
     <script>
     var page_name;
     $(document).ready(function() {
-        // get_user();
-        $('#fileDiv').hide();
-        $('#linkDiv').hide();
-        page_name = '<?Php echo $pagename ?>';
+        get_user();
+        // $('#fileDiv').hide();
+        // $('#linkDiv').hide();
     });
 
     function get_user() {
-
-        var cur_lang = $('#getLang').text();
-        var status = $('#slt_status').val();
-
         data = {
-            status: status,
-            page_name: '<?Php echo $pagename ?>'
+            operation:"get_user",
         }
-
-
         $.ajax({
-            type: 'POST',
-            // contentType: "application/json",
-            // dataType: "json",    
+            type: 'POST', 
             url: 'webservice/get_userProfiles.php',
             data: data,
+            dataType:'json',
             success: function(response, textStatus, xhr) {
-                $('#getrecords').html(response);
-                $('.tbl-en-draft').DataTable();
-                table.columns.adjust().draw();
-                $(".select2").select2();
-                statusAppend();
+                // console.log(response);
+                if(response.status == true){
+                    $('#user_name').val(response.result['username']);
+                }
+                // $('#getrecords').html(response);
             },
             complete: function(xhr) {
 
@@ -240,6 +220,64 @@ $pagename = 'feedback';
 
             }
         });
+    }
+
+    function update_pass() {
+        if ($('#updateProfile').parsley().validate() != true) {
+                return false;
+
+            } else {
+                var user_name,pass,c_password;
+
+                user_name = $('#user_name').val();
+                pass = $('#confirm_password').val();
+                data = {
+                    operation:"update_user",
+                    user_name:user_name,
+                    pass:pass
+                }
+                $.ajax({
+                    type: 'POST', 
+                    url: 'webservice/get_userProfiles.php',
+                    data: data,
+                    dataType:'json',
+                    success: function(response, textStatus, xhr) {
+                        console.log(response);
+                        if (response.status == true) {
+                            swal({
+                                title: response.result,
+                                confirmButtonText: "Ok",
+                                confirmButtonColor: "#041e42",
+                                cancelButtonColor: "#DD6B55",
+                            });
+                            
+                        }else if (response.status == false) {
+                            swal({
+                                title: response.result,
+                                confirmButtonText: "Ok",
+                                confirmButtonColor: "#041e42",
+                                cancelButtonColor: "#DD6B55",
+                            });
+                            
+                        }else if(response == 500){
+                            swal({
+                                title: 'Please enter the details!',
+                                confirmButtonText: "Ok",
+                                confirmButtonColor: "#041e42",
+                                cancelButtonColor: "#DD6B55",
+                            });
+                        }
+                    },
+                    complete: function(xhr) {
+        
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        var response = XMLHttpRequest;
+                        swal("Error !", "Please try again", "error");
+        
+                    }
+                });
+            }
     }
     </script>
 

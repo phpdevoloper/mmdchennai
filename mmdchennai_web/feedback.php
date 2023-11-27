@@ -93,7 +93,7 @@ session_start();
                             <div class="wrap-contact100-form-btn">
                             <div class="contact100-form-bgbtn"></div>
                             <button class="contact100-form-btn" type="submit">
-                            Send Email
+                            Submit
                             </button>
                             </div>
                         </div>
