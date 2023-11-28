@@ -54,7 +54,7 @@ $pagename = 'feedback';
                                 <div class="profile-photo">
                                     <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i
                                             class="fa fa-pencil"></i></a>
-                                    <img src="vendors/images/photo1.jpg" alt="" class="avatar-photo">
+                                    <img src="vendors/images/profile-picture.png" alt="" class="avatar-photo">
                                     <div class="modal fade" id="modal" tabindex="-1" role="dialog"
                                         aria-labelledby="modalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -73,7 +73,7 @@ $pagename = 'feedback';
                                         </div>
                                     </div>
                                 </div>
-                                <h5 class="text-center h5 mb-0">Ross C. Lopez</h5>
+                                <h5 id="user_ID" class="text-center h5 mb-0"></h5>
                                 <p class="text-center text-muted font-14">Lorem ipsum dolor sit amet</p>
                                 <!-- <div class="profile-info">
                                     <h5 class="mb-20 h5 text-blue">Contact Information</h5>
@@ -108,16 +108,20 @@ $pagename = 'feedback';
                                                 <a class="nav-link active" data-toggle="tab" href="#setting"
                                                     role="tab">Settings</a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#social"
+                                                    role="tab">Social Media settings</a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content">
                                             <!-- Setting Tab start -->
                                             <div class="tab-pane fade height-100-p active show" id="setting" role="tabpanel">
                                                 <div class="profile-setting">
-                                                    <form id="updateProfile" data-parsley-validate="">
-                                                        <ul class="profile-edit-list row">
-                                                            <li class="weight-500 col-md-6">
-                                                                <h4 class="text-blue h5 mb-20">Edit Your Personal
-                                                                    Setting</h4>
+                                                    <ul class="profile-edit-list row">
+                                                        <li class="weight-500 col-md-6">
+                                                            <h4 class="text-blue h5 mb-20">Edit Your Personal
+                                                                Setting</h4>
+                                                                <form id="updateProfile" data-parsley-validate="">
                                                                 <div class="form-group">
                                                                     <label>User Name</label>
                                                                     <input class="form-control form-control-lg"
@@ -133,11 +137,19 @@ $pagename = 'feedback';
                                                                     <input class="form-control form-control-lg"
                                                                         type="password" name="confirm_password" id="confirm_password" maxlength="16" data-parsley-equalto="#user_password" required="">
                                                                 </div>
+                                                            </form>
                                                                 <div class="form-group mb-0">
-                                                                    <input type="submit" class="btn btn-primary" onclick="update_pass()"
-                                                                        value="Update Password">
+                                                                    <button class="btn btn-primary" onclick="update_pass(this.value)">Update Password</button>
                                                                 </div>
                                                             </li>
+                                                        </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Setting Tab End -->
+                                            <div class="tab-pane fade height-100-p" id="social" role="tabpanel">
+                                                <div class="profile-setting">
+                                                    <form id="" data-parsley-validate="">
+                                                        <ul class="profile-edit-list row">
                                                             <li class="weight-500 col-md-6">
                                                                 <h4 class="text-blue h5 mb-20">Edit Social Media links
                                                                 </h4>
@@ -170,7 +182,6 @@ $pagename = 'feedback';
                                                     </form>
                                                 </div>
                                             </div>
-                                            <!-- Setting Tab End -->
                                         </div>
                                     </div>
                                 </div>
@@ -208,6 +219,7 @@ $pagename = 'feedback';
                 // console.log(response);
                 if(response.status == true){
                     $('#user_name').val(response.result['username']);
+                    $('#user_ID').text(response.result['username']);
                 }
                 // $('#getrecords').html(response);
             },
@@ -222,7 +234,7 @@ $pagename = 'feedback';
         });
     }
 
-    function update_pass() {
+    function update_pass(value) {
         if ($('#updateProfile').parsley().validate() != true) {
                 return false;
 
@@ -245,7 +257,7 @@ $pagename = 'feedback';
                         console.log(response);
                         if (response.status == true) {
                             swal({
-                                title: response.result,
+                                title: response.msg,
                                 confirmButtonText: "Ok",
                                 confirmButtonColor: "#041e42",
                                 cancelButtonColor: "#DD6B55",
@@ -253,7 +265,7 @@ $pagename = 'feedback';
                             
                         }else if (response.status == false) {
                             swal({
-                                title: response.result,
+                                title: response.msg,
                                 confirmButtonText: "Ok",
                                 confirmButtonColor: "#041e42",
                                 cancelButtonColor: "#DD6B55",
