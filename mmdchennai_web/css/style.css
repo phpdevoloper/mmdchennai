@@ -170,6 +170,24 @@
     height: 100%;
     object-fit: cover;
   }
+
+  .add-logo {
+    padding-top: 10px;
+  }
+
+  .icon {
+    color: #009cff;
+    padding: 0px;
+    font-size: 40px;
+    border: 1px solid #009cff;
+    border-radius: 100px;
+    color: #009cff;
+    font-size: 15px;
+    height: 29px;
+    line-height: 30px;
+    text-align: center;
+    width: 29px;
+  }
 }
 
 #header-carousel .carousel-indicators [data-bs-target] {
@@ -452,7 +470,7 @@
 
 /*** Footer ***/
 .internalfooter {
-  position:relative;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -460,7 +478,7 @@
   flex-direction: column;
   color: white;
   text-align: center;
-  top:180px;
+  top: 180px;
 }
 
 .footer .btn.btn-link {
@@ -556,7 +574,8 @@
   /* margin-top: 12px; */
   /* margin-bottom: 30px; */
 }
-.transport .h-2{
+
+.transport .h-2 {
   font-size: 14pt;
 }
 
@@ -832,6 +851,20 @@
   .traineeship .activity .active .sub-title {
     font-size: 0.7em;
   }
+
+  .icon {
+    color: #009cff;
+    padding: 0px;
+    font-size: 40px;
+    border: 1px solid #009cff;
+    border-radius: 100px;
+    color: #009cff;
+    font-size: 15px;
+    height: 29px;
+    line-height: 30px;
+    text-align: center;
+    width: 29px;
+  }
 }
 
 .custom-gallery {
@@ -1034,6 +1067,20 @@ nav a:not(:only-child)::after {
   .dropend .dropdown-toggle {
     margin-left: 0.5em;
   }
+
+  .icon {
+    color: #009cff;
+    padding: 0px;
+    font-size: 40px;
+    border: 1px solid #009cff;
+    border-radius: 100px;
+    color: #009cff;
+    font-size: 15px;
+    height: 29px;
+    line-height: 30px;
+    text-align: center;
+    width: 29px;
+  }
 }
 
 .menu-area {
@@ -1083,7 +1130,7 @@ nav a:not(:only-child)::after {
   background: #fff;
   color: #111;
   border: 1px solid #ccc;
-  
+
 }
 
 .mainmenu .collapse ul ul>li:hover>a,
@@ -1355,7 +1402,8 @@ nav a:not(:only-child)::after {
   margin-bottom: 0.5rem;
   min-height: 108px;
 }
-.post-2{
+
+.post-2 {
   /* width: 247px; */
   height: 170px;
   box-shadow: 7px 3px 10px 10px #ab9d9d;
@@ -2317,9 +2365,11 @@ body {
   font-size: 15px;
   line-height: 22px;
 }
-.feature-content i{
-  color:#009cff;
+
+.feature-content i {
+  color: #009cff;
 }
+
 .icon {
   color: #009cff;
   padding: 0px;
@@ -3083,6 +3133,53 @@ li {
     padding-top: 25px;
     padding-bottom: 25px;
   }
+
+  .feature .feature-box .feature-content {
+    float: left;
+    padding-left: 28px;
+    width: 100%;
+  }
+
+  .icon {
+    color: #009cff;
+    padding: 0px;
+    font-size: 40px;
+    border: 1px solid #009cff;
+    border-radius: 100px;
+    color: #009cff;
+    font-size: 15px;
+    height: 27px;
+    line-height: 28px;
+    text-align: center;
+    width: 26px;
+  }
+
+  .feature .feature-box .iconset {
+    background: #fff none repeat scroll 0 0;
+    float: left;
+    position: relative;
+    width: 5%;
+    top: 24px;
+  }
+
+  .feature .feature-box .iconset::after {
+    background: #009cff none repeat scroll 0 0;
+    content: '';
+    height: 517%;
+    left: 61%;
+    position: absolute;
+    top: 100%;
+    width: 1px;
+  }
+
+  .feature .feature-box .feature-content h4 {
+    color: #0f0f0f;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 22px;
+    margin: 0 0 5px;
+  }
+
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -5096,7 +5193,7 @@ li {
 }
 
 .main_title {
-  background:#eeeeee;
+  background: #eeeeee;
   border-top: 1px solid #ccc;
 }
 
@@ -5114,6 +5211,7 @@ li {
 }
 
 @media (max-width: 767px) {
+
   /* line 8, C:/Users/SPN Graphics/Desktop/CL September/210 Medical/HTML/scss/_slider.scss */
   .slider_area .single_slider {
     height: 420px;
@@ -5136,6 +5234,7 @@ li {
 }
 
 @media (max-width: 767px) {
+
   /* line 17, C:/Users/SPN Graphics/Desktop/CL September/210 Medical/HTML/scss/_slider.scss */
   .slider_area .single_slider .slider_text h3 {
     font-size: 33px;
@@ -5144,6 +5243,7 @@ li {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+
   /* line 17, C:/Users/SPN Graphics/Desktop/CL September/210 Medical/HTML/scss/_slider.scss */
   .slider_area .single_slider .slider_text h3 {
     font-size: 30px;
@@ -5151,6 +5251,7 @@ li {
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
+
   /* line 17, C:/Users/SPN Graphics/Desktop/CL September/210 Medical/HTML/scss/_slider.scss */
   .slider_area .single_slider .slider_text h3 {
     font-size: 35px;
@@ -5168,6 +5269,7 @@ li {
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
+
   /* line 39, C:/Users/SPN Graphics/Desktop/CL September/210 Medical/HTML/scss/_slider.scss */
   .slider_area .single_slider .slider_text p {
     font-size: 16px;
@@ -5175,6 +5277,7 @@ li {
 }
 
 @media (max-width: 767px) {
+
   /* line 39, C:/Users/SPN Graphics/Desktop/CL September/210 Medical/HTML/scss/_slider.scss */
   .slider_area .single_slider .slider_text p {
     font-size: 16px;
@@ -5189,16 +5292,18 @@ li {
   font-weight: 600;
   line-height: 1;
 }
+
 .faq-title h2::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    width: 60px;
-    height: 2px;
-    background: #E91E63;
-    bottom: -25px;
-    margin-left: -30px;
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 60px;
+  height: 2px;
+  background: #E91E63;
+  bottom: -25px;
+  margin-left: -30px;
 }
+
 .faq-title p {
   padding: 0 190px;
   margin-bottom: 10px;
@@ -5227,9 +5332,10 @@ li {
 }
 
 .faq .card .card-header:hover {
-    /* background: rgba(233, 30, 99, 0.1); */
-    padding-left: 10px;
+  /* background: rgba(233, 30, 99, 0.1); */
+  padding-left: 10px;
 }
+
 .faq .card .card-header .faq-title {
   width: 100%;
   text-align: left;
@@ -5286,6 +5392,7 @@ li {
   .faq {
     margin-bottom: 30px;
   }
+
   .faq .card .card-header .faq-title {
     line-height: 26px;
     margin-top: 10px;
@@ -5296,26 +5403,28 @@ li {
   .d-lg-block {
     display: block !important;
   }
+
   .transport .h-2 {
     font-size: 12pt !important;
   }
-  .head2{
+
+  .head2 {
     font-size: 12px;
 
 
-    
+
   }
 }
 
-.faq_card_align
-{
-  padding:1px;
+.faq_card_align {
+  padding: 1px;
 }
-.faq-accordian-body
-{
-  padding-left:70px;
+
+.faq-accordian-body {
+  padding-left: 70px;
 }
-.p-6{
+
+.p-6 {
   padding: 2rem !important;
 }
 
@@ -5433,7 +5542,7 @@ input[type=number] {
   -webkit-appearance: none
 }
 
-input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button {
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none
 }
 
@@ -5442,8 +5551,8 @@ textarea {
   border: none
 }
 
-textarea:focus,input:focus {
-  border-color: transparent!important
+textarea:focus, input:focus {
+  border-color: transparent !important
 }
 
 input:focus::-webkit-input-placeholder {
@@ -5511,7 +5620,7 @@ textarea:-ms-input-placeholder {
 }
 
 button {
-  outline: none!important;
+  outline: none !important;
   border: none;
   background: 0 0
 }
@@ -5521,7 +5630,7 @@ button:hover {
 }
 
 iframe {
-  border: none!important
+  border: none !important
 }
 
 .container {
@@ -5569,6 +5678,7 @@ iframe {
   background-color: #fff;
   margin-bottom: 17px
 }
+
 .wrap-input50 {
   width: 50%;
   position: relative;
@@ -5620,6 +5730,7 @@ input.input100 {
   height: 62px;
   padding: 0 20px 0 58px
 }
+
 input.input50 {
   height: 62px;
   padding: 0 20px 0 20px;
@@ -5704,10 +5815,10 @@ textarea.input100 {
   width: 300%;
   height: 100%;
   background: #df2351;
-  background: -webkit-linear-gradient(-135deg,#d5007d,#e53935,#d5007d,#e53935);
-  background: -o-linear-gradient(-135deg,#d5007d,#e53935,#d5007d,#e53935);
-  background: -moz-linear-gradient(-135deg,#d5007d,#e53935,#d5007d,#e53935);
-  background: linear-gradient(-135deg,#d5007d,#e53935,#d5007d,#e53935);
+  background: -webkit-linear-gradient(-135deg, #d5007d, #e53935, #d5007d, #e53935);
+  background: -o-linear-gradient(-135deg, #d5007d, #e53935, #d5007d, #e53935);
+  background: -moz-linear-gradient(-135deg, #d5007d, #e53935, #d5007d, #e53935);
+  background: linear-gradient(-135deg, #d5007d, #e53935, #d5007d, #e53935);
   top: 0;
   left: -100%;
   -webkit-transition: all .4s;
@@ -5793,11 +5904,11 @@ textarea.input100 {
 
 @media(max-width: 992px) {
   .alert-validate::before {
-      visibility:visible;
-      opacity: 1
+    visibility: visible;
+    opacity: 1
   }
 }
 
-.captcha_code{
+.captcha_code {
   margin-left: 34px;
 }

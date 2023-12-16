@@ -54,7 +54,7 @@ $get_Count = pg_num_rows($result_value);
 
     <!-- About Start -->
     <div class="container-fluid container-fluid-pg py-4">
-        <div class="py-3 px-5">
+        <div class="py-3">
             <div class="row g-5">
                 <div class="aboutus-section">
                     <div class="">

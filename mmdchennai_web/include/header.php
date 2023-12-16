@@ -111,9 +111,6 @@ $menuresult = pg_query($db, $menu_query);
     <div class="px-4 m-1">
         <div class="row align-items-center top-bar">
             <div class="col-lg-1 col-md-12 text-center text-lg-end logo">
-                <!-- <a href="" class="navbar-brand m-0 p-0">
-                    <h1 class="fw-bold text-primary m-0"><i class="fa fa-laptop-code me-3"></i>DGcom</h1>
-                </a> -->
                 <a href="index.php" class="navbar-brand m-0 p-0">
                     <img src="img/logo.gif" alt="" />
                 </a>
@@ -122,40 +119,30 @@ $menuresult = pg_query($db, $menu_query);
                 <div class="head1">Mercantile Marine Department,Chennai</div>
                 <div class="h-2">Directorate General of Shipping</div>
                 <div class="head2">
-                        Ministry of Ports, Shipping & Waterways <br />
-                        Government of India
+                    Ministry of Ports, Shipping & Waterways <br />
+                    Government of India
                 </div>
             </div>
 
-            <div class="col-lg-5 col-md-7 d-none d-lg-block">
-                <div class="row">
-                    <div class="col-8" style="display: flex; align-items: baseline; justify-content: flex-end;">
-                        <?Php $get_logos = "select * from mst_logo where status ='L' order by position_order limit 3";
-                        $result_logs = pg_query($db, $get_logos);
-                        while ($row_logo = pg_fetch_array($result_logs)) {
-                            $logo_media_id = $row_logo['media_id'];
-                            $get_logo_file = "select me.foldername,ms.alt_filename from mst_media ms 
+            <div class="col-lg-5 col-md-7 d-lg-block d-flex p-2">
+                <?Php $get_logos = "select * from mst_logo where status ='L' order by position_order limit 3";
+                $result_logs = pg_query($db, $get_logos); ?>
+                <div class="d-flex align-items-center justify-content-center add-logo">
+                    <?php while ($row_logo = pg_fetch_array($result_logs)) {
+                        $logo_media_id = $row_logo['media_id'];
+                        $get_logo_file = "select me.foldername,ms.alt_filename from mst_media ms 
                         inner join mst_mediafolder me on ms.folder_id = me.folder_id 
                         where ms.media_id = $logo_media_id
                         ";
 
-                            $result_logo_media = pg_query($db, $get_logo_file);
-                            $row_logo_media = pg_fetch_array($result_logo_media);
-                            $title = $row_logo['en_title'];
-                        ?>
-                            <div class="d-flex align-items-center justify-content-end add-logo">
-                                <a rel="noopener" href="<?Php echo $row_logo['ad_link'] ?>" target="blank" class="external_link">
-                                    <img src="<?Php echo $media . $row_logo_media['foldername'] ?>/<?php echo $row_logo_media['alt_filename'] ?>" alt="<?Php echo $row_logo['short_title']; ?>" />
-                                </a>
-                            </div>
-                        <?Php } ?>
-                        <!-- <div class="d-flex align-items-center justify-content-end add-logo">
-                            <img src="img/g2o.png" alt="g2o" />
-                        </div>
-                        <div class="d-flex align-items-center justify-content-end add-logo">
-                            <img src="img/azadika.jpg" alt="azadika" />
-                        </div> -->
-                    </div>
+                        $result_logo_media = pg_query($db, $get_logo_file);
+                        $row_logo_media = pg_fetch_array($result_logo_media);
+                        $title = $row_logo['en_title'];
+                    ?>
+                        <a rel="noopener" href="<?Php echo $row_logo['ad_link'] ?>" target="blank" class="external_link">
+                            <img src="<?Php echo $media . $row_logo_media['foldername'] ?>/<?php echo $row_logo_media['alt_filename'] ?>" alt="<?Php echo $row_logo['short_title']; ?>" />
+                        </a>
+                    <?Php } ?>
                 </div>
             </div>
         </div>
@@ -165,7 +152,7 @@ $menuresult = pg_query($db, $menu_query);
 
 <!-- Navbar Start -->
 <div id="menu_area" class="menu-area menu_flex">
-    <div class="px-6">
+    <div class="px-4">
         <div class="row">
             <nav class="navbar navbar-light navbar-expand-lg mainmenu">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -175,10 +162,11 @@ $menuresult = pg_query($db, $menu_query);
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                         <?Php while ($menuRow = pg_fetch_row($menuresult)) {
-
+                            
                             $get_menu_length = "select * from mst_mmd_menu  where submenu_id =$menuRow[0] and submenu_status='L'  ";
                             $result_length = pg_query($db, $get_menu_length);
                             $total_length = pg_num_rows($result_length);
+
 
                         ?>
                             <?Php if ($total_length == 0) {  ?>
@@ -187,7 +175,7 @@ $menuresult = pg_query($db, $menu_query);
                                 </li>
                             <?Php } else { ?>
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" ria-haspopup="true" aria-expanded="false" href="<?Php echo $menuRow[2] ?>"><?Php echo $menuRow[1];  ?> </a>
+                                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" ria-haspopup="true" aria-expanded="false" href="#<?Php //echo $menuRow[2] ?>"><?Php echo $menuRow[1];  ?> </a>
                                     <?Php
                                     $sub = "select * FROM mst_mmd_menu WHERE mainmenu_status='L' and  submenu_status = 'L' and submenu_id=$menuRow[0] order by submenu_order asc";
                                     $subResult = pg_query($db, $sub);
